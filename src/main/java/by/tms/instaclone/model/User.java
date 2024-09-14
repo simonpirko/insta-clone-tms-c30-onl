@@ -14,7 +14,7 @@ public class User {
     private String name; //имя и фамилия
     private String username; //логин
     private String password; //пароль
-    private final String createAt; //время создания User в секундах
+    private final String createAt; //время создания User в формате dd-MM-yyyy HH:mm:ss
 
     public User(String name, String username, String password) {
         this.name = name;
