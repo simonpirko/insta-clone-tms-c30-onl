@@ -1,7 +1,7 @@
 package by.tms.instaclone.model;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.Instant;
+import java.time.InstantSource;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -11,7 +11,7 @@ public class Reaction {
     private final String postUuid; // идентификатор оцененного Поста
     private boolean typeReaction; // есть ли лайк(true) или дизлайк(false)
     private final String reactingUuid; // uuid Пользователя-прореагировавшего
-    private String createAt;// время создания reaction в формате dd-MM-yyyy HH:mm:ss
+    private long createAt;// время создания Реакции в секундах с 1970 года
 
 
     public Reaction(String postUuid, boolean typeReaction, String reactingUuid) {
@@ -19,9 +19,8 @@ public class Reaction {
         this.typeReaction = typeReaction;
         this.reactingUuid = reactingUuid;
         this.uuid = String.valueOf(UUID.randomUUID());
-        LocalDateTime dateTime = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-        this.createAt = dateTime.format(formatter);
+        InstantSource testingSource = InstantSource.fixed(Instant.now());
+        this.createAt = testingSource.instant().getEpochSecond();
     }
 
     public void setTypeReaction(boolean typeReaction) {
@@ -29,10 +28,11 @@ public class Reaction {
     }
 
     public void setCreateAt(String createAt) {
-        this.createAt = createAt;
+        InstantSource testingSource = InstantSource.fixed(Instant.now());
+        this.createAt = testingSource.instant().getEpochSecond();
     }
 
-    public String getCreateAt() {
+    public long getCreateAt() {
         return createAt;
     }
 

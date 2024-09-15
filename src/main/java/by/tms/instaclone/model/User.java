@@ -1,8 +1,7 @@
 package by.tms.instaclone.model;
 
-import java.time.LocalDateTime;
-
-import java.time.format.DateTimeFormatter;
+import java.time.Instant;
+import java.time.InstantSource;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -10,20 +9,21 @@ public class User {
 
     // private String profile; //ссылка на профиль пользователя
 
-    private final String uuid;// идентификатор Пользователя (по нему и сравниваем пользователей)
+    private final String uuid;// идентификатор Пользователя
     private String name; //имя и фамилия
-    private String username; //логин
+    private String username; //******* логин (по нему и сравниваем пользователей)
     private String password; //пароль
-    private final String createAt; //время создания User в формате dd-MM-yyyy HH:mm:ss
+    private final Long createAt; //время создания User секундах с 1970 года
+
 
     public User(String name, String username, String password) {
         this.name = name;
         this.username = username;
         this.password = password;
         this.uuid = String.valueOf(UUID.randomUUID());
-        LocalDateTime dateTime = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-        this.createAt = dateTime.format(formatter);
+        InstantSource testingSource = InstantSource.fixed(Instant.now());
+        this.createAt = testingSource.instant().getEpochSecond();
+
     }
 
     public String getUuid() {
@@ -42,7 +42,7 @@ public class User {
         return password;
     }
 
-    public String getCreateAt() {
+    public long getCreateAt() {
         return createAt;
     }
 
@@ -75,12 +75,12 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(uuid, user.uuid);
+        return Objects.equals(username, user.username);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(uuid);
+        return Objects.hashCode(username);
     }
 }
 

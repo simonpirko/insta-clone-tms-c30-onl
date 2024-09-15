@@ -1,7 +1,7 @@
 package by.tms.instaclone.model;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.Instant;
+import java.time.InstantSource;
 import java.util.Objects;
 
 public class Subscription {
@@ -10,17 +10,16 @@ public class Subscription {
     //userList: список рекомендованных пользователей
 
     private final String uuid;// идентификатор Подписки
-    private final String subscriberUuid;// идентификатор  подписавшегося Пользователя
-    private final String subscriptionUuid;// идентификатор Пользователя на кого  подписался
-    private final String createAt;// время создания Subscription в формате dd-MM-yyyy HH:mm:ss
+    private final String subscriberUuid;// идентификатор подписавшегося Пользователя
+    private final String subscriptionUuid;// идентификатор Пользователя на кого подписался
+    private final long createAt;// время создания Подписки в секундах с 1970 года
 
     public Subscription(String uuid, String subscriberUuid, String subscriptionUuid) {
         this.uuid = uuid;
         this.subscriberUuid = subscriberUuid;
         this.subscriptionUuid = subscriptionUuid;
-        LocalDateTime dateTime = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-        this.createAt = dateTime.format(formatter);
+        InstantSource testingSource = InstantSource.fixed(Instant.now());
+        this.createAt = testingSource.instant().getEpochSecond();
     }
 
     public String getUuid() {
@@ -35,7 +34,7 @@ public class Subscription {
         return subscriptionUuid;
     }
 
-    public String getCreateAt() {
+    public long getCreateAt() {
         return createAt;
     }
 

@@ -1,7 +1,7 @@
 package by.tms.instaclone.model;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.Instant;
+import java.time.InstantSource;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -13,20 +13,19 @@ public class Post {
 
 
     private final String uuid;// идентификатор Поста
-    private final String owner; // идентификатор Пользователя создателя поста (получается конструктором);
+    private final String owner; // **** идентификатор Пользователя создателя поста (получается конструктором);
     private String text; // текст Поста
-    private String createAt;// время создания Поста в формате dd-MM-yyyy HH:mm:ss
+    private long createAt;// время создания Поста в секундах с 1970 года
 
     public Post(String owner, String text) {
         this.owner = owner;
         this.text = text;
         this.uuid = String.valueOf(UUID.randomUUID());
-        LocalDateTime dateTime = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-        this.createAt = dateTime.format(formatter);
+        InstantSource testingSource = InstantSource.fixed(Instant.now());
+        this.createAt = testingSource.instant().getEpochSecond();
     }
 
-    public String getCreateAt() {
+    public long getCreateAt() {
         return createAt;
     }
 
@@ -47,9 +46,8 @@ public class Post {
     }
 
     public void setCreateAt() {
-        LocalDateTime dateTime = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-        this.createAt = dateTime.format(formatter);
+        InstantSource testingSource = InstantSource.fixed(Instant.now());
+        this.createAt = testingSource.instant().getEpochSecond();
     }
 
     @Override
@@ -57,13 +55,11 @@ public class Post {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Post post = (Post) o;
-        return Objects.equals(uuid, post.uuid);
+        return Objects.equals(owner, post.owner);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(uuid);
+        return Objects.hashCode(owner);
     }
-
-
 }
