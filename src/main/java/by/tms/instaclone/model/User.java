@@ -2,6 +2,7 @@ package by.tms.instaclone.model;
 
 import java.time.Instant;
 import java.time.InstantSource;
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -13,7 +14,7 @@ public class User {
     private String name; //имя и фамилия
     private String username; //******* логин (по нему и сравниваем пользователей)
     private String password; //пароль
-    private final Long createAt; //время создания User секундах с 1970 года
+    private final LocalDateTime createAt; //время создания User секундах с 1970 года
 
 
     public User(String name, String username, String password) {
@@ -21,8 +22,9 @@ public class User {
         this.username = username;
         this.password = password;
         this.uuid = String.valueOf(UUID.randomUUID());
-        InstantSource testingSource = InstantSource.fixed(Instant.now());
-        this.createAt = testingSource.instant().getEpochSecond();
+        this.createAt = LocalDateTime.now();
+//        InstantSource testingSource = InstantSource.fixed(Instant.now());
+//        this.createAt = testingSource.instant().getEpochSecond();
 
     }
 
@@ -42,7 +44,7 @@ public class User {
         return password;
     }
 
-    public long getCreateAt() {
+    public LocalDateTime getCreateAt() {
         return createAt;
     }
 
