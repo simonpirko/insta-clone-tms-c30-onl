@@ -1,7 +1,8 @@
 package by.tms.instaclone.model;
 
-import java.time.Instant;
-import java.time.InstantSource;
+import by.tms.instaclone.settings.TimeZoneSettings;
+
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -12,24 +13,23 @@ public class Post {
     //image: фото поста
 
 
-    private final String uuid;// идентификатор Поста
-    private final String owner; // **** идентификатор Пользователя создателя поста (получается конструктором);
+    private final UUID uuid;// идентификатор Поста
+    private final User owner; // **** Пользователь создатель поста (получается конструктором);
     private String text; // текст Поста
-    private long createAt;// время создания Поста в секундах с 1970 года
+    private LocalDateTime createAt;// время создания Поста
 
-    public Post(String owner, String text) {
+    public Post(User owner, String text) {
         this.owner = owner;
         this.text = text;
-        this.uuid = String.valueOf(UUID.randomUUID());
-        InstantSource testingSource = InstantSource.fixed(Instant.now());
-        this.createAt = testingSource.instant().getEpochSecond();
+        this.uuid = UUID.randomUUID();
+        this.createAt = LocalDateTime.now(TimeZoneSettings.getUtcClock());
     }
 
-    public long getCreateAt() {
+    public LocalDateTime getCreateAt() {
         return createAt;
     }
 
-    public String getOwner() {
+    public User getOwner() {
         return owner;
     }
 
@@ -41,13 +41,16 @@ public class Post {
         this.text = text;
     }
 
-    public String getUuid() {
+    public UUID getUuid() {
         return uuid;
     }
 
     public void setCreateAt() {
-        InstantSource testingSource = InstantSource.fixed(Instant.now());
-        this.createAt = testingSource.instant().getEpochSecond();
+        this.createAt = LocalDateTime.now();
+    }
+
+    public void setCreateAt(LocalDateTime createAt) {
+        this.createAt = LocalDateTime.now(TimeZoneSettings.getUtcClock());
     }
 
     @Override

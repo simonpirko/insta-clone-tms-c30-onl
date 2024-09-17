@@ -1,7 +1,7 @@
 package by.tms.instaclone.model;
 
-import java.time.Instant;
-import java.time.InstantSource;
+import by.tms.instaclone.settings.TimeZoneSettings;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
@@ -10,25 +10,22 @@ public class User {
 
     // private String profile; //ссылка на профиль пользователя
 
-    private final String uuid;// идентификатор Пользователя
+    private final UUID uuid;// идентификатор Пользователя
     private String name; //имя и фамилия
     private String username; //******* логин (по нему и сравниваем пользователей)
     private String password; //пароль
-    private final LocalDateTime createAt; //время создания User секундах с 1970 года
+    private final LocalDateTime createAt; //время создания User
 
 
     public User(String name, String username, String password) {
         this.name = name;
         this.username = username;
         this.password = password;
-        this.uuid = String.valueOf(UUID.randomUUID());
-        this.createAt = LocalDateTime.now();
-//        InstantSource testingSource = InstantSource.fixed(Instant.now());
-//        this.createAt = testingSource.instant().getEpochSecond();
-
+        this.uuid =UUID.randomUUID();
+        this.createAt = LocalDateTime.now(TimeZoneSettings.getUtcClock());
     }
 
-    public String getUuid() {
+    public UUID getUuid() {
         return uuid;
     }
 

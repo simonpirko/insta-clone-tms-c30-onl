@@ -1,39 +1,39 @@
 package by.tms.instaclone.model;
 
-import java.time.Instant;
-import java.time.InstantSource;
+import by.tms.instaclone.settings.TimeZoneSettings;
+
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
 public class Comment {
-    private final String uuid;// *** идентификатор  комментария
-    private final String postUuid;// идентификатор комментируемого поста
-    private final String userUuid;// идентификатор пользователя-комментатора поста
+    private final UUID uuid;// *** идентификатор комментария
+    private final Post addressee;//  комментируемый пост
+    private final User owner;//  пользователь-комментатор поста
     private String text;// текст комментария
-    private long createAt;// время создания Комментария в секундах с 1970 года
+    private LocalDateTime createAt;// время создания Комментария
 
-    public Comment(String postUuid, String userUuid, String text) {
-        this.postUuid = postUuid;
-        this.userUuid = userUuid;
+    public Comment(Post postUuid, User owner, String text) {
+        this.addressee = postUuid;
+        this.owner = owner;
         this.text = text;
-        this.uuid = String.valueOf(UUID.randomUUID());
-        InstantSource testingSource = InstantSource.fixed(Instant.now());
-        this.createAt = testingSource.instant().getEpochSecond();
+        this.uuid = UUID.randomUUID();
+        this.createAt = LocalDateTime.now(TimeZoneSettings.getUtcClock());
     }
 
-    public String getUuid() {
+    public UUID getUuid() {
         return uuid;
     }
 
-    public String getPostUuid() {
-        return postUuid;
+    public Post getAddressee() {
+        return addressee;
     }
 
-    public String getUserUuid() {
-        return userUuid;
+    public User getOwner() {
+        return owner;
     }
 
-    public long getCreateAt() {
+    public LocalDateTime getCreateAt() {
         return createAt;
     }
 
@@ -46,8 +46,7 @@ public class Comment {
     }
 
     public void setCreateAt() {
-        InstantSource testingSource = InstantSource.fixed(Instant.now());
-        this.createAt = testingSource.instant().getEpochSecond();
+        this.createAt = LocalDateTime.now(TimeZoneSettings.getUtcClock());
     }
 
     @Override

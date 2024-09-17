@@ -1,54 +1,53 @@
 package by.tms.instaclone.model;
 
-import java.time.Instant;
-import java.time.InstantSource;
+import by.tms.instaclone.settings.TimeZoneSettings;
+
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
 public class Reaction {
 
-    private final String uuid; // идентификатор Реакции
-    private final String postUuid; // идентификатор оцененного Поста
+    private final UUID uuid; // идентификатор Реакции
+    private final Post addressee; //  оцененный Пост
     private boolean typeReaction; // есть ли лайк(true) или дизлайк(false)
-    private final String reactingUuid; // uuid Пользователя-прореагировавшего
-    private long createAt;// время создания Реакции в секундах с 1970 года
+    private final User owner; // Пользователь-прореагировавший
+    private LocalDateTime createAt;// время создания Реакции
 
 
-    public Reaction(String postUuid, boolean typeReaction, String reactingUuid) {
-        this.postUuid = postUuid;
+    public Reaction(Post postUuid, boolean typeReaction, User owner) {
+        this.addressee = postUuid;
         this.typeReaction = typeReaction;
-        this.reactingUuid = reactingUuid;
-        this.uuid = String.valueOf(UUID.randomUUID());
-        InstantSource testingSource = InstantSource.fixed(Instant.now());
-        this.createAt = testingSource.instant().getEpochSecond();
+        this.owner = owner;
+        this.uuid = UUID.randomUUID();
+        this.createAt = LocalDateTime.now(TimeZoneSettings.getUtcClock());
     }
 
     public void setTypeReaction(boolean typeReaction) {
         this.typeReaction = typeReaction;
     }
 
-    public void setCreateAt(String createAt) {
-        InstantSource testingSource = InstantSource.fixed(Instant.now());
-        this.createAt = testingSource.instant().getEpochSecond();
+    public void setCreateAt() {
+        this.createAt = LocalDateTime.now(TimeZoneSettings.getUtcClock());
     }
 
-    public long getCreateAt() {
+    public LocalDateTime getCreateAt() {
         return createAt;
     }
 
-    public String getReactingUuid() {
-        return reactingUuid;
+    public User getReactingUuid() {
+        return owner;
     }
 
     public boolean isTypeReaction() {
         return typeReaction;
     }
 
-    public String getPostUuid() {
-        return postUuid;
+    public Post getAddressee() {
+        return addressee;
     }
 
-    public String getUuid() {
+    public UUID getUuid() {
         return uuid;
     }
 

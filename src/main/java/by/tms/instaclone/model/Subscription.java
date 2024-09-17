@@ -1,40 +1,41 @@
 package by.tms.instaclone.model;
 
-import java.time.Instant;
-import java.time.InstantSource;
+import by.tms.instaclone.settings.TimeZoneSettings;
+
+import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.UUID;
 
 public class Subscription {
 
     //userUuid: идентификатор Пользователя- к которому относятся рекомендации
     //userList: список рекомендованных пользователей
 
-    private final String uuid;// идентификатор Подписки
-    private final String subscriberUuid;// идентификатор подписавшегося Пользователя
-    private final String subscriptionUuid;// идентификатор Пользователя на кого подписался
-    private final long createAt;// время создания Подписки в секундах с 1970 года
+    private final UUID uuid;// идентификатор Подписки
+    private final User subscriber;//  подписавшейся Пользователь
+    private final User subscription;//  Пользователь на кого подписался
+    private final LocalDateTime createAt;// время создания Подписки
 
-    public Subscription(String uuid, String subscriberUuid, String subscriptionUuid) {
+    public Subscription(UUID uuid, User subscriber, User subscription) {
         this.uuid = uuid;
-        this.subscriberUuid = subscriberUuid;
-        this.subscriptionUuid = subscriptionUuid;
-        InstantSource testingSource = InstantSource.fixed(Instant.now());
-        this.createAt = testingSource.instant().getEpochSecond();
+        this.subscriber = subscriber;
+        this.subscription = subscription;
+        this.createAt = LocalDateTime.now(TimeZoneSettings.getUtcClock());
     }
 
-    public String getUuid() {
+    public UUID getUuid() {
         return uuid;
     }
 
-    public String getSubscriberUuid() {
-        return subscriberUuid;
+    public User getSubscriber() {
+        return subscriber;
     }
 
-    public String getSubscriptionUuid() {
-        return subscriptionUuid;
+    public User getSubscription() {
+        return subscription;
     }
 
-    public long getCreateAt() {
+    public LocalDateTime getCreateAt() {
         return createAt;
     }
 
