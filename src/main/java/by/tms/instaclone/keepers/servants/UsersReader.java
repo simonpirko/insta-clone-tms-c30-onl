@@ -16,12 +16,21 @@ import static by.tms.instaclone.keepers.interfaces.Reader.readFile;
 
 public class UsersReader implements Reader {
 
+    // для User этод метод заглушен
     @Override
     public List<?> read() {
+        // todo List.of() или throw new UnsupportedOperationException
         return List.of();
 //        throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    /**
+     * Метод формирует набор Сущностей User.
+     * Набор м.б. пустым или с одним элементом (если выполняются свойства консистентности :)
+     *
+     * @param uuid - идентификатор User
+     * @return - List<User>
+     */
     @Override
     public List<?> readRow(String uuid) {           // формирует Список User только из строк, где в строке "слово" UUID=uuid
         List<User> users = new ArrayList<>();
@@ -42,8 +51,10 @@ public class UsersReader implements Reader {
         return users;   // возвращаем список Users (м.б. пустым, т.к. по указанному uuid может ничего не найтись)
     }
 
+    // для User этод метод заглушен
     @Override
     public List<User> readRowsOwner(String uuid) {   // формирует Список только из строк, принадлежащих Владельцу с UUID=uuid
+        // todo List.of() или throw new UnsupportedOperationException
         return List.of();
 //        throw new UnsupportedOperationException("Not supported yet.");
     }

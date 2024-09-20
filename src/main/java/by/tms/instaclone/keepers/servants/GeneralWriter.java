@@ -10,6 +10,13 @@ import static by.tms.instaclone.keepers.KeeperConstants.USERS_CSV_FORMAT_TEMPLAT
 
 public class GeneralWriter implements Writer {
     // todo имплементировать поля сущностей Post, Comment, Reaction, Subscription
+    // todo Может, задавать в качестве параметра имя файла, в который производится сохранение?
+
+    /**
+     * Метод записывает набор свойств переданной Сущности в её файл
+     *
+     * @param object - Сущность (Post, Comment, Reaction, Subscription и т.п.), свойства которых надо сохранить в файле
+     */
     @Override
     public void write(Object object) {
         String nameFile;
@@ -23,7 +30,8 @@ public class GeneralWriter implements Writer {
                     user.getPassword(),
                     user.getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli()/1000);    // LocalDateTime преобразуется в секунды
             nameFile = USERS_CSV_FILE;  // передается имя файла, где сохраняется User
-        } /*else if (object instanceof User post) {
+        } // далее идут заготовки для других сущностей
+        /*else if (object instanceof User post) {
             rowText = String.format(USERS_CSV_FORMAT_TEMPLATE,    // todo поменять константу и поля!
                     post.getUuidUser(),
                     post.getNameUser(),
@@ -51,6 +59,6 @@ public class GeneralWriter implements Writer {
             // todo сделать запись в Лог, что переданный объект не подлежит сохранению (бросить Исключение?)
             return;
         }
-        Writer.threadWrite(nameFile, rowText); // сформированная строка передаётся в файл
+        Writer.threadWrite(nameFile, rowText); // сформированная строка передаётся в файл на запись
     }
 }

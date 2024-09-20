@@ -13,6 +13,14 @@ public interface Writer {
 
     void write(Object object);
 
+    /**
+     * Метод производит запись в nameFile одной(!) строки (свойства Сущности, например)
+     *
+     * @param nameFile - имя файла (с путём), в который производится сохранение строки
+     * @param rowText - сохраняемая строка (добавляется в хвост файла)
+     *
+     * запись в файл производится в отдельном потоке
+     */
     static void threadWrite( String nameFile, String rowText) {
         Thread writeThread = new Thread(() -> {
             try {
