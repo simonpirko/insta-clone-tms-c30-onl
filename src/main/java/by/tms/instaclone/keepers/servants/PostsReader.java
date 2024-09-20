@@ -21,6 +21,7 @@ public class PostsReader implements Reader {
 
     /**
      * Метод формирует Список ВСЕХ Post
+     *
      * @return List<Post> - список ВСЕХ постов, хранящихся в posts.csv
      */
     @Override
@@ -31,11 +32,9 @@ public class PostsReader implements Reader {
             String[] setRow = fileString.get().split(LF);   // делим csv-файл на строки по LF ("перевод каретки")
             for (String row : setRow) {
                 String[] kitWords = row.split(SEPARATOR_CSV);   // делим строку на "слова" по SEPARATOR_CSV
-//                UUID postUUID = UUID.fromString(kitWords[0]);
                 ReaderFactory readerFactory = createReaderFactory(USERS);
                 Reader reader = readerFactory.createReader();
                 List<?> users = reader.readRow(kitWords[1]);
-//                User postOwner = (User) users.get(0);
                 posts.add(new Post(UUID.fromString(kitWords[0]),
                         (User) users.get(0),
                         kitWords[2],

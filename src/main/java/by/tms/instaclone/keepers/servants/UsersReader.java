@@ -1,6 +1,8 @@
 package by.tms.instaclone.keepers.servants;
 
 import by.tms.instaclone.keepers.interfaces.Reader;
+import by.tms.instaclone.keepers.interfaces.ReaderFactory;
+import by.tms.instaclone.model.Post;
 import by.tms.instaclone.model.User;
 
 import java.time.Instant;
@@ -13,15 +15,29 @@ import java.util.UUID;
 
 import static by.tms.instaclone.keepers.KeeperConstants.*;
 import static by.tms.instaclone.keepers.interfaces.Reader.readFile;
-
 public class UsersReader implements Reader {
 
-    // для User этод метод заглушен
+    /**
+     * Метод формирует Список ВСЕХ User
+     *
+     * @return - List<User> - список ВСЕХ юзеров, хранящихся в users.csv
+     */
     @Override
     public List<?> read() {
-        // todo List.of() или throw new UnsupportedOperationException
-        return List.of();
-//        throw new UnsupportedOperationException("Not supported yet.");
+        List<User> users = new ArrayList<>();
+        Optional<String> fileString = readFile(POSTS_CSV_FILE);
+        if (fileString.isPresent()) {
+            String[] setRow = fileString.get().split(LF);   // делим csv-файл на строки по LF ("перевод каретки")
+            for (String row : setRow) {
+                String[] kitWords = row.split(SEPARATOR_CSV);   // делим строку на "слова" по SEPARATOR_CSV
+                users.add(new User(UUID.fromString(kitWords[0]),
+                        kitWords[1],
+                        kitWords[2],
+                        kitWords[3],
+                        LocalDateTime.ofInstant(Instant.ofEpochSecond(Long.valueOf(kitWords[4])), ZoneId.systemDefault())));
+            }
+        }
+        return users;   // возвращаем список User (м.б. пустым, если нет юзеров)
     }
 
     /**
