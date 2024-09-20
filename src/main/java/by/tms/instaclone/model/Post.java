@@ -24,6 +24,13 @@ public class Post {
         this.uuid = UUID.randomUUID();
         this.createAt = LocalDateTime.now(TimeZoneSettings.getUtcClock());
     }
+    // конструктор необходим для создания Сущности Post из файла (БД),
+    public Post(UUID postUUID,User owner, String text, LocalDateTime createAt) {
+        this.uuid = postUUID;
+        this.owner = owner;
+        this.text = text;
+        this.createAt = createAt;
+    }
 
     public LocalDateTime getCreateAt() {
         return createAt;

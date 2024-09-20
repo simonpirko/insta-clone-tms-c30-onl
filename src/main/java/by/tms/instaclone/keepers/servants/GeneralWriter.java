@@ -32,7 +32,7 @@ public class GeneralWriter implements Writer {
                     user.getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli()/1000);    // LocalDateTime преобразуется в секунды
             nameFile = USERS_CSV_FILE;  // передается имя файла, где сохраняется User
         } else if (object instanceof Post post) {
-            rowText = String.format(POSTS_CSV_FORMAT_TEMPLATE,    // todo поменять константу и поля!
+            rowText = String.format(POSTS_CSV_FORMAT_TEMPLATE,
                     post.getUuid().toString(),
                     post.getOwner().getUuid().toString(),
                     post.getText(),

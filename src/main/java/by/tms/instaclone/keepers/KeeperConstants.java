@@ -17,8 +17,8 @@ public class KeeperConstants {
     // todo логирование в файл
     public static final String LOGGING_FILE = "C:\\Users\\123\\IdeaProjects\\lesson28-onl30-jsp\\src\\main\\resources\\logging.txt";
 //    public static final String LOGIN_PASSWORD_STORAGE = "C:\\Users\\123\\IdeaProjects\\lesson-26-30-onl-webCalculator\\src\\main\\java\\login_password.csv";
-    public static final String USERS_CSV_FORMAT_TEMPLATE = "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + "%s" + LF;
-    public static final String POSTS_CSV_FORMAT_TEMPLATE = "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + "%s" + LF;
+    public static final String USERS_CSV_FORMAT_TEMPLATE = "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + LF;
+    public static final String POSTS_CSV_FORMAT_TEMPLATE = "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + LF;
     public static final String DATE_TIME_LOGGER_TEMPLATE = "dd/MM/yyyy HH:mm:ss";
     public static final String HOME_PAGE = "/pages/home.jsp";
     public static final String REGISTRATION_PAGE = "/pages/registration.jsp";

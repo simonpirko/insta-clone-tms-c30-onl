@@ -36,7 +36,7 @@ public class UsersReader implements Reader {
         List<User> users = new ArrayList<>();
         Optional<String> fileString = readFile(USERS_CSV_FILE);
         if (fileString.isPresent()) {
-            String[] setRow = fileString.get().split(LF);   // делим csv-файл на строки по LF - новая строка
+            String[] setRow = fileString.get().split(LF);   // делим csv-файл на строки по LF ("перевод каретки")
             for (String row : setRow) {
                 String[] kitWords = row.split(SEPARATOR_CSV);   // делим строку на "слова" по SEPARATOR_CSV
                 if (kitWords[0].equals(uuid)) {

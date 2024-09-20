@@ -24,7 +24,7 @@ public class User {
         this.uuid = UUID.nameUUIDFromBytes(username.getBytes()); // моё предложение для увеличения вероятности уникальности
         this.createAt = LocalDateTime.now(TimeZoneSettings.getUtcClock());
     }
-// конструктор необходим для создания сушности User из файла (БД),
+// конструктор необходим для создания Сущности User из файла (БД),
     public User(UUID uuid, String name, String username, String password, LocalDateTime createAt) {
         this.uuid = uuid;
         this.name = name;
