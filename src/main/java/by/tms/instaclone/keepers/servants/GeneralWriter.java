@@ -2,11 +2,12 @@ package by.tms.instaclone.keepers.servants;
 
 import by.tms.instaclone.keepers.interfaces.Writer;
 import by.tms.instaclone.model.User;
+import by.tms.instaclone.model.Post;
 
 import java.time.ZoneOffset;
 
-import static by.tms.instaclone.keepers.KeeperConstants.USERS_CSV_FILE;
-import static by.tms.instaclone.keepers.KeeperConstants.USERS_CSV_FORMAT_TEMPLATE;
+import static by.tms.instaclone.keepers.KeeperConstants.*;
+import static by.tms.instaclone.keepers.KeeperConstants.POSTS_CSV_FORMAT_TEMPLATE;
 
 public class GeneralWriter implements Writer {
     // todo имплементировать поля сущностей Post, Comment, Reaction, Subscription
@@ -30,14 +31,15 @@ public class GeneralWriter implements Writer {
                     user.getPassword(),
                     user.getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli()/1000);    // LocalDateTime преобразуется в секунды
             nameFile = USERS_CSV_FILE;  // передается имя файла, где сохраняется User
+        } else if (object instanceof Post post) {
+            rowText = String.format(POSTS_CSV_FORMAT_TEMPLATE,    // todo поменять константу и поля!
+                    post.getUuid().toString(),
+                    post.getOwner().getUuid().toString(),
+                    post.getText(),
+                    post.getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli()/1000);
+            nameFile = POSTS_CSV_FILE;
         } // далее идут заготовки для других сущностей
-        /*else if (object instanceof User post) {
-            rowText = String.format(USERS_CSV_FORMAT_TEMPLATE,    // todo поменять константу и поля!
-                    post.getUuidUser(),
-                    post.getNameUser(),
-                    post.getPassword());
-            file = USERS_CSV_FILE;    // todo поменять константу!
-        } else if (object instanceof User comment) {
+        /*else if (object instanceof User comment) {
             rowText = String.format(USERS_CSV_FORMAT_TEMPLATE,    // todo поменять константу и поля!
                     comment.getUuidUser(),
                     comment.getNameUser(),
