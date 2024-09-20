@@ -18,7 +18,8 @@ public class UsersReader implements Reader {
 
     @Override
     public List<?> read() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return List.of();
+//        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
@@ -43,6 +44,7 @@ public class UsersReader implements Reader {
 
     @Override
     public List<User> readRowsOwner(String uuid) {   // формирует Список только из строк, принадлежащих Владельцу с UUID=uuid
-        throw new UnsupportedOperationException("Not supported yet.");
+        return List.of();
+//        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
