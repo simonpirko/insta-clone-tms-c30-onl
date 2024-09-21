@@ -1,8 +1,6 @@
 package by.tms.instaclone.keepers.servants;
 
 import by.tms.instaclone.keepers.interfaces.Reader;
-import by.tms.instaclone.keepers.interfaces.ReaderFactory;
-import by.tms.instaclone.model.Post;
 import by.tms.instaclone.model.User;
 
 import java.time.Instant;
@@ -30,11 +28,11 @@ public class UsersReader implements Reader {
             String[] setRow = fileString.get().split(LF);   // делим csv-файл на строки по LF ("перевод каретки")
             for (String row : setRow) {
                 String[] kitWords = row.split(SEPARATOR_CSV);   // делим строку на "слова" по SEPARATOR_CSV
-                users.add(new User(UUID.fromString(kitWords[0]),
-                        kitWords[1],
-                        kitWords[2],
-                        kitWords[3],
-                        LocalDateTime.ofInstant(Instant.ofEpochSecond(Long.valueOf(kitWords[4])), ZoneId.systemDefault())));
+    //                users.add(new User(UUID.fromString(kitWords[0]), // todo
+    //                        kitWords[1],
+    //                        kitWords[2],
+    //                        kitWords[3],
+    //                        LocalDateTime.ofInstant(Instant.ofEpochSecond(Long.valueOf(kitWords[4])), ZoneId.systemDefault())));
             }
         }
         return users;   // возвращаем список User (м.б. пустым, если нет юзеров)
@@ -56,11 +54,13 @@ public class UsersReader implements Reader {
             for (String row : setRow) {
                 String[] kitWords = row.split(SEPARATOR_CSV);   // делим строку на "слова" по SEPARATOR_CSV
                 if (kitWords[0].equals(uuid)) {
-                    users.add(new User(UUID.fromString(kitWords[0]),
+                    users.add(new User(UUID.fromString(kitWords[0]),  // todo
                             kitWords[1],
                             kitWords[2],
                             kitWords[3],
                             LocalDateTime.ofInstant(Instant.ofEpochSecond(Long.valueOf(kitWords[4])), ZoneId.systemDefault())));
+//                    users.add(User.makeUser(UUID.fromString(kitWords[0]), kitWords[1], kitWords[2], kitWords[3],
+//                            LocalDateTime.ofInstant(Instant.ofEpochSecond(Long.valueOf(kitWords[4])), ZoneId.systemDefault())));
                 }
             }
         }

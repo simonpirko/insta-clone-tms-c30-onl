@@ -10,6 +10,7 @@ import java.util.Optional;
 
 import static by.tms.instaclone.keepers.KeeperConstants.ERROR_IO_FILE_TEMPLATE;
 import static by.tms.instaclone.keepers.KeeperConstants.ERROR_TEMPLATE;
+import static by.tms.instaclone.utilites.SiteLogger.getLogger;
 
 public interface Reader {
 
@@ -28,7 +29,7 @@ public interface Reader {
             return Optional.ofNullable(Files.readString(Paths.get(nameFile)));
         } catch (IOException ex) {
 // todo решить: логгер или исключение?
-            SiteLogger.getLogger().addRecord(ERROR_TEMPLATE.formatted(ERROR_IO_FILE_TEMPLATE.formatted(nameFile)));
+            getLogger().addRecord(ERROR_TEMPLATE.formatted(ERROR_IO_FILE_TEMPLATE.formatted(nameFile)));
             return Optional.empty();
         }
     }

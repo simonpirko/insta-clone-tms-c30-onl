@@ -9,9 +9,9 @@ public class KeeperConstants {
     public static final String LOGGER_MESSAGE_TEMPLATE = "%s -- %s" + LF;
     public static final String ERROR_TEMPLATE = "ERROR: %s";
     public static final String ERROR_IO_FILE_TEMPLATE = "there was a problem when reading the '%s' file";
-    public static final String USERS_CSV_FILE = "src/main/resources/users.csv";
-    public static final String POSTS_CSV_FILE = "src/main/resources/posts.csv";
-    public static final String LOGS_FILE = "src/main/resources/logs.txt";
+    public static final String USERS_CSV_FILE = "src/main/resources/csv/users.csv";
+    public static final String POSTS_CSV_FILE = "src/main/resources/csv/posts.csv";
+    public static final String LOGS_FILE = "src/main/resources/logs/logs.txt";
     public static final String POSTS = "posts";
     public static final String USERS = "users";
 
