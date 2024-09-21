@@ -1,11 +1,12 @@
 package by.tms.instaclone.utilites;
 
+import by.tms.instaclone.keepers.interfaces.Writer;
+
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
-import static by.tms.instaclone.keepers.KeeperConstants.DATE_TIME_LOGGER_TEMPLATE;
-import static by.tms.instaclone.keepers.KeeperConstants.LOGGER_MESSAGE_TEMPLATE;
+import static by.tms.instaclone.keepers.KeeperConstants.*;
 
 /**
  * Класс отвечает за ведение лога.
@@ -22,18 +23,19 @@ public class SiteLogger {
         return siteLogger;
     }
 
-//    private SiteLogger() {}
-
-
     /**
-     * Метод логирует некоторые события в лог Каталины.
-     * Метод в СВОЁМ формате формирует дату-время и прсоединяет их к сообщению
+     * Метод логирует необходимые события в лог Каталины.
+     * Метод в СВОЁМ формате формирует дату-время и присоединяет их к сообщению
      *
      * @param messageCustomer   - сообщение для логирования
      */
-    // todo сделать логирование в отдельный файл!
     public void addRecord(String messageCustomer) {
-        System.out.printf(LOGGER_MESSAGE_TEMPLATE.formatted(getStringDateTime(), messageCustomer));
+        String record = LOGGER_MESSAGE_TEMPLATE.formatted(getStringDateTime(), messageCustomer);
+        if (IS_PERFORM_FILE_LOGGING) {
+            Writer.threadWrite(LOGS_FILE, record);
+        } else {
+            System.out.printf(record);
+        }
     }
 
     public static String getStringDateTime() {

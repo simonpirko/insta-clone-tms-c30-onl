@@ -11,11 +11,10 @@ public class KeeperConstants {
     public static final String ERROR_IO_FILE_TEMPLATE = "there was a problem when reading the '%s' file";
     public static final String USERS_CSV_FILE = "src/main/resources/users.csv";
     public static final String POSTS_CSV_FILE = "src/main/resources/posts.csv";
+    public static final String LOGS_FILE = "src/main/resources/logs.txt";
     public static final String POSTS = "posts";
     public static final String USERS = "users";
 
-    // todo логирование в файл
-    public static final String LOGGING_FILE = "C:\\Users\\123\\IdeaProjects\\lesson28-onl30-jsp\\src\\main\\resources\\logging.txt";
 //    public static final String LOGIN_PASSWORD_STORAGE = "C:\\Users\\123\\IdeaProjects\\lesson-26-30-onl-webCalculator\\src\\main\\java\\login_password.csv";
     public static final String USERS_CSV_FORMAT_TEMPLATE = "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + LF;
     public static final String POSTS_CSV_FORMAT_TEMPLATE = "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + LF;

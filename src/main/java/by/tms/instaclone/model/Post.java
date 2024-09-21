@@ -25,7 +25,7 @@ public class Post {
         this.createAt = LocalDateTime.now(TimeZoneSettings.getUtcClock());
     }
     // конструктор необходим для создания Сущности Post из файла (БД),
-    public Post(UUID postUUID,User owner, String text, LocalDateTime createAt) {
+    public Post(UUID postUUID, User owner, String text, LocalDateTime createAt) {
         this.uuid = postUUID;
         this.owner = owner;
         this.text = text;
@@ -60,16 +60,27 @@ public class Post {
         this.createAt = LocalDateTime.now(TimeZoneSettings.getUtcClock());
     }
 
+    // todo проверить условия equals!
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Post post = (Post) o;
-        return Objects.equals(owner, post.owner);
+//        return Objects.equals(owner, post.owner);   // todo это условие тождественности НЕ верно!
+        return Objects.equals(uuid, post.uuid);
+    }
+
+    @Override
+    public String toString() {
+        return "Post{uuid=" + uuid +
+                ", owner=" + owner +
+                ", text='" + text + '\'' +
+                ", createAt=" + createAt + '}';
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(owner);
+//        return Objects.hashCode(owner); // todo hash-код надо формировать по UUID
+        return Objects.hashCode(getUuid());
     }
 }
