@@ -1,5 +1,7 @@
 package by.tms.instaclone.keepers.interfaces;
 
+import by.tms.instaclone.utilites.SiteLogger;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -7,7 +9,6 @@ import java.nio.file.StandardOpenOption;
 
 import static by.tms.instaclone.keepers.KeeperConstants.ERROR_IO_FILE_TEMPLATE;
 import static by.tms.instaclone.keepers.KeeperConstants.ERROR_TEMPLATE;
-import static by.tms.instaclone.utilites.MyLogger.logIn;
 
 public interface Writer {
 
@@ -27,7 +28,7 @@ public interface Writer {
                 Files.write(Paths.get(nameFile), rowText.getBytes(), StandardOpenOption.APPEND);
             } catch (IOException ex) {
 // todo решить: логгер или исключение?
-                logIn(ERROR_TEMPLATE.formatted(ERROR_IO_FILE_TEMPLATE.formatted(nameFile)));
+                SiteLogger.getLogger().addRecord(ERROR_TEMPLATE.formatted(ERROR_IO_FILE_TEMPLATE.formatted(nameFile)));
             }
         });
         writeThread.start();

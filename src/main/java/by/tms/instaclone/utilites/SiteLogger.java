@@ -1,7 +1,5 @@
 package by.tms.instaclone.utilites;
 
-// todo сделать логирование в отдельный файл!
-
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -9,7 +7,23 @@ import java.time.format.DateTimeFormatter;
 import static by.tms.instaclone.keepers.KeeperConstants.DATE_TIME_LOGGER_TEMPLATE;
 import static by.tms.instaclone.keepers.KeeperConstants.LOGGER_MESSAGE_TEMPLATE;
 
-public class MyLogger {
+/**
+ * Класс отвечает за ведение лога.
+ * Логирование ведётся по времени UTC
+ * Всегда существует только один экземпляр класса
+ */
+public class SiteLogger {
+    private static SiteLogger siteLogger;
+
+    public static synchronized SiteLogger getLogger() {
+        if (siteLogger == null) {
+            siteLogger = new SiteLogger();
+        }
+        return siteLogger;
+    }
+
+//    private SiteLogger() {}
+
 
     /**
      * Метод логирует некоторые события в лог Каталины.
@@ -17,7 +31,8 @@ public class MyLogger {
      *
      * @param messageCustomer   - сообщение для логирования
      */
-    public static void logIn(String messageCustomer) {
+    // todo сделать логирование в отдельный файл!
+    public void addRecord(String messageCustomer) {
         System.out.printf(LOGGER_MESSAGE_TEMPLATE.formatted(getStringDateTime(), messageCustomer));
     }
 

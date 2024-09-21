@@ -25,7 +25,7 @@ public class UsersReader implements Reader {
     @Override
     public List<?> read() {
         List<User> users = new ArrayList<>();
-        Optional<String> fileString = readFile(POSTS_CSV_FILE);
+        Optional<String> fileString = readFile(USERS_CSV_FILE);
         if (fileString.isPresent()) {
             String[] setRow = fileString.get().split(LF);   // делим csv-файл на строки по LF ("перевод каретки")
             for (String row : setRow) {
