@@ -11,10 +11,10 @@
     <title>Login</title>
 </head>
 <body>
-<jsp:include page="_header.jsp"/>
+<%--<jsp:include page="_header.jsp"/>--%>
 <div class="container">
     <div class="row justify-content-center">
-        <form class="col-4" action="/user/login" method="post">
+        <form class="col-4" action="/pages/login" method="post">
             <div class="alert alert-warning" role="alert">
                 ${message}
             </div>

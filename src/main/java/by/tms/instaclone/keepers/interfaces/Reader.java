@@ -2,6 +2,9 @@ package by.tms.instaclone.keepers.interfaces;
 
 import by.tms.instaclone.utilites.SiteLogger;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -33,4 +36,11 @@ public interface Reader {
             return Optional.empty();
         }
     }
+//
+//    ServletContext sc = req.getServletContext();
+//    String rp = sc.getRealPath("storage/test.txt");
+//    File file = new File(rp);
+//    BufferedReader br = new BufferedReader(new FileReader(file));
+//        System.out.println(br.readLine());
+//        req.getServletContext().getRequestDispatcher("/pages/login.jsp").forward(req, resp);
 }

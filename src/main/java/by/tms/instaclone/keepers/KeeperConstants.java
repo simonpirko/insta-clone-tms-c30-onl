@@ -9,8 +9,9 @@ public class KeeperConstants {
     public static final String LOGGER_MESSAGE_TEMPLATE = "%s -- %s" + LF;
     public static final String ERROR_TEMPLATE = "ERROR: %s";
     public static final String ERROR_IO_FILE_TEMPLATE = "there was a problem when reading the '%s' file";
-    public static final String USERS_CSV_FILE = "src/main/resources/csv/users.csv";
-    public static final String POSTS_CSV_FILE = "src/main/resources/csv/posts.csv";
+//    public static final String USERS_CSV_FILE = "src\\main\\resources\\csv\\users.csv";
+    public static final String USERS_CSV_FILE = "C:\\Users\\123\\IdeaProjects\\insta-clone-tms-c30-onl\\src\\main\\resources\\csv\\users.csv";
+    public static final String POSTS_CSV_FILE = "src\\main\\resources\\csv\\posts.csv";
     public static final String LOGS_FILE = "src/main/resources/logs/logs.txt";
     public static final String POSTS = "posts";
     public static final String USERS = "users";
@@ -25,9 +26,9 @@ public class KeeperConstants {
     public static final String PROFILE_PAGE = "/pages/profile.jsp";
     public static final String REGISTRATION_PATH = "/user/registration";
     public static final String HOME_PATH = SLAGE;
-    public static final String LOGIN_PATH = "/user/login";
-    public static final String LOGOUT_PATH = "/user/logout";
-    public static final String PROFILE_PATH = "/user/profile";
+    public static final String LOGIN_PATH = "/login";
+//    public static final String LOGOUT_PATH = "/pages/logout";
+//    public static final String PROFILE_PATH = "/pages/profile";
     public static final String LOGIN_USER_PARAMETER = "login";
     public static final String NAME_USER_PARAMETER = "name";
     public static final String PASSWORD_USER_PARAMETER = "password";
