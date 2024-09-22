@@ -14,7 +14,7 @@
 <%--<jsp:include page="_header.jsp"/>--%>
 <div class="container">
     <div class="row justify-content-center">
-        <form class="col-4" action="/pages/login" method="post">
+        <form class="col-4" action="/login" method="post">
             <div class="alert alert-warning" role="alert">
                 ${message}
             </div>

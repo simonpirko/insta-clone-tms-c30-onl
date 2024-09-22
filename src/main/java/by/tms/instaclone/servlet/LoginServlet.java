@@ -29,7 +29,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (IS_PERFORM_LOGGING) getLogger().addRecord(BEGINNING_WORK_MESSAGE_TEMPLATE.formatted(SERVLET_GET_NAME));
-        getServletContext().getRequestDispatcher(LOGIN_PAGE).forward(request, response);
+        getServletContext().getRequestDispatcher(LOGIN_JSP).forward(request, response);
         if (IS_PERFORM_LOGGING) getLogger().addRecord(ENDING_WORK_MESSAGE_TEMPLATE.formatted(SERVLET_GET_NAME));
     }
 
@@ -53,7 +53,7 @@ public class LoginServlet extends HttpServlet {
             response.sendRedirect(HOME_PATH);         // todo необходимо решить - куда переходить в случае успешного логирования
         } else {
             request.setAttribute(MESSAGE_ATTRIBUTE, PASSWORD_PROBLEM);
-            request.getRequestDispatcher(LOGIN_PAGE).forward(request, response);
+            request.getRequestDispatcher(LOGIN_JSP).forward(request, response);
         }
         if (IS_PERFORM_LOGGING) getLogger().addRecord(ENDING_WORK_MESSAGE_TEMPLATE.formatted(SERVLET_GET_NAME));
     }
