@@ -23,17 +23,11 @@ public class KeeperConstants {
     public static final String REGISTRATION_PAGE = "/pages/registration.jsp";
     public static final String LOGIN_PAGE = "/pages/login.jsp";
     public static final String PROFILE_PAGE = "/pages/profile.jsp";
-    public static final String REGISTRATION_PATH = "/user/registration";
+    public static final String REGISTRATION_PATH = "/registration";
     public static final String HOME_PATH = SLAGE;
-    public static final String LOGIN_PATH = "/user/login";
-    public static final String LOGOUT_PATH = "/user/logout";
-    public static final String PROFILE_PATH = "/user/profile";
-    public static final String LOGIN_USER_PARAMETER = "login";
-    public static final String NAME_USER_PARAMETER = "name";
-    public static final String PASSWORD_USER_PARAMETER = "password";
-    public static final String USER_PARAMETER = "user";
-    public static final String CURRENT_USER_ATTRIBUTE = "currentUser";
-    public static final String MESSAGE_ATTRIBUTE = "message";
+    public static final String LOGIN_PATH = "/login";
+    public static final String LOGOUT_PATH = "/logout";
+    public static final String PROFILE_PATH = "/profile";
 
     // todo сделать присвоение из файла настройки
     public static final boolean IS_PERFORM_LOGGING = true;
