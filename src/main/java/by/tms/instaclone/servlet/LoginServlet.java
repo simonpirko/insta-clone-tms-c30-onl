@@ -20,10 +20,12 @@ import static by.tms.instaclone.utilites.SiteLogger.getLogger;
 public class LoginServlet extends HttpServlet {
     private static final String SERVLET_GET_NAME = "doGet() in LoginServlet";
     private static final String SERVLET_POST_NAME = "doPost() in LoginServlet";
-    private static final String LOGIN_USER = "login";
+    private static final String LOGIN_USER = "username";
     private static final String PASSWORD_USER = "password";
     private static final String PASSWORD_PROBLEM = "Wrong password!";
+    private static final String CURRENT_USER_ATTRIBUTE = "currentUser";
     private static final String USER_PROBLEM = "Еhe user's login was not found!";
+    private static final String MESSAGE_ATTRIBUTE = "message";
 //    private final UserStorage users = new UserStorage();
 
     @Override
