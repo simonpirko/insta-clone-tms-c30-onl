@@ -20,11 +20,11 @@ public class User {
      * @param password
      */
     public User(String name, String username, String password) {
-        this.uuid = UUID.nameUUIDFromBytes(username.getBytes()); // моё предложение для увеличения вероятности уникальности
         this.name = name;
         this.username = username;
         this.password = password;
         this.createAt = LocalDateTime.now();
+        this.uuid = UUID.nameUUIDFromBytes((username + this.createAt).getBytes()); // моё предложение для увеличения вероятности уникальности
     }
 
     /**

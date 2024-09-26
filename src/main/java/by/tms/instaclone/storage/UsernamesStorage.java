@@ -23,6 +23,14 @@ public class UsernamesStorage {
         return usernamesStorage;
     }
 
+    public ConcurrentHashMap<String, User> getUsernames() {
+        return usernames;
+    }
+
+    public void newUser(User user) {
+        usernames.put(user.getUsername(), user);
+    }
+
     private UsernamesStorage() {
         usernames = new ConcurrentHashMap<>();
         Optional<String> fileString = readCsvFile(USERS_CSV_FILE);
@@ -34,9 +42,5 @@ public class UsernamesStorage {
                         LocalDateTime.ofInstant(Instant.ofEpochSecond(Long.valueOf(arrayWords[4])), ZoneId.systemDefault())));
             }
         }
-    }
-
-    public ConcurrentHashMap<String, User> getUsernames() {
-        return usernames;
     }
 }

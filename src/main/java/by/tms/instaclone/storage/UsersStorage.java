@@ -5,12 +5,14 @@ import by.tms.instaclone.model.User;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static by.tms.instaclone.storage.KeeperConstants.*;
 import static by.tms.instaclone.storage.Reader.readCsvFile;
+import static by.tms.instaclone.storage.Writer.writeCsvFile;
 
 public class UsersStorage {
     private static UsersStorage usersStorage;
@@ -21,6 +23,18 @@ public class UsersStorage {
             usersStorage = new UsersStorage();
         }
         return usersStorage;
+    }
+
+    public ConcurrentHashMap<UUID, User> getUsers() {
+        return users;
+    }
+
+    public void newUser(User user) {
+        users.put(user.getUuid(), user);
+        UsernamesStorage.getInstance().newUser(user);
+        String rowText = USERS_CSV_FORMAT_TEMPLATE.formatted(user.getUuid().toString(), user.getName(), user.getUsername(),
+                user.getPassword(), user.getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli()/1000);
+        writeCsvFile(USERS_CSV_FILE, rowText);
     }
 
     private UsersStorage() {
@@ -34,9 +48,5 @@ public class UsersStorage {
                         LocalDateTime.ofInstant(Instant.ofEpochSecond(Long.valueOf(arrayWords[4])), ZoneId.systemDefault())));
             }
         }
-    }
-
-    public ConcurrentHashMap<UUID, User> getUsers() {
-        return users;
     }
 }
