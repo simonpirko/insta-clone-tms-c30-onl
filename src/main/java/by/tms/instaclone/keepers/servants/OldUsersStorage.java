@@ -11,18 +11,18 @@ import java.util.UUID;
 /**
  * Объект класса является "Одиночкой" и предназначен для хранения User'ов
  */
-public class UsersStorage implements Storage {
-    private static UsersStorage usersStorage;
+public class OldUsersStorage implements Storage {
+    private static OldUsersStorage usersStorage;
     private static List<User> users;
 
-    public static synchronized UsersStorage getUsersStorage() {
+    public static synchronized OldUsersStorage getUsersStorage() {
         if (usersStorage == null) {
-            usersStorage = new UsersStorage();
+            usersStorage = new OldUsersStorage();
         }
         return usersStorage;
     }
 
-    private UsersStorage() {
+    private OldUsersStorage() {
         users = new ArrayList<>();
     }
 
