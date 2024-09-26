@@ -1,19 +1,15 @@
-package by.tms.instaclone.keepers.interfaces;
-
-import by.tms.instaclone.utilites.SiteLogger;
+package by.tms.instaclone.storage;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
-import static by.tms.instaclone.keepers.KeeperConstants.ERROR_IO_FILE_TEMPLATE;
-import static by.tms.instaclone.keepers.KeeperConstants.ERROR_TEMPLATE;
+import static by.tms.instaclone.storage.KeeperConstants.ERROR_IO_FILE_TEMPLATE;
+import static by.tms.instaclone.storage.KeeperConstants.ERROR_TEMPLATE;
 import static by.tms.instaclone.utilites.SiteLogger.getLogger;
 
-public interface Writer {
-
-    void write(Object object);
+public class Writer {
 
     /**
      * Метод производит запись в nameFile одной(!) строки (свойства Сущности, например)
@@ -23,7 +19,7 @@ public interface Writer {
      *
      * запись в файл производится в отдельном потоке
      */
-    static void threadWrite( String nameFile, String rowText) {
+    public static void writeCsvFile(String nameFile, String rowText) {
         Thread writeThread = new Thread(() -> {
             try {
                 Files.write(Paths.get(nameFile), rowText.getBytes(), StandardOpenOption.APPEND);

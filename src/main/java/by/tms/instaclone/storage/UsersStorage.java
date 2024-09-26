@@ -1,18 +1,16 @@
-package by.tms.instaclone.keepers;
+package by.tms.instaclone.storage;
 
 import by.tms.instaclone.model.User;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-import static by.tms.instaclone.keepers.KeeperConstants.*;
-import static by.tms.instaclone.keepers.interfaces.Reader.readFile;
+import static by.tms.instaclone.storage.KeeperConstants.*;
+import static by.tms.instaclone.storage.Reader.readCsvFile;
 
 public class UsersStorage {
     private static UsersStorage usersStorage;
@@ -27,7 +25,7 @@ public class UsersStorage {
 
     private UsersStorage() {
         users = new ConcurrentHashMap<>();
-        Optional<String> fileString = readFile(USERS_CSV_FILE);
+        Optional<String> fileString = readCsvFile(USERS_CSV_FILE);
         if (fileString.isPresent()) {
             String[] arrayRows = fileString.get().split(LF);   // делим csv-файл на строки по LF ("перевод каретки")
             for (String row : arrayRows) {

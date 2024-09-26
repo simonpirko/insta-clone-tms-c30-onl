@@ -1,4 +1,4 @@
-package by.tms.instaclone.keepers;
+package by.tms.instaclone.storage;
 
 import by.tms.instaclone.model.User;
 
@@ -9,8 +9,8 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-import static by.tms.instaclone.keepers.KeeperConstants.*;
-import static by.tms.instaclone.keepers.interfaces.Reader.readFile;
+import static by.tms.instaclone.storage.KeeperConstants.*;
+import static by.tms.instaclone.storage.Reader.readCsvFile;
 
 public class UsernamesStorage {
     private static UsernamesStorage usernamesStorage;
@@ -25,7 +25,7 @@ public class UsernamesStorage {
 
     private UsernamesStorage() {
         usernames = new ConcurrentHashMap<>();
-        Optional<String> fileString = readFile(USERS_CSV_FILE);
+        Optional<String> fileString = readCsvFile(USERS_CSV_FILE);
         if (fileString.isPresent()) {
             String[] arrayRows = fileString.get().split(LF);   // делим csv-файл на строки по LF ("перевод каретки")
             for (String row : arrayRows) {

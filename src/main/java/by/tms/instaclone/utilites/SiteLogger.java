@@ -1,12 +1,12 @@
 package by.tms.instaclone.utilites;
 
-import by.tms.instaclone.keepers.interfaces.Writer;
+import by.tms.instaclone.storage.Writer;
 
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
-import static by.tms.instaclone.keepers.KeeperConstants.*;
+import static by.tms.instaclone.storage.KeeperConstants.*;
 
 /**
  * Класс отвечает за ведение лога.
@@ -32,7 +32,7 @@ public class SiteLogger {
     public void addRecord(String messageCustomer) {
         String record = LOGGER_MESSAGE_TEMPLATE.formatted(getStringDateTime(), messageCustomer);
         if (IS_PERFORM_FILE_LOGGING) {
-            Writer.threadWrite(LOGS_FILE, record);
+            Writer.writeCsvFile(LOGS_FILE, record);
         } else {
             System.out.printf(record);
         }

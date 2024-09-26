@@ -1,4 +1,4 @@
-package by.tms.instaclone.keepers;
+package by.tms.instaclone.storage;
 
 public class KeeperConstants {
     public static final String LF = "\n";

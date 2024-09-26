@@ -1,19 +1,13 @@
 package by.tms.instaclone.servlet;
 
-import by.tms.instaclone.keepers.interfaces.Reader;
-import by.tms.instaclone.keepers.interfaces.ReaderFactory;
-import by.tms.instaclone.model.User;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
-import static by.tms.instaclone.keepers.KeeperConstants.*;
-import static by.tms.instaclone.keepers.interfaces.ReaderFactory.createReaderFactory;
+import static by.tms.instaclone.storage.KeeperConstants.*;
 import static by.tms.instaclone.utilites.SiteLogger.getLogger;
 
 @WebServlet(urlPatterns = LOGIN_PATH)
@@ -40,23 +34,23 @@ public class LoginServlet extends HttpServlet {
         if (IS_PERFORM_LOGGING) getLogger().addRecord(BEGINNING_WORK_MESSAGE_TEMPLATE.formatted(SERVLET_POST_NAME));
         String login = request.getParameter(LOGIN_USER);
         String password = request.getParameter(PASSWORD_USER);
-        ReaderFactory readerFactory = createReaderFactory(USERS);   // todo получаю всех User'ов из файла (или лучше из Storage?), указанного в USERS
-        Reader readerUsers = readerFactory.createReader();
-        User currentUser = null;
-        List<User> users = (List<User>) readerUsers.read();         // в этот List
-        for (User user : users) {                               // перебираю их по username
-            if (user.getUsername().equals(login) && user.getPassword().equals(password)) {
-                currentUser = user;
-                break;
-            }
-        }
-        if (currentUser != null ) {
-            request.getSession().setAttribute(CURRENT_USER_ATTRIBUTE, currentUser);
-            response.sendRedirect(HOME_PATH);         // todo необходимо решить - куда переходить в случае успешного логирования
-        } else {
-            request.setAttribute(MESSAGE_ATTRIBUTE, PASSWORD_PROBLEM);
-            request.getRequestDispatcher(LOGIN_JSP).forward(request, response);
-        }
+//        ReaderFactory readerFactory = createReaderFactory(USERS);   // todo получаю всех User'ов из файла (или лучше из Storage?), указанного в USERS
+//        Reader readerUsers = readerFactory.createReader();
+//        User currentUser = null;
+//        List<User> users = (List<User>) readerUsers.read();         // в этот List
+//        for (User user : users) {                               // перебираю их по username
+//            if (user.getUsername().equals(login) && user.getPassword().equals(password)) {
+//                currentUser = user;
+//                break;
+//            }
+//        }
+//        if (currentUser != null ) {
+//            request.getSession().setAttribute(CURRENT_USER_ATTRIBUTE, currentUser);
+//            response.sendRedirect(HOME_PATH);         // todo необходимо решить - куда переходить в случае успешного логирования
+//        } else {
+//            request.setAttribute(MESSAGE_ATTRIBUTE, PASSWORD_PROBLEM);
+//            request.getRequestDispatcher(LOGIN_JSP).forward(request, response);
+//        }
         if (IS_PERFORM_LOGGING) getLogger().addRecord(ENDING_WORK_MESSAGE_TEMPLATE.formatted(SERVLET_GET_NAME));
     }
 }

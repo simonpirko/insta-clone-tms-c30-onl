@@ -11,17 +11,6 @@ public class User {
     private final String username;          // логин
     private String password;                // пароль
     private final LocalDateTime createAt;   // время создания User
-    // private String profile; //ссылка на профиль пользователя
-
-//    public static synchronized User makeUser(UUID uuid, String name, String username, String password, LocalDateTime createAt) {
-//        if (user == null) {
-//            return new User(name, username, password);
-//        } else if (user.getUsername().equals(username)) {
-//            return user;
-//        } else {
-//            return new User(uuid, name, username, password, createAt);
-//        }
-//    }
 
     /**
      * Создание нового User
@@ -54,38 +43,6 @@ public class User {
         this.password = password;
         this.createAt = createAt;
     }
-
-//    private static Builder builder(String name, String username, String password) {
-//        return new Builder(name, username, password);
-//    }
-//
-//    private static class Builder {
-//        private UUID uuid;
-//        private String name;
-//        private final String username;
-//        private String password;
-//        private LocalDateTime createAt;
-//
-//        public Builder(String name, String username, String password) {
-//            this.name = name;
-//            this.username = username;
-//            this.password = password;
-//        }
-//
-//        public Builder uuid(UUID uuid) {
-//            this.uuid = uuid;
-//            return this;
-//        }
-//
-//        public Builder createAt(LocalDateTime createAt) {
-//            this.createAt = createAt;
-//            return this;
-//        }
-//
-//        public User build() {
-//            return new User(uuid, name, username, password, createAt);
-//        }
-//    }
 
     public UUID getUuid() {
         return uuid;
