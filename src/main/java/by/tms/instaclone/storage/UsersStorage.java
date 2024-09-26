@@ -14,6 +14,7 @@ import static by.tms.instaclone.storage.KeeperConstants.*;
 import static by.tms.instaclone.storage.Reader.readCsvFile;
 import static by.tms.instaclone.storage.Writer.writeCsvFile;
 
+// реализован как класс-Одиночка
 public class UsersStorage {
     private static UsersStorage usersStorage;
     private ConcurrentHashMap<UUID, User> users;
@@ -27,6 +28,10 @@ public class UsersStorage {
 
     public ConcurrentHashMap<UUID, User> getUsers() {
         return users;
+    }
+
+    public User getUser(UUID uuid) {
+        return users.get(uuid);
     }
 
     public void newUser(User user) {
