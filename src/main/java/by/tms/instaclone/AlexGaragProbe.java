@@ -31,16 +31,18 @@ public class AlexGaragProbe {
             System.out.println("Username already exists");
         }
 
-        User userAtom = usersStorage.getUser(UUID.fromString("3e10f8c8-0924-3d3a-8f94-c18e7addb866"));
-
         PostsStorage postsStorage = PostsStorage.getInstance();
         ConcurrentHashMap<UUID, Post> posts1 = postsStorage.getPosts();
         ConcurrentHashMap<UUID, Post> posts2 = postsStorage.getPosts();
 
         Post post = postsStorage.getPost(UUID.fromString("4270310a-1309-4f64-b823-99bfc55a240b"));
+        String text = post.getText();
 
         Map<UUID, Post> posts3 = postsStorage.getPostsOwner(UUID.fromString("3e10f8c8-0924-3d3a-8f94-c18e7addb866"));
-        Map<UUID, Post> posts4 = postsStorage.getPostsOwner(userAtom.getUuid());
+
+        User userNom = usersStorage.getUser(UUID.fromString("aee37c30-f5d0-31a4-9552-6f636a3527bb"));
+        postsStorage.newPost(new Post(userNom, "пост Nom'а - 1"));
+        Map<UUID, Post> posts4 = postsStorage.getPostsOwner(userNom.getUuid());
 
 
 
