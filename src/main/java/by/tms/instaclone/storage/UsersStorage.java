@@ -32,6 +32,7 @@ public class UsersStorage {
     public void newUser(User user) {
         users.put(user.getUuid(), user);
         UsernamesStorage.getInstance().newUser(user);
+        // todo: с переходом к БД - сделать как с Объектом
         String rowText = USERS_CSV_FORMAT_TEMPLATE.formatted(user.getUuid().toString(), user.getName(), user.getUsername(),
                 user.getPassword(), user.getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli()/1000);
         writeCsvFile(USERS_CSV_FILE, rowText);
