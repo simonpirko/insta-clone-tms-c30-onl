@@ -11,7 +11,9 @@ public class AlexGaragProbe {
 // работа с Логером
 //        getLogger().addRecord(ERROR_TEMPLATE.formatted(ERROR_IO_FILE_TEMPLATE.formatted(LOGS_FILE)));
         ConcurrentHashMap<String, User> users1 = UsersStorage.getInstance().getUsers();
+        ConcurrentHashMap<String, User> users2 = UsersStorage.getInstance().getUsers();
         ConcurrentHashMap<String, User> usernames1 = UsernamesStorage.getInstance().getUsernames();
+        ConcurrentHashMap<String, User> usernames2 = UsernamesStorage.getInstance().getUsernames();
 
         int i = 0;
 

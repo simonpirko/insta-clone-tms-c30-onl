@@ -40,6 +40,6 @@ public class UsersStorage {
     }
 
     public ConcurrentHashMap<String, User> getUsers() {
-        return new ConcurrentHashMap<>(users);
+        return users;
     }
 }

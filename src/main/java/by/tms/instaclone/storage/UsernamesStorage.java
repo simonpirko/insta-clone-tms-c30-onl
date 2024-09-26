@@ -37,6 +37,6 @@ public class UsernamesStorage {
     }
 
     public ConcurrentHashMap<String, User> getUsernames() {
-        return new ConcurrentHashMap<>(usernames);
+        return usernames;
     }
 }
