@@ -14,7 +14,7 @@ import static by.tms.instaclone.storage.Reader.readCsvFile;
 
 public class UsersStorage {
     private static UsersStorage usersStorage;
-    private ConcurrentHashMap<String, User> users;
+    private ConcurrentHashMap<UUID, User> users;
 
     public static synchronized UsersStorage getInstance() {
         if (usersStorage == null) {
@@ -30,16 +30,13 @@ public class UsersStorage {
             String[] arrayRows = fileString.get().split(LF);   // делим csv-файл на строки по LF ("перевод каретки")
             for (String row : arrayRows) {
                 String[] arrayWords = row.split(SEPARATOR_CSV);   // делим строку на "слова" по SEPARATOR_CSV
-                users.put(arrayWords[0], new User(UUID.fromString(arrayWords[0]),
-                        arrayWords[1],
-                        arrayWords[2],
-                        arrayWords[3],
+                users.put(UUID.fromString(arrayWords[0]), new User(UUID.fromString(arrayWords[0]), arrayWords[1], arrayWords[2], arrayWords[3],
                         LocalDateTime.ofInstant(Instant.ofEpochSecond(Long.valueOf(arrayWords[4])), ZoneId.systemDefault())));
             }
         }
     }
 
-    public ConcurrentHashMap<String, User> getUsers() {
+    public ConcurrentHashMap<UUID, User> getUsers() {
         return users;
     }
 }
