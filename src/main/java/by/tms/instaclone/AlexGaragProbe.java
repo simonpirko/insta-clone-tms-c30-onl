@@ -18,8 +18,8 @@ public class AlexGaragProbe {
         UsersStorage usersStorage = UsersStorage.getInstance();
         ConcurrentHashMap<UUID, User> users1 = usersStorage.getUsers();
         ConcurrentHashMap<UUID, User> users2 = UsersStorage.getInstance().getUsers();
-        ConcurrentHashMap<String, User> usernames1 = UsernamesStorage.getInstance().getUsernames();
-        ConcurrentHashMap<String, User> usernames2 = UsernamesStorage.getInstance().getUsernames();
+        ConcurrentHashMap<String, String> usernames1 = UsernamesStorage.getInstance().getUsernames();
+        ConcurrentHashMap<String, String> usernames2 = UsernamesStorage.getInstance().getUsernames();
 
         String name = "Rome1";
         String username = "rome1";
