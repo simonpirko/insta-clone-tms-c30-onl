@@ -43,25 +43,19 @@ public class PostsStorage {
     }
 
     public void deletePost(Post post) {
-        // todo удалить комментарии на пост
-        // todo удалить реакции на пост
-        // todo удалить его фото
+        deleteHeirs(post);
         posts.remove(post.getUuid());
-        // todo: удалить его в файле (БД)
         rewrite();
-
     }
 
     public void deletePostOwner(User owner) {
         for (Map.Entry entry: posts.entrySet()) {
             if (((Post) entry.getValue()).getOwner().equals(owner)) {
-                // todo удалить комментарии на пост
-                // todo удалить реакции на пост
-                // todo удалить его фото
+                deleteHeirs((Post) entry.getValue());
                 posts.remove(entry.getKey());
             }
-            // todo: удалить ВСЕ-СРАЗУ-ОДНОВРЕМЕННО! в файле (БД)
         }
+        rewrite();
     }
 
     public Post getPost(UUID uuid) {
@@ -108,6 +102,12 @@ public class PostsStorage {
                     .append(LF);
         }
         writeCsvFile(POSTS_CSV_FILE, contentPostsStorage.toString());
+    }
+
+    private void deleteHeirs(Post post) {
+        // todo удалить комментарии на пост
+        // todo удалить реакции на пост
+        // todo удалить его фото
     }
 
     private void substitute(Post oldPost, Post newPost) {

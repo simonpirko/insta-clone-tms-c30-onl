@@ -17,8 +17,13 @@ public class PostsStorageProbe {
 // работа со Storage
 
         PostsStorage postsStorage = PostsStorage.getInstance();
-        Post deletePost = postsStorage.getPost(UUID.fromString("916af874-3314-48c2-9f51-7246ccecd141"));
-        postsStorage.deletePost(deletePost);
+//        Post deletePost = postsStorage.getPost(UUID.fromString("916af874-3314-48c2-9f51-7246ccecd141"));
+//        postsStorage.deletePost(deletePost);
+
+        UsersStorage usersStorage = UsersStorage.getInstance();
+        User ownerUser = usersStorage.getUser(UUID.fromString("d1085705-5a91-383d-b1b5-c49094657e10"));
+        postsStorage.deletePostOwner(ownerUser);
+
 
         int i = 0;
     }

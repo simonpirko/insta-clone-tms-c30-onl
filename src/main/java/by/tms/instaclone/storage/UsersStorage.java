@@ -1,5 +1,6 @@
 package by.tms.instaclone.storage;
 
+import by.tms.instaclone.model.Post;
 import by.tms.instaclone.model.User;
 
 import java.time.Instant;
@@ -66,9 +67,7 @@ public class UsersStorage {
     public void deleteUser(User user) {
         UsernamesStorage.getInstance().deleteUser(usersStorage.getUser(user.getUuid()).getUsername());
         PostsStorage.getInstance().deletePostOwner(user);
-        // todo: удалить его подписки
-        // todo: удалить его коментарии
-        // todo: удалить его реакции
+        deleteHeirs(user);
         users.remove(user.getUuid());
         rewrite();
     }
@@ -98,6 +97,13 @@ public class UsersStorage {
                     .append(LF);
         }
         writeCsvFile(USERS_CSV_FILE, contentUsersStorage.toString());
+    }
+
+    private void deleteHeirs(User user) {
+        PostsStorage postsStorage = PostsStorage.getInstance();
+        postsStorage.deletePostOwner(user);
+        // todo удалить Reaction's на Post
+        // todo удалить фото Post'а
     }
 
     private void substitute(User oldUser, User newUser) {
