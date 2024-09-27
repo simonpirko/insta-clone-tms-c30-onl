@@ -93,4 +93,9 @@ public class PostsStorage {
             }
         }
     }
+
+    private void substitute(Post oldPost, Post newPost) {
+        deletePost(oldPost);
+        newPost(newPost);
+    }
 }
