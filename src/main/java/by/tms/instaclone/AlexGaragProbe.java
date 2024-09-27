@@ -16,8 +16,10 @@ public class AlexGaragProbe {
 //        getLogger().addRecord(ERROR_TEMPLATE.formatted(ERROR_IO_FILE_TEMPLATE.formatted(LOGS_FILE)));
 // работа со Storage
         UsersStorage usersStorage = UsersStorage.getInstance();
-        User ChangeNameUser = usersStorage.getUser(UUID.fromString("d1085705-5a91-383d-b1b5-c49094657e10"));
-        usersStorage.changeName(ChangeNameUser, "Alex-3");
+        User ChangeNameUser = usersStorage.getUser(UUID.fromString("91df09b5-69af-39b5-a64d-1506f50fa4bb"));
+        usersStorage.changeName(ChangeNameUser, "Proton 4");
+        usersStorage.changeUsername(ChangeNameUser, "photon 4");
+        usersStorage.changePassword(ChangeNameUser, "photon 4");
 //        User deleteUser = usersStorage.getUser(UUID.fromString("029ad4c2-5c5c-309d-b578-604976d65aa1"));
 //        usersStorage.deleteUser(deleteUser);
 //        ConcurrentHashMap<UUID, User> users1 = usersStorage.getUsers();

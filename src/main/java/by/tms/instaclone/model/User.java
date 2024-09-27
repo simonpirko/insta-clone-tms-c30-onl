@@ -8,7 +8,7 @@ public class User {
 //    private static User user;
     private final UUID uuid;                // ИД User - генерация через ЛОГИН и по UUID и сравниваем User
     private String name;                    // имя-фамилия / имя-второе имя-фамилия / "кличка" etc.
-    private final String username;          // логин
+    private String username;                // логин
     private String password;                // пароль
     private final LocalDateTime createAt;   // время создания User
 
@@ -69,7 +69,7 @@ public class User {
     }
 
     public void setUsername(String newUsername) {
-        this.name = newUsername;
+        this.username = newUsername;
     }
 
     public void setPassword(String newPassword) {
@@ -90,11 +90,11 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(username, user.username);
+        return Objects.equals(uuid, user.uuid);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(username);
+        return Objects.hashCode(uuid);
     }
 }

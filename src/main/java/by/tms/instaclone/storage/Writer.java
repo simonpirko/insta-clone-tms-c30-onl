@@ -19,24 +19,20 @@ public class Writer {
      * Метод производит запись в nameFile одной(!) строки (свойства Сущности, например)
      *
      * @param nameFile - имя файла (с путём), в который производится сохранение строки
-     * @param rowText - сохраняемая строка (добавляется в хвост файла)
-     *
-     * запись в файл производится в отдельном потоке
+     * @param rowText  - сохраняемая строка (добавляется в хвост файла)
+     *                 <p>
+     *                 запись в файл производится в отдельном потоке
      */
     public static void writeCsvFile(String nameFile, String rowText) {
         // todo пробую решить проблему с путями файла
         ClassLoader classLoader = Writer.class.getClassLoader();    // todo с таким решением работа идёт с файлами из target
         File csvFile = new File(Objects.requireNonNull(classLoader.getResource(nameFile)).getFile());
-        //
-        Thread writeThread = new Thread(() -> {
-            try {
+        try {
 //                Files.write(Paths.get(nameFile), rowText.getBytes(), StandardOpenOption.APPEND);
-                Files.write(Paths.get(csvFile.toString()), rowText.getBytes(), StandardOpenOption.APPEND);
-            } catch (IOException ex) {
+            Files.write(Paths.get(csvFile.toString()), rowText.getBytes(), StandardOpenOption.APPEND);
+        } catch (IOException ex) {
 // todo решить: логгер или исключение?
-                getLogger().addRecord(ERROR_TEMPLATE.formatted(ERROR_IO_FILE_TEMPLATE.formatted(nameFile)));
-            }
-        });
-        writeThread.start();
+            getLogger().addRecord(ERROR_TEMPLATE.formatted(ERROR_IO_FILE_TEMPLATE.formatted(nameFile)));
+        }
     }
 }
