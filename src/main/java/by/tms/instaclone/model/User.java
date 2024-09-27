@@ -64,12 +64,16 @@ public class User {
         return createAt;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String newName) {
+        this.name = newName;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setUsername(String newUsername) {
+        this.name = newUsername;
+    }
+
+    public void setPassword(String newPassword) {
+        this.password = newPassword;
     }
 
     @Override

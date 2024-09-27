@@ -35,8 +35,19 @@ public class UsersStorage {
     public void changeName(User user, String newName) {
         User newUser = users.get(user.getUuid());
         newUser.setName(newName);
-        deleteUser(user);
-        newUser(newUser);
+        substitute(user, newUser);
+    }
+
+    public void changeUsername(User user, String newUsername) {
+        User newUser = users.get(user.getUuid());
+        newUser.setUsername(newUsername);
+        substitute(user, newUser);
+    }
+
+    public void changePassword(User user, String newPassword) {
+        User newUser = users.get(user.getUuid());
+        newUser.setPassword(newPassword);
+        substitute(user, newUser);
     }
 
     public User getUser(UUID uuid) {
@@ -87,5 +98,10 @@ public class UsersStorage {
                     .append(LF);
         }
         writeCsvFile(USERS_CSV_FILE, stringBuilder.toString());
+    }
+
+    private void substitute(User oldUser, User newUser) {
+        deleteUser(oldUser);
+        newUser(newUser);
     }
 }
