@@ -32,28 +32,15 @@ public class UsersStorage {
         return users;
     }
 
-    public User getUser(UUID uuid) {
-        return users.get(uuid);
+    public void changeName(User user, String newName) {
+        User newUser = users.get(user.getUuid());
+        newUser.setName(newName);
+        deleteUser(user);
+        newUser(newUser);
     }
 
-    public void deleteUser(User user) {
-        UsernamesStorage.getInstance().deleteUser(usersStorage.getUser(user.getUuid()).getUsername());
-        PostsStorage.getInstance().deletePostOwner(user);
-        // todo: удалить его подписки
-        // todo: удалить его коментарии
-        // todo: удалить его реакции
-        users.remove(user.getUuid());
-        deleteContentCsvFile(USERS_CSV_FILE);
-        StringBuilder stringBuilder = new StringBuilder();
-        for (Map.Entry entry: users.entrySet()) {
-            stringBuilder.append(((User) entry.getValue()).getUuid().toString()).append(SEPARATOR_CSV)
-                    .append(((User) entry.getValue()).getName()).append(SEPARATOR_CSV)
-                    .append(((User) entry.getValue()).getUsername()).append(SEPARATOR_CSV)
-                    .append(((User) entry.getValue()).getPassword()).append(SEPARATOR_CSV)
-                    .append(((User) entry.getValue()).getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli()/1000).append(SEPARATOR_CSV)
-                    .append(LF);
-        }
-        writeCsvFile(USERS_CSV_FILE, stringBuilder.toString());
+    public User getUser(UUID uuid) {
+        return users.get(uuid);
     }
 
     public void newUser(User user) {
@@ -63,6 +50,16 @@ public class UsersStorage {
         String rowText = USERS_CSV_FORMAT_TEMPLATE.formatted(user.getUuid().toString(), user.getName(), user.getUsername(),
                 user.getPassword(), user.getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli()/1000);
         writeCsvFile(USERS_CSV_FILE, rowText);
+    }
+
+    public void deleteUser(User user) {
+        UsernamesStorage.getInstance().deleteUser(usersStorage.getUser(user.getUuid()).getUsername());
+        PostsStorage.getInstance().deletePostOwner(user);
+        // todo: удалить его подписки
+        // todo: удалить его коментарии
+        // todo: удалить его реакции
+        users.remove(user.getUuid());
+        rewrite();
     }
 
     private UsersStorage() {
@@ -76,5 +73,19 @@ public class UsersStorage {
                         LocalDateTime.ofInstant(Instant.ofEpochSecond(Long.valueOf(arrayWords[4])), ZoneId.systemDefault())));
             }
         }
+    }
+
+    private void rewrite() {
+        deleteContentCsvFile(USERS_CSV_FILE);
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Map.Entry entry: users.entrySet()) {
+            stringBuilder.append(((User) entry.getValue()).getUuid().toString()).append(SEPARATOR_CSV)
+                    .append(((User) entry.getValue()).getName()).append(SEPARATOR_CSV)
+                    .append(((User) entry.getValue()).getUsername()).append(SEPARATOR_CSV)
+                    .append(((User) entry.getValue()).getPassword()).append(SEPARATOR_CSV)
+                    .append(((User) entry.getValue()).getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli()/1000).append(SEPARATOR_CSV)
+                    .append(LF);
+        }
+        writeCsvFile(USERS_CSV_FILE, stringBuilder.toString());
     }
 }

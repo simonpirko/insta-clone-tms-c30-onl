@@ -64,7 +64,6 @@ public class User {
         return createAt;
     }
 
-
     public void setName(String name) {
         this.name = name;
     }
