@@ -1,6 +1,7 @@
 package by.tms.instaclone.storage;
 
 import by.tms.instaclone.model.Post;
+import by.tms.instaclone.model.User;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -40,6 +41,26 @@ public class PostsStorage {
         writeCsvFile(POSTS_CSV_FILE, rowText);
     }
 
+    public void deletePost(Post post) {
+        posts.remove(post.getUuid());
+        // todo удалить комментарии на пост
+        // todo удалить реакции на пост
+        // todo удалить его фото
+        // todo: удалить его в файле (БД)
+    }
+
+    public void deletePostOwner(User owner) {
+        for (Map.Entry entry: posts.entrySet()) {
+            if (((Post) entry.getValue()).getOwner().equals(owner)) {
+                posts.remove(entry.getKey());
+                // todo удалить комментарии на пост
+                // todo удалить реакции на пост
+                // todo удалить его фото
+            }
+            // todo: удалить ВСЕ-СРАЗУ-ОДНОВРЕМЕННО! в файле (БД)
+        }
+    }
+
     public Post getPost(UUID uuid) {
         return posts.get(uuid);
     }
@@ -47,12 +68,15 @@ public class PostsStorage {
     public Map<UUID, Post> getPostsOwner(UUID ownerUuid) {
         Map<UUID, Post> postsOwner = new HashMap<>();
         for (Map.Entry entry: posts.entrySet()) {
-            UUID uuid = ((Post) entry.getValue()).getOwner().getUuid();
-            if (uuid.equals(ownerUuid)) {
+            if (((Post) entry.getValue()).getOwner().getUuid().equals(ownerUuid)) {
                 postsOwner.put(((Post) entry.getValue()).getUuid(), (Post) entry.getValue());
             }
         }
         return postsOwner;
+    }
+
+    public void changeText(UUID uuid, String newText) {
+        //todo
     }
 
     // принцип работы аналогичен UsersStorage

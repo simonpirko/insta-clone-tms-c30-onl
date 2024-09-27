@@ -21,9 +21,10 @@ public class AlexGaragProbe {
         ConcurrentHashMap<String, String> usernames1 = UsernamesStorage.getInstance().getUsernames();
         ConcurrentHashMap<String, String> usernames2 = UsernamesStorage.getInstance().getUsernames();
 
-        String name = "Rome1";
-        String username = "rome1";
-        String password = "rome1";
+
+        String name = "NewUser";
+        String username = "newuser";
+        String password = "newuser";
         if (usernames1.get(username) == null) {
             User user = new User(name, username, password);
             usersStorage.newUser(user);
@@ -40,9 +41,10 @@ public class AlexGaragProbe {
 
         Map<UUID, Post> posts3 = postsStorage.getPostsOwner(UUID.fromString("3e10f8c8-0924-3d3a-8f94-c18e7addb866"));
 
-        User userNom = usersStorage.getUser(UUID.fromString("aee37c30-f5d0-31a4-9552-6f636a3527bb"));
-        postsStorage.newPost(new Post(userNom, "пост Nom'а - 1"));
-        Map<UUID, Post> posts4 = postsStorage.getPostsOwner(userNom.getUuid());
+        User userAlex2 = usersStorage.getUser(UUID.fromString("d1085705-5a91-383d-b1b5-c49094657e10"));
+        postsStorage.newPost(new Post(userAlex2, "новый пост - 1"));
+        Map<UUID, Post> posts4 = postsStorage.getPostsOwner(userAlex2.getUuid());
+        postsStorage.deletePostOwner(userAlex2);
 
 
         int i = 0;

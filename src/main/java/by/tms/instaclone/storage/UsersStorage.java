@@ -34,6 +34,16 @@ public class UsersStorage {
         return users.get(uuid);
     }
 
+    public void deleteUser(User user) {
+        users.remove(user.getUuid());
+        UsernamesStorage.getInstance().deleteUser(usersStorage.getUser(user.getUuid()).getUsername());
+        PostsStorage.getInstance().deletePostOwner(user);
+        // todo: удалить его подписки
+        // todo: удалить его коментарии
+        // todo: удалить его реакции
+        // todo: удалить его файле (БД)
+    }
+
     public void newUser(User user) {
         users.put(user.getUuid(), user);
         UsernamesStorage.getInstance().newUser(user);

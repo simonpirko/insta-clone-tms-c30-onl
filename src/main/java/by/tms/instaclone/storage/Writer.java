@@ -1,9 +1,11 @@
 package by.tms.instaclone.storage;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.Objects;
 
 import static by.tms.instaclone.storage.KeeperConstants.ERROR_IO_FILE_TEMPLATE;
 import static by.tms.instaclone.storage.KeeperConstants.ERROR_TEMPLATE;
@@ -20,9 +22,14 @@ public class Writer {
      * запись в файл производится в отдельном потоке
      */
     public static void writeCsvFile(String nameFile, String rowText) {
+        // todo пробую решить проблему с путями файла
+        ClassLoader classLoader = Writer.class.getClassLoader();    // todo с таким решением работа идёт с файлами из target
+        File csvFile = new File(Objects.requireNonNull(classLoader.getResource(nameFile)).getFile());
+        //
         Thread writeThread = new Thread(() -> {
             try {
-                Files.write(Paths.get(nameFile), rowText.getBytes(), StandardOpenOption.APPEND);
+//                Files.write(Paths.get(nameFile), rowText.getBytes(), StandardOpenOption.APPEND);
+                Files.write(Paths.get(csvFile.toString()), rowText.getBytes(), StandardOpenOption.APPEND);
             } catch (IOException ex) {
 // todo решить: логгер или исключение?
                 getLogger().addRecord(ERROR_TEMPLATE.formatted(ERROR_IO_FILE_TEMPLATE.formatted(nameFile)));

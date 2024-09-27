@@ -27,6 +27,10 @@ public class UsernamesStorage {
         usernames.put(user.getUsername(), "");
     }
 
+    public void deleteUser(String username) {
+        usernames.remove(username);
+    }
+
     private UsernamesStorage() {
         usernames = new ConcurrentHashMap<>();
         ConcurrentHashMap<UUID, User> users = UsersStorage.getInstance().getUsers();
