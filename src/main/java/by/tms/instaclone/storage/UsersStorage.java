@@ -6,10 +6,12 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static by.tms.instaclone.storage.Deleter.deleteContentCsvFile;
 import static by.tms.instaclone.storage.KeeperConstants.*;
 import static by.tms.instaclone.storage.Reader.readCsvFile;
 import static by.tms.instaclone.storage.Writer.writeCsvFile;
@@ -35,13 +37,23 @@ public class UsersStorage {
     }
 
     public void deleteUser(User user) {
-        users.remove(user.getUuid());
         UsernamesStorage.getInstance().deleteUser(usersStorage.getUser(user.getUuid()).getUsername());
         PostsStorage.getInstance().deletePostOwner(user);
         // todo: удалить его подписки
         // todo: удалить его коментарии
         // todo: удалить его реакции
-        // todo: удалить его файле (БД)
+        users.remove(user.getUuid());
+        deleteContentCsvFile(USERS_CSV_FILE);
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Map.Entry entry: users.entrySet()) {
+            stringBuilder.append(((User) entry.getValue()).getUuid().toString()).append(SEPARATOR_CSV)
+                    .append(((User) entry.getValue()).getName()).append(SEPARATOR_CSV)
+                    .append(((User) entry.getValue()).getUsername()).append(SEPARATOR_CSV)
+                    .append(((User) entry.getValue()).getPassword()).append(SEPARATOR_CSV)
+                    .append(((User) entry.getValue()).getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli()/1000).append(SEPARATOR_CSV)
+                    .append(LF);
+        }
+        writeCsvFile(USERS_CSV_FILE, stringBuilder.toString());
     }
 
     public void newUser(User user) {

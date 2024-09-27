@@ -16,6 +16,8 @@ public class AlexGaragProbe {
 //        getLogger().addRecord(ERROR_TEMPLATE.formatted(ERROR_IO_FILE_TEMPLATE.formatted(LOGS_FILE)));
 // работа со Storage
         UsersStorage usersStorage = UsersStorage.getInstance();
+        User deleteUser = usersStorage.getUser(UUID.fromString("029ad4c2-5c5c-309d-b578-604976d65aa1"));
+        usersStorage.deleteUser(deleteUser);
         ConcurrentHashMap<UUID, User> users1 = usersStorage.getUsers();
         ConcurrentHashMap<UUID, User> users2 = UsersStorage.getInstance().getUsers();
         ConcurrentHashMap<String, String> usernames1 = UsernamesStorage.getInstance().getUsernames();
