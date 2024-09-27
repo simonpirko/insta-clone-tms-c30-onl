@@ -21,16 +21,16 @@ public class AlexGaragProbe {
         ConcurrentHashMap<String, User> usernames1 = UsernamesStorage.getInstance().getUsernames();
         ConcurrentHashMap<String, User> usernames2 = UsernamesStorage.getInstance().getUsernames();
 
-        String name = "Nom1";
-        String username = "nom1";
-        String password = "nom1";
+        String name = "Rome1";
+        String username = "rome1";
+        String password = "rome1";
         if (usernames1.get(username) == null) {
             User user = new User(name, username, password);
             usersStorage.newUser(user);
         } else {
             System.out.println("Username already exists");
         }
-
+// работа с Post'ами
         PostsStorage postsStorage = PostsStorage.getInstance();
         ConcurrentHashMap<UUID, Post> posts1 = postsStorage.getPosts();
         ConcurrentHashMap<UUID, Post> posts2 = postsStorage.getPosts();
@@ -43,8 +43,6 @@ public class AlexGaragProbe {
         User userNom = usersStorage.getUser(UUID.fromString("aee37c30-f5d0-31a4-9552-6f636a3527bb"));
         postsStorage.newPost(new Post(userNom, "пост Nom'а - 1"));
         Map<UUID, Post> posts4 = postsStorage.getPostsOwner(userNom.getUuid());
-
-
 
 
         int i = 0;

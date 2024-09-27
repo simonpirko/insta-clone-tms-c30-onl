@@ -11,15 +11,15 @@ public class Subscription {
     //userUuid: идентификатор Пользователя- к которому относятся рекомендации
     //userList: список рекомендованных пользователей
 
-    private final UUID uuid;// идентификатор Подписки
-    private final User subscriber;//  подписавшейся Пользователь
-    private final User subscription;//  Пользователь на кого подписался
-    private final LocalDateTime createAt;// время создания Подписки
+    private final UUID uuid;                // идентификатор Подписки
+    private final User subscriber;          //  подписавшейся Пользователь
+    private final User publisher;           //  Пользователь-публикатор на кого подписался
+    private final LocalDateTime createAt;   // время создания Подписки
 
-    public Subscription(UUID uuid, User subscriber, User subscription) {
+    public Subscription(UUID uuid, User subscriber, User publisher) {
         this.uuid = uuid;
         this.subscriber = subscriber;
-        this.subscription = subscription;
+        this.publisher = publisher;
         this.createAt = LocalDateTime.now(TimeZoneSettings.getUtcClock());
     }
 
@@ -31,8 +31,8 @@ public class Subscription {
         return subscriber;
     }
 
-    public User getSubscription() {
-        return subscription;
+    public User getPublisher() {
+        return publisher;
     }
 
     public LocalDateTime getCreateAt() {

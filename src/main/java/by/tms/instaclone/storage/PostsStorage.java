@@ -1,7 +1,6 @@
 package by.tms.instaclone.storage;
 
 import by.tms.instaclone.model.Post;
-import by.tms.instaclone.model.User;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
