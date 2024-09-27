@@ -9,10 +9,13 @@ import by.tms.instaclone.storage.UsersStorage;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static by.tms.instaclone.storage.KeeperConstants.*;
+import static by.tms.instaclone.utilites.SiteLogger.getLogger;
+
 public class PostsStorageProbe {
     public static void main(String[] args) {
 // работа с Логером
-//        getLogger().addRecord(ERROR_TEMPLATE.formatted(ERROR_IO_FILE_TEMPLATE.formatted(LOGS_FILE)));
+        getLogger().addRecord(ERROR_TEMPLATE.formatted(ERROR_IO_FILE_TEMPLATE.formatted(LOGS_FILE)));
 
 // работа со Storage
 
@@ -24,8 +27,8 @@ public class PostsStorageProbe {
 //        User ownerUser = usersStorage.getUser(UUID.fromString("d1085705-5a91-383d-b1b5-c49094657e10"));
 //        postsStorage.deletePostOwner(ownerUser);
 
-        Post post = postsStorage.getPost(UUID.fromString("78b0b195-f2de-42e1-8b0c-2724337c8b8d"));
-        postsStorage.changeText(post, "Заменённый ТЕКСТ");
+//        Post post = postsStorage.getPost(UUID.fromString("78b0b195-f2de-42e1-8b0c-2724337c8b8d"));
+//        postsStorage.changeText(post, "Заменённый ТЕКСТ");
 
 
         int i = 0;

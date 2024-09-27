@@ -78,7 +78,6 @@ public class PostsStorage {
         substitute(post, newPost);
     }
 
-    // принцип работы аналогичен UsersStorage
     private PostsStorage() {
         posts = new ConcurrentHashMap<>();
         Optional<String> fileString = readCsvFile(POSTS_CSV_FILE);
@@ -107,9 +106,9 @@ public class PostsStorage {
     }
 
     private void deleteHeirs(Post post) {
-        // todo удалить комментарии на пост
-        // todo удалить реакции на пост
-        // todo удалить его фото
+        // todo удалить комментарии на Post
+        // todo удалить реакции на Post
+        // todo удалить фото Post'а
     }
 
     private void substitute(Post oldPost, Post newPost) {
