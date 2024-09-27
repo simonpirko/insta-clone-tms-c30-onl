@@ -42,20 +42,20 @@ public class PostsStorage {
     }
 
     public void deletePost(Post post) {
-        posts.remove(post.getUuid());
         // todo удалить комментарии на пост
         // todo удалить реакции на пост
         // todo удалить его фото
+        posts.remove(post.getUuid());
         // todo: удалить его в файле (БД)
     }
 
     public void deletePostOwner(User owner) {
         for (Map.Entry entry: posts.entrySet()) {
             if (((Post) entry.getValue()).getOwner().equals(owner)) {
-                posts.remove(entry.getKey());
                 // todo удалить комментарии на пост
                 // todo удалить реакции на пост
                 // todo удалить его фото
+                posts.remove(entry.getKey());
             }
             // todo: удалить ВСЕ-СРАЗУ-ОДНОВРЕМЕННО! в файле (БД)
         }
@@ -88,8 +88,8 @@ public class PostsStorage {
             for (String row : arrayRows) {
                 String[] arrayWords = row.split(SEPARATOR_CSV);
                 posts.put(UUID.fromString(arrayWords[0]), new Post(UUID.fromString(arrayWords[0]),
-                        UsersStorage.getInstance().getUser(UUID.fromString(arrayWords[1])),
-                        arrayWords[2],  LocalDateTime.ofInstant(Instant.ofEpochSecond(Long.valueOf(arrayWords[3])), ZoneId.systemDefault())));
+                        UsersStorage.getInstance().getUser(UUID.fromString(arrayWords[1])), arrayWords[2],
+                        LocalDateTime.ofInstant(Instant.ofEpochSecond(Long.valueOf(arrayWords[3])), ZoneId.systemDefault())));
             }
         }
     }
