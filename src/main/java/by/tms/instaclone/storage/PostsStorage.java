@@ -72,8 +72,10 @@ public class PostsStorage {
         return postsOwner;
     }
 
-    public void changeText(UUID uuid, String newText) {
-        //todo
+    public void changeText(Post post, String newText) {
+        Post newPost = posts.get(post.getUuid());
+        newPost.setText(newText);
+        substitute(post, newPost);
     }
 
     // принцип работы аналогичен UsersStorage
