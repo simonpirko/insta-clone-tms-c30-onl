@@ -75,7 +75,7 @@ public class UsersStorage {
     private UsersStorage() {
         users = new ConcurrentHashMap<>();
         Optional<String> fileString = readCsvFile(USERS_CSV_FILE);
-        if (fileString.isPresent()) {
+        if (fileString.get().length() > 0) {
             String[] arrayRows = fileString.get().split(LF);   // делим csv-файл на строки по LF ("перевод каретки")
             for (String row : arrayRows) {
                 String[] arrayWords = row.split(SEPARATOR_CSV);   // делим строку на "слова" по SEPARATOR_CSV
@@ -86,7 +86,6 @@ public class UsersStorage {
     }
 
     private void rewrite() {
-        deleteContentCsvFile(USERS_CSV_FILE);
         StringBuilder contentUsersStorage = new StringBuilder();
         for (Map.Entry entry: users.entrySet()) {
             contentUsersStorage.append(((User) entry.getValue()).getUuid().toString()).append(SEPARATOR_CSV)
@@ -96,6 +95,7 @@ public class UsersStorage {
                     .append(((User) entry.getValue()).getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli()/1000).append(SEPARATOR_CSV)
                     .append(LF);
         }
+        deleteContentCsvFile(USERS_CSV_FILE);
         writeCsvFile(USERS_CSV_FILE, contentUsersStorage.toString());
     }
 
@@ -103,6 +103,7 @@ public class UsersStorage {
         PostsStorage postsStorage = PostsStorage.getInstance();
         postsStorage.deletePostOwner(user);
         // todo удалить Reaction's на Post
+        // todo удалить Subscription's на User
         // todo удалить фото Post'а
     }
 

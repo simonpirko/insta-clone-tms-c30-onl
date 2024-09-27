@@ -16,11 +16,26 @@ public class Subscription {
     private final User publisher;           //  Пользователь-публикатор на кого подписался
     private final LocalDateTime createAt;   // время создания Подписки
 
-    public Subscription(UUID uuid, User subscriber, User publisher) {
-        this.uuid = uuid;
+    public Subscription(User subscriber, User publisher) {
         this.subscriber = subscriber;
         this.publisher = publisher;
         this.createAt = LocalDateTime.now(TimeZoneSettings.getUtcClock());
+        this.uuid = UUID.nameUUIDFromBytes((subscriber.getUuid().toString() + publisher.getUuid().toString() + this.createAt).getBytes());
+    }
+
+    /**
+     * Пересоздание (ранее созданного/существующего) Subscription
+     *
+     * @param uuid
+     * @param subscriber
+     * @param publisher
+     * @param createAt
+     */
+    public Subscription(UUID uuid, User subscriber, User publisher, LocalDateTime createAt) {
+        this.uuid = uuid;
+        this.subscriber = subscriber;
+        this.publisher = publisher;
+        this.createAt = createAt;
     }
 
     public UUID getUuid() {

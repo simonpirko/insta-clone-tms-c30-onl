@@ -81,7 +81,7 @@ public class PostsStorage {
     private PostsStorage() {
         posts = new ConcurrentHashMap<>();
         Optional<String> fileString = readCsvFile(POSTS_CSV_FILE);
-        if (fileString.isPresent()) {
+        if (fileString.get().length() > 0) {
             String[] arrayRows = fileString.get().split(LF);
             for (String row : arrayRows) {
                 String[] arrayWords = row.split(SEPARATOR_CSV);
@@ -93,7 +93,6 @@ public class PostsStorage {
     }
 
     private void rewrite() {
-        deleteContentCsvFile(POSTS_CSV_FILE);
         StringBuilder contentPostsStorage = new StringBuilder();
         for (Map.Entry entry: posts.entrySet()) {
             contentPostsStorage.append(((Post) entry.getValue()).getUuid().toString()).append(SEPARATOR_CSV)
@@ -102,6 +101,7 @@ public class PostsStorage {
                     .append(((Post) entry.getValue()).getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli()/1000).append(SEPARATOR_CSV)
                     .append(LF);
         }
+        deleteContentCsvFile(POSTS_CSV_FILE);
         writeCsvFile(POSTS_CSV_FILE, contentPostsStorage.toString());
     }
 

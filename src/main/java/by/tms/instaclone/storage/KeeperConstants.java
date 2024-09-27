@@ -14,12 +14,14 @@ public class KeeperConstants {
 //    public static final String POSTS_CSV_FILE = "C:\\Users\\123\\IdeaProjects\\insta-clone-tms-c30-onl\\src\\main\\resources\\csv\\posts.csv";
     public static final String POSTS_CSV_FILE = "csv/posts.csv";
 //    public static final String LOGS_FILE = "C:\\Users\\123\\IdeaProjects\\insta-clone-tms-c30-onl\\src\\main\\resources\\logs\\logs.txt";
+    public static final String SUBSCRIPTIONS_CSV_FILE = "csv/subscriptions.csv";
     public static final String LOGS_FILE = "logs/logs.txt";
     public static final String POSTS = "posts";
     public static final String USERS = "users";
 
     public static final String USERS_CSV_FORMAT_TEMPLATE = "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + LF;
     public static final String POSTS_CSV_FORMAT_TEMPLATE = "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + LF;
+    public static final String SUBSCRIPTIONS_CSV_FORMAT_TEMPLATE = "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + LF;
     public static final String DATE_TIME_LOGGER_TEMPLATE = "dd/MM/yyyy HH:mm:ss";
     public static final String HOME_PAGE = "/pages/home.jsp";
     public static final String REGISTRATION_PAGE = "/pages/registration.jsp";

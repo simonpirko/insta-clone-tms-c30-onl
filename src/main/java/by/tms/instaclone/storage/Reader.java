@@ -21,8 +21,10 @@ public class Reader {
      */
     public static Optional<String> readCsvFile(String nameFile) {
         // todo пробую решить проблему с путями файла
-        ClassLoader classLoader = Reader.class.getClassLoader();String fileName = "db/user.csv";
+        ClassLoader classLoader = Reader.class.getClassLoader();
+//        String fileName = "db/user.csv";
         File csvFile = new File(Objects.requireNonNull(classLoader.getResource(nameFile)).getFile());
+        // todo обработать случай, когда файла не существует - создать его
         //
         try {
 //            return Optional.ofNullable(Files.readString(Paths.get(nameFile)));
