@@ -88,16 +88,16 @@ public class UsersStorage {
 
     private void rewrite() {
         deleteContentCsvFile(USERS_CSV_FILE);
-        StringBuilder stringBuilder = new StringBuilder();
+        StringBuilder contentUsersStorage = new StringBuilder();
         for (Map.Entry entry: users.entrySet()) {
-            stringBuilder.append(((User) entry.getValue()).getUuid().toString()).append(SEPARATOR_CSV)
+            contentUsersStorage.append(((User) entry.getValue()).getUuid().toString()).append(SEPARATOR_CSV)
                     .append(((User) entry.getValue()).getName()).append(SEPARATOR_CSV)
                     .append(((User) entry.getValue()).getUsername()).append(SEPARATOR_CSV)
                     .append(((User) entry.getValue()).getPassword()).append(SEPARATOR_CSV)
                     .append(((User) entry.getValue()).getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli()/1000).append(SEPARATOR_CSV)
                     .append(LF);
         }
-        writeCsvFile(USERS_CSV_FILE, stringBuilder.toString());
+        writeCsvFile(USERS_CSV_FILE, contentUsersStorage.toString());
     }
 
     private void substitute(User oldUser, User newUser) {

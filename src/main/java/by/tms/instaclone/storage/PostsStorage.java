@@ -13,6 +13,7 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static by.tms.instaclone.storage.Deleter.deleteContentCsvFile;
 import static by.tms.instaclone.storage.KeeperConstants.*;
 import static by.tms.instaclone.storage.KeeperConstants.SEPARATOR_CSV;
 import static by.tms.instaclone.storage.Reader.readCsvFile;
@@ -47,6 +48,8 @@ public class PostsStorage {
         // todo удалить его фото
         posts.remove(post.getUuid());
         // todo: удалить его в файле (БД)
+        rewrite();
+
     }
 
     public void deletePostOwner(User owner) {
@@ -92,6 +95,19 @@ public class PostsStorage {
                         LocalDateTime.ofInstant(Instant.ofEpochSecond(Long.valueOf(arrayWords[3])), ZoneId.systemDefault())));
             }
         }
+    }
+
+    private void rewrite() {
+        deleteContentCsvFile(POSTS_CSV_FILE);
+        StringBuilder contentPostsStorage = new StringBuilder();
+        for (Map.Entry entry: posts.entrySet()) {
+            contentPostsStorage.append(((Post) entry.getValue()).getUuid().toString()).append(SEPARATOR_CSV)
+                    .append(((Post) entry.getValue()).getOwner().getUuid().toString()).append(SEPARATOR_CSV)
+                    .append(((Post) entry.getValue()).getText()).append(SEPARATOR_CSV)
+                    .append(((Post) entry.getValue()).getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli()/1000).append(SEPARATOR_CSV)
+                    .append(LF);
+        }
+        writeCsvFile(POSTS_CSV_FILE, contentPostsStorage.toString());
     }
 
     private void substitute(Post oldPost, Post newPost) {
