@@ -1,5 +1,6 @@
 package by.tms.instaclone.storage;
 
+import by.tms.instaclone.model.Post;
 import by.tms.instaclone.model.Subscription;
 import by.tms.instaclone.model.User;
 
@@ -50,6 +51,26 @@ public class SubscriptionsStorage {
     public void deleteSubscription(Subscription subscription) {
         deleteHeirs(subscription);
         subscriptions.remove(subscription.getUuid());
+        rewrite();
+    }
+
+    public void deleteSubscriptionSubscriber(User subscriber) {
+        for (Map.Entry entry: subscriptions.entrySet()) {
+            if (((Subscription) entry.getValue()).getSubscriber().equals(subscriber)) {
+                deleteHeirs((Subscription) entry.getValue());
+                subscriptions.remove(entry.getKey());
+            }
+        }
+        rewrite();
+    }
+
+    public void deleteSubscriptionPublisher(User publisher) {
+        for (Map.Entry entry: subscriptions.entrySet()) {
+            if (((Subscription) entry.getValue()).getPublisher().equals(publisher)) {
+                deleteHeirs((Subscription) entry.getValue());
+                subscriptions.remove(entry.getKey());
+            }
+        }
         rewrite();
     }
 

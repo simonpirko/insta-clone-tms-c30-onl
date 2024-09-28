@@ -27,15 +27,15 @@ public class UsersStorageProbe {
         ConcurrentHashMap<UUID, User> users1 = usersStorage.getUsers();
         ConcurrentHashMap<UUID, User> users2 = UsersStorage.getInstance().getUsers();
         ConcurrentHashMap<String, String> usernames1 = UsernamesStorage.getInstance().getUsernames();
-        ConcurrentHashMap<String, String> usernames2 = UsernamesStorage.getInstance().getUsernames();
 
         String name = "NewUser";
         String username = "newuser";
         String password = "newuser";
+        ConcurrentHashMap<String, String> usernames2 = UsernamesStorage.getInstance().getUsernames();
         if (usernames1.get(username) == null) {
-            usersStorage.newUser(name, username, password);
+            usersStorage.newUser(name, username, password); // вводим с систему нового User'а и etc.
         } else {
-            System.out.println("Username already exists");
+            System.out.println("Username already exists");  // действия, если User с username уже существует
         }
 
         int i = 0;
