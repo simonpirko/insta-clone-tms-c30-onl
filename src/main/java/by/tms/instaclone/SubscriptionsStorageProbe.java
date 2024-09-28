@@ -1,6 +1,5 @@
 package by.tms.instaclone;
 
-import by.tms.instaclone.model.Subscription;
 import by.tms.instaclone.model.User;
 import by.tms.instaclone.storage.SubscriptionsStorage;
 import by.tms.instaclone.storage.UsersStorage;
