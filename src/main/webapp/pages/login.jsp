@@ -25,7 +25,7 @@
             </div>
             <div class="row justify-content-center">
                 <p class="fs-5">Enter your login and password</p>
-                <form class="col-4" action="/home" method="post">
+                <form class="col-4" action="/" method="post">
                     <div class="mb-3">
                         <label for="exampleInputEmail2" class="form-label">Login</label>
                         <input type="text" name="username" class="form-control" id="exampleInputEmail2">
