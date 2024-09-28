@@ -31,8 +31,8 @@ public class RegistrationServlet extends HttpServlet {
             usersStorage.newUser(user);
         }else{
             req.setAttribute("message","Username already exists");
+            req.getRequestDispatcher("reg.jsp");
         }
-            resp.sendRedirect("/");
     }
 
 }

@@ -17,7 +17,7 @@
     <img src="https://1000logos.net/wp-content/uploads/2017/02/insta-logo.png" width="80px">
     <p class="fs-1">Insta-clone</p>
 </div>
-<%--надо спрятать форму--%>
+<%--спрятать форму--%>
 <div class="row justify-content-center">
 <div class="col-4">
     <div class="alert alert-danger" role="alert">
