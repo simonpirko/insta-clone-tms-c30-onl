@@ -34,7 +34,17 @@ public class PostsStorage {
         return posts;
     }
 
-    public void newPost(Post post) {
+    public Post newPost(User ownerUser, String textPost) {
+        Post post = new Post(ownerUser, textPost);
+        posts.put(post.getUuid(), post);
+        // todo: с переходом к БД - сделать как с Объектом
+        String rowText = POSTS_CSV_FORMAT_TEMPLATE.formatted(post.getUuid().toString(), post.getOwner().getUuid().toString(),
+                post.getText(), post.getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli()/1000);
+        writeCsvFile(POSTS_CSV_FILE, rowText);
+        return post;
+    }
+
+    private void newPost(Post post) {
         posts.put(post.getUuid(), post);
         // todo: с переходом к БД - сделать как с Объектом
         String rowText = POSTS_CSV_FORMAT_TEMPLATE.formatted(post.getUuid().toString(), post.getOwner().getUuid().toString(),

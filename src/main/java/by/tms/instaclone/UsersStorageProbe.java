@@ -33,8 +33,7 @@ public class UsersStorageProbe {
         String username = "newuser";
         String password = "newuser";
         if (usernames1.get(username) == null) {
-            User user = new User(name, username, password);
-            usersStorage.newUser(user);
+            usersStorage.newUser(name, username, password);
         } else {
             System.out.println("Username already exists");
         }

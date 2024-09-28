@@ -29,8 +29,7 @@ public class RegistrationServlet extends HttpServlet {
         UsersStorage usersStorage = UsersStorage.getInstance();
         ConcurrentHashMap<String, String> usernames = UsernamesStorage.getInstance().getUsernames();
         if (usernames.get(username) == null) {
-            User user = new User(name, username, password);
-            usersStorage.newUser(user);
+            usersStorage.newUser(name, username, password);
         } else {
             System.out.println("Username already exists");
         }

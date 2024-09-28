@@ -20,15 +20,15 @@ public class PostsStorageProbe {
 // работа со Storage
 
         PostsStorage postsStorage = PostsStorage.getInstance();
-//        Post deletePost = postsStorage.getPost(UUID.fromString("916af874-3314-48c2-9f51-7246ccecd141"));
-//        postsStorage.deletePost(deletePost);
+        Post deletePost = postsStorage.getPost(UUID.fromString("916af874-3314-48c2-9f51-7246ccecd141"));
+        postsStorage.deletePost(deletePost);
 
-//        UsersStorage usersStorage = UsersStorage.getInstance();
-//        User ownerUser = usersStorage.getUser(UUID.fromString("d1085705-5a91-383d-b1b5-c49094657e10"));
-//        postsStorage.deletePostOwner(ownerUser);
+        UsersStorage usersStorage = UsersStorage.getInstance();
+        User ownerUser = usersStorage.getUser(UUID.fromString("d1085705-5a91-383d-b1b5-c49094657e10"));
+        postsStorage.deletePostOwner(ownerUser);
 
-//        Post post = postsStorage.getPost(UUID.fromString("78b0b195-f2de-42e1-8b0c-2724337c8b8d"));
-//        postsStorage.changeText(post, "Заменённый ТЕКСТ");
+        Post post = postsStorage.getPost(UUID.fromString("78b0b195-f2de-42e1-8b0c-2724337c8b8d"));
+        postsStorage.changeText(post, "Заменённый ТЕКСТ");
 
 
         int i = 0;

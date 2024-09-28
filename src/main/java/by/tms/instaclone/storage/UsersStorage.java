@@ -1,6 +1,5 @@
 package by.tms.instaclone.storage;
 
-import by.tms.instaclone.model.Post;
 import by.tms.instaclone.model.User;
 
 import java.time.Instant;
@@ -33,6 +32,26 @@ public class UsersStorage {
         return users;
     }
 
+    public User newUser(String name, String username, String password) {
+        User user = new User(name, username, password);
+        users.put(user.getUuid(), user);
+        UsernamesStorage.getInstance().newUser(user);
+        // todo: с переходом к БД - сделать как с Объектом
+        String rowText = USERS_CSV_FORMAT_TEMPLATE.formatted(user.getUuid().toString(), user.getName(), user.getUsername(),
+                user.getPassword(), user.getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli()/1000);
+        writeCsvFile(USERS_CSV_FILE, rowText);
+        return user;
+    }
+
+    private void newUser(User user) {
+        users.put(user.getUuid(), user);
+        UsernamesStorage.getInstance().newUser(user);
+        // todo: с переходом к БД - сделать как с Объектом
+        String rowText = USERS_CSV_FORMAT_TEMPLATE.formatted(user.getUuid().toString(), user.getName(), user.getUsername(),
+                user.getPassword(), user.getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli()/1000);
+        writeCsvFile(USERS_CSV_FILE, rowText);
+    }
+
     public void changeName(User user, String newName) {
         User newUser = users.get(user.getUuid());
         newUser.setName(newName);
@@ -53,15 +72,6 @@ public class UsersStorage {
 
     public User getUser(UUID uuid) {
         return users.get(uuid);
-    }
-
-    public void newUser(User user) {
-        users.put(user.getUuid(), user);
-        UsernamesStorage.getInstance().newUser(user);
-        // todo: с переходом к БД - сделать как с Объектом
-        String rowText = USERS_CSV_FORMAT_TEMPLATE.formatted(user.getUuid().toString(), user.getName(), user.getUsername(),
-                user.getPassword(), user.getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli()/1000);
-        writeCsvFile(USERS_CSV_FILE, rowText);
     }
 
     public void deleteUser(User user) {
