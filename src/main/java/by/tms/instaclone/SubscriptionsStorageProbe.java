@@ -17,10 +17,9 @@ public class SubscriptionsStorageProbe {
 
         SubscriptionsStorage subscriptionsStorage = SubscriptionsStorage.getInstance();
         UsersStorage usersStorage = UsersStorage.getInstance();
-        User subscriber = usersStorage.getUser(UUID.fromString("d1085705-5a91-383d-b1b5-c49094657e10")); // Alex-3
-        User publisher = usersStorage.getUser(UUID.fromString("0cdb37b3-75ab-4b65-bce6-09d3c4985578")); // Alex
-        Subscription newSubscription = new Subscription(subscriber, publisher);
-        subscriptionsStorage.newSubscription(newSubscription);
+        User subscriber = usersStorage.getUser(UUID.fromString("0cdb37b3-75ab-4b65-bce6-09d3c4985578")); // Alex
+        User publisher = usersStorage.getUser(UUID.fromString("d1085705-5a91-383d-b1b5-c49094657e10")); // Alex-3
+        Subscription newSubscription = subscriptionsStorage.newSubscription(subscriber, publisher);
 
 
         int i = 0;

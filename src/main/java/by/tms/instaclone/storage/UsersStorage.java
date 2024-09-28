@@ -102,9 +102,8 @@ public class UsersStorage {
     private void deleteHeirs(User user) {
         PostsStorage postsStorage = PostsStorage.getInstance();
         postsStorage.deletePostOwner(user);
-        // todo удалить Reaction's на Post
-        // todo удалить Subscription's на User
-        // todo удалить фото Post'а
+        // todo Subscription-subscriber
+        // todo Subscription-publisher
     }
 
     private void substitute(User oldUser, User newUser) {

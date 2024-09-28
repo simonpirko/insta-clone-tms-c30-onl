@@ -1,7 +1,7 @@
 package by.tms.instaclone.storage;
 
-import by.tms.instaclone.model.Post;
 import by.tms.instaclone.model.Subscription;
+import by.tms.instaclone.model.User;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -32,13 +32,19 @@ public class SubscriptionsStorage {
         return subscriptions;
     }
 
-    public void newSubscription(Subscription subscription) {
+    public Subscription newSubscription(User subscriber, User publisher) {
+        Subscription subscription = new Subscription(subscriber, publisher);
         subscriptions.put(subscription.getUuid(), subscription);
         // todo: с переходом к БД - сделать как с Объектом
         String rowText = SUBSCRIPTIONS_CSV_FORMAT_TEMPLATE.formatted(subscription.getUuid().toString(),
                 subscription.getSubscriber().getUuid().toString(), subscription.getPublisher().getUuid().toString(),
                 subscription.getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli()/1000);
         writeCsvFile(SUBSCRIPTIONS_CSV_FILE, rowText);
+        return subscription;
+    }
+
+    public Subscription getSubscription(UUID uuid) {
+        return subscriptions.get(uuid);
     }
 
     private SubscriptionsStorage() {
