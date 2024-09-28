@@ -110,10 +110,9 @@ public class UsersStorage {
     }
 
     private void deleteHeirs(User user) {
-        PostsStorage postsStorage = PostsStorage.getInstance();
-        postsStorage.deletePostOwner(user);
-        // todo Subscription-subscriber
-        // todo Subscription-publisher
+        PostsStorage.getInstance().deletePostOwner(user);
+        SubscriptionsStorage.getInstance().deleteSubscriptionSubscriber(user);
+        SubscriptionsStorage.getInstance().deleteSubscriptionPublisher(user);
     }
 
     private void substitute(User oldUser, User newUser) {

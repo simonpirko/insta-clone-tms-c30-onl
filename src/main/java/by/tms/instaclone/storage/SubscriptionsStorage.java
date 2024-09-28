@@ -1,6 +1,5 @@
 package by.tms.instaclone.storage;
 
-import by.tms.instaclone.model.Post;
 import by.tms.instaclone.model.Subscription;
 import by.tms.instaclone.model.User;
 
@@ -49,7 +48,6 @@ public class SubscriptionsStorage {
     }
 
     public void deleteSubscription(Subscription subscription) {
-        deleteHeirs(subscription);
         subscriptions.remove(subscription.getUuid());
         rewrite();
     }
@@ -57,7 +55,6 @@ public class SubscriptionsStorage {
     public void deleteSubscriptionSubscriber(User subscriber) {
         for (Map.Entry entry: subscriptions.entrySet()) {
             if (((Subscription) entry.getValue()).getSubscriber().equals(subscriber)) {
-                deleteHeirs((Subscription) entry.getValue());
                 subscriptions.remove(entry.getKey());
             }
         }
@@ -67,7 +64,6 @@ public class SubscriptionsStorage {
     public void deleteSubscriptionPublisher(User publisher) {
         for (Map.Entry entry: subscriptions.entrySet()) {
             if (((Subscription) entry.getValue()).getPublisher().equals(publisher)) {
-                deleteHeirs((Subscription) entry.getValue());
                 subscriptions.remove(entry.getKey());
             }
         }
@@ -102,14 +98,5 @@ public class SubscriptionsStorage {
         }
         deleteContentCsvFile(SUBSCRIPTIONS_CSV_FILE);
         writeCsvFile(SUBSCRIPTIONS_CSV_FILE, contentSubscriptionsStorage.toString());
-    }
-
-    private void deleteHeirs(Subscription subscription) {
-        // todo
-    }
-
-    private void substitute(Subscription oldSubscription, Subscription newSubscription) {
-//        deleteSubscription(oldSubscription);
-//        newSubscription(newSubscription);
     }
 }
