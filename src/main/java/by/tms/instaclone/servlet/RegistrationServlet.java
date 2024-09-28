@@ -29,10 +29,11 @@ public class RegistrationServlet extends HttpServlet {
         if(usernames.get(username)==null){
             User user=new User(name,username,password);
             usersStorage.newUser(user);
+            resp.sendRedirect("/");
         }else{
             req.setAttribute("message","Username already exists");
         }
-            resp.sendRedirect("/");
+
     }
 
 }
