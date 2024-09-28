@@ -47,6 +47,12 @@ public class SubscriptionsStorage {
         return subscriptions.get(uuid);
     }
 
+    public void deleteSubscription(Subscription subscription) {
+        deleteHeirs(subscription);
+        subscriptions.remove(subscription.getUuid());
+        rewrite();
+    }
+
     private SubscriptionsStorage() {
         subscriptions = new ConcurrentHashMap<>();
         Optional<String> fileString = readCsvFile(SUBSCRIPTIONS_CSV_FILE);
