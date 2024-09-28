@@ -1,11 +1,17 @@
 package by.tms.instaclone.servlet;
 
+import by.tms.instaclone.model.User;
+import by.tms.instaclone.storage.UsersStorage;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 import static by.tms.instaclone.storage.KeeperConstants.*;
 import static by.tms.instaclone.utilites.SiteLogger.getLogger;
@@ -18,7 +24,6 @@ public class LoginServlet extends HttpServlet {
     private static final String PASSWORD_USER = "password";
     private static final String PASSWORD_PROBLEM = "Wrong password!";
     private static final String CURRENT_USER_ATTRIBUTE = "currentUser";
-    private static final String USER_PROBLEM = "Еhe user's login was not found!";
     private static final String MESSAGE_ATTRIBUTE = "message";
 //    private final UserStorage users = new UserStorage();
 
@@ -34,23 +39,21 @@ public class LoginServlet extends HttpServlet {
         if (IS_PERFORM_LOGGING) getLogger().addRecord(BEGINNING_WORK_MESSAGE_TEMPLATE.formatted(SERVLET_POST_NAME));
         String login = request.getParameter(LOGIN_USER);
         String password = request.getParameter(PASSWORD_USER);
-//        ReaderFactory readerFactory = createReaderFactory(USERS);   // todo получаю всех User'ов из файла (или лучше из Storage?), указанного в USERS
-//        Reader readerUsers = readerFactory.createReader();
-//        User currentUser = null;
-//        List<User> users = (List<User>) readerUsers.read();         // в этот List
-//        for (User user : users) {                               // перебираю их по username
-//            if (user.getUsername().equals(login) && user.getPassword().equals(password)) {
-//                currentUser = user;
-//                break;
-//            }
-//        }
-//        if (currentUser != null ) {
-//            request.getSession().setAttribute(CURRENT_USER_ATTRIBUTE, currentUser);
-//            response.sendRedirect(HOME_PATH);         // todo необходимо решить - куда переходить в случае успешного логирования
-//        } else {
-//            request.setAttribute(MESSAGE_ATTRIBUTE, PASSWORD_PROBLEM);
-//            request.getRequestDispatcher(LOGIN_JSP).forward(request, response);
-//        }
+        User currentUser = null;
+        ConcurrentHashMap<UUID, User> users = UsersStorage.getInstance().getUsers();
+        for (Map.Entry entry : users.entrySet()) {
+            if (((User) entry.getValue()).getUsername().equals(login) && ((User) entry.getValue()).getPassword().equals(password)) {
+                currentUser = (User) entry.getValue();
+                break;
+            }
+        }
+        if (currentUser != null ) {
+            request.getSession().setAttribute(CURRENT_USER_ATTRIBUTE, currentUser);
+            response.sendRedirect(HOME_PATH);
+        } else {
+            request.setAttribute(MESSAGE_ATTRIBUTE, PASSWORD_PROBLEM);
+            request.getRequestDispatcher(LOGIN_JSP).forward(request, response);
+        }
         if (IS_PERFORM_LOGGING) getLogger().addRecord(ENDING_WORK_MESSAGE_TEMPLATE.formatted(SERVLET_GET_NAME));
     }
 }
