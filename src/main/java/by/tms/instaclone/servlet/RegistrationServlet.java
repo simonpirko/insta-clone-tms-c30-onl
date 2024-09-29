@@ -19,7 +19,7 @@ public class RegistrationServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws  IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         String name = req.getParameter("name");
         String username = req.getParameter("username");
         String password = req.getParameter("password");
@@ -29,9 +29,10 @@ public class RegistrationServlet extends HttpServlet {
         if(usernames.get(username)==null){
             User user=new User(name,username,password);
             usersStorage.newUser(user);
+            resp.sendRedirect("/login");
         }else{
             req.setAttribute("message","Username already exists");
-            req.getRequestDispatcher("reg.jsp");
+            req.getRequestDispatcher("/reg.jsp").forward(req,resp);
         }
     }
 
