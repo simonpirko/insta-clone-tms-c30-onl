@@ -16,7 +16,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import static by.tms.instaclone.storage.KeeperConstants.*;
 import static by.tms.instaclone.utilites.SiteLogger.getLogger;
 
-@WebServlet(urlPatterns = LOGIN_PATH)
+//@WebServlet(urlPatterns = LOGIN_PATH)
+@WebServlet(name = "LoginServlet", value = LOGIN_PATH)
 public class LoginServlet extends HttpServlet {
     private static final String SERVLET_GET_NAME = "doGet() in LoginServlet";
     private static final String SERVLET_POST_NAME = "doPost() in LoginServlet";

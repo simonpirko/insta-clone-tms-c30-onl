@@ -1,6 +1,5 @@
 package by.tms.instaclone.servlet;
 
-import by.tms.instaclone.model.User;
 import by.tms.instaclone.storage.UsernamesStorage;
 import by.tms.instaclone.storage.UsersStorage;
 
@@ -10,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 @WebServlet("/reg")
@@ -27,7 +27,7 @@ public class RegistrationServlet extends HttpServlet {
 
         //создать юзера, если он уникален и сохранить.
         UsersStorage usersStorage = UsersStorage.getInstance();
-        ConcurrentHashMap<String, String> usernames = UsernamesStorage.getInstance().getUsernames();
+        ConcurrentHashMap<String, UUID> usernames = UsernamesStorage.getInstance().getUsernames();
         if (usernames.get(username) == null) {
             usersStorage.newUser(name, username, password);
         } else {
