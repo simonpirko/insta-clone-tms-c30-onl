@@ -7,6 +7,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
@@ -37,7 +38,7 @@ public class SubscriptionsStorage {
         subscriptions.put(subscription.getUuid(), subscription);
         // todo: с переходом к БД - сделать как с Объектом
         String rowText = SUBSCRIPTIONS_CSV_FORMAT_TEMPLATE.formatted(subscription.getUuid().toString(),
-                subscription.getSubscriber().getUuid().toString(), subscription.getPublisher().getUuid().toString(),
+                subscription.getFollower().getUuid().toString(), subscription.getPublisher().getUuid().toString(),
                 subscription.getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli()/1000);
         writeCsvFile(SUBSCRIPTIONS_CSV_FILE, rowText);
         return subscription;
@@ -47,6 +48,22 @@ public class SubscriptionsStorage {
         return subscriptions.get(uuid);
     }
 
+    public HashMap<UUID, User> getFollowersPublisher(User publisher) {
+        HashMap<UUID, User> followers = new HashMap<>();
+        for (Map.Entry entry: subscriptions.entrySet()) {
+            if (((Subscription) entry.getValue()).getPublisher().equals(publisher)) {
+                followers.put((UUID) entry.getKey(), ((Subscription) entry.getValue()).getFollower());
+            }
+        }
+        return followers;
+    }
+
+    public Map<UUID, User> getPublishersFollower(User follower) {
+        Map<UUID, User> publishers = new HashMap<>();
+        // todo
+        return publishers;
+    }
+
     public void deleteSubscription(Subscription subscription) {
         subscriptions.remove(subscription.getUuid());
         rewrite();
@@ -54,7 +71,7 @@ public class SubscriptionsStorage {
 
     public void deleteSubscriptionSubscriber(User subscriber) {
         for (Map.Entry entry: subscriptions.entrySet()) {
-            if (((Subscription) entry.getValue()).getSubscriber().equals(subscriber)) {
+            if (((Subscription) entry.getValue()).getFollower().equals(subscriber)) {
                 subscriptions.remove(entry.getKey());
             }
         }
@@ -91,7 +108,7 @@ public class SubscriptionsStorage {
         StringBuilder contentSubscriptionsStorage = new StringBuilder();
         for (Map.Entry entry: subscriptions.entrySet()) {
             contentSubscriptionsStorage.append(((Subscription) entry.getValue()).getUuid().toString()).append(SEPARATOR_CSV)
-                    .append(((Subscription) entry.getValue()).getSubscriber().getUuid().toString()).append(SEPARATOR_CSV)
+                    .append(((Subscription) entry.getValue()).getFollower().getUuid().toString()).append(SEPARATOR_CSV)
                     .append(((Subscription) entry.getValue()).getPublisher().getUuid().toString()).append(SEPARATOR_CSV)
                     .append(((Subscription) entry.getValue()).getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli()/1000).append(SEPARATOR_CSV)
                     .append(LF);

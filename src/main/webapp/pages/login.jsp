@@ -44,7 +44,6 @@
                     <div class="mb-3">
                         <label for="InputPassword" class="form-label">Password</label>
                         <input type="password" name="password" class="form-control" id="InputPassword">
-
                         <c:if test="${isPasswordProblem}">
                             <div class="alert alert-warning alert-dismissible fade show" role="alert"> Wrong password!
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>

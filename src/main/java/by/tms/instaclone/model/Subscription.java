@@ -12,15 +12,15 @@ public class Subscription {
     //userList: список рекомендованных пользователей
 
     private final UUID uuid;                // идентификатор Подписки
-    private final User subscriber;          //  подписавшейся Пользователь
+    private final User follower;            //  подписавшейся Пользователь
     private final User publisher;           //  Пользователь-публикатор на кого подписался
     private final LocalDateTime createAt;   // время создания Подписки
 
-    public Subscription(User subscriber, User publisher) {
-        this.subscriber = subscriber;
+    public Subscription(User follower, User publisher) {
+        this.follower = follower;
         this.publisher = publisher;
         this.createAt = LocalDateTime.now(TimeZoneSettings.getUtcClock());
-        this.uuid = UUID.nameUUIDFromBytes((subscriber.getUuid().toString() + publisher.getUuid().toString() + this.createAt).getBytes());
+        this.uuid = UUID.nameUUIDFromBytes((follower.getUuid().toString() + publisher.getUuid().toString() + this.createAt).getBytes());
     }
 
     /**
@@ -33,7 +33,7 @@ public class Subscription {
      */
     public Subscription(UUID uuid, User subscriber, User publisher, LocalDateTime createAt) {
         this.uuid = uuid;
-        this.subscriber = subscriber;
+        this.follower = subscriber;
         this.publisher = publisher;
         this.createAt = createAt;
     }
@@ -42,8 +42,8 @@ public class Subscription {
         return uuid;
     }
 
-    public User getSubscriber() {
-        return subscriber;
+    public User getFollower() {
+        return follower;
     }
 
     public User getPublisher() {
