@@ -18,6 +18,8 @@ public class SubscriptionsStorageProbe {
 //        User atom = usersStorage.getUser(UUID.fromString("3e10f8c8-0924-3d3a-8f94-c18e7addb866")); // Atom
         User publisherUser = UsersStorage.getInstance().getUser(UUID.fromString("aa44061c-62f5-37a9-b126-43053134c2d6"));
         HashMap<UUID, User> followers = SubscriptionsStorage.getInstance().getFollowersPublisher(publisherUser);
+        User followerUser = UsersStorage.getInstance().getUser(UUID.fromString("aa44061c-62f5-37a9-b126-43053134c2d6"));
+        HashMap<UUID, User> publishers = SubscriptionsStorage.getInstance().getPublishersFollower(followerUser);
 
         SubscriptionsStorage subscriptionsStorage = SubscriptionsStorage.getInstance();
 //        Subscription alexAlex3 = subscriptionsStorage.newSubscription(alex, alex3);

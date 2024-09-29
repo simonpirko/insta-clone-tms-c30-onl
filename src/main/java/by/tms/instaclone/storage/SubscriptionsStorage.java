@@ -58,8 +58,8 @@ public class SubscriptionsStorage {
         return followers;
     }
 
-    public Map<UUID, User> getPublishersFollower(User follower) {
-        Map<UUID, User> publishers = new HashMap<>();
+    public HashMap<UUID, User> getPublishersFollower(User follower) {
+        HashMap<UUID, User> publishers = new HashMap<>();
         // todo
         return publishers;
     }
