@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Xiaomi
@@ -27,12 +28,19 @@
                 <p class="fs-5">Enter your login and password</p>
                 <form class="col-4" action="/login" method="post">
                     <div class="mb-3">
-                        <label for="exampleInputEmail2" class="form-label">Login</label>
-                        <input type="text" name="username" class="form-control" id="exampleInputEmail2">
+                        <label for="InputLogin" class="form-label">Login</label>
+                        <input type="text" name="username" class="form-control" id="InputLogin">
                     </div>
                     <div class="mb-3">
-                        <label for="exampleInputPassword1" class="form-label">Password</label>
-                        <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+                        <label for="InputPassword" class="form-label">Password</label>
+                        <input type="password" name="password" class="form-control" id="InputPassword">
+
+                        <c:if test="${isPasswordProblem}">
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert"> Wrong password!
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        </c:if>
+
                     </div>
                     <button type="submit" class="btn btn-primary">Login</button>
                 </form>

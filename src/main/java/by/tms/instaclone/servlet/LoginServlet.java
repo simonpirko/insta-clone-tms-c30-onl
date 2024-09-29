@@ -1,6 +1,7 @@
 package by.tms.instaclone.servlet;
 
 import by.tms.instaclone.model.User;
+import by.tms.instaclone.storage.UsernamesStorage;
 import by.tms.instaclone.storage.UsersStorage;
 
 import javax.servlet.ServletException;
@@ -42,17 +43,18 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter(PASSWORD_USER);
         User currentUser = null;
         ConcurrentHashMap<UUID, User> users = UsersStorage.getInstance().getUsers();
-        for (Map.Entry entry : users.entrySet()) {
-            if (((User) entry.getValue()).getUsername().equals(login) && ((User) entry.getValue()).getPassword().equals(password)) {
-                currentUser = (User) entry.getValue();
-                break;
+        ConcurrentHashMap<String, UUID> usernames = UsernamesStorage.getInstance().getUsernames();
+        if (login != null && password != null) {
+            if (usernames.get(login) != null && users.get(usernames.get(login)).getPassword().equals(password)) {
+                currentUser = users.get(usernames.get(login));
             }
         }
         if (currentUser != null ) {
             request.getSession().setAttribute(CURRENT_USER_ATTRIBUTE, currentUser);
             response.sendRedirect(HOME_PATH);
         } else {
-            request.setAttribute(MESSAGE_ATTRIBUTE, PASSWORD_PROBLEM);
+//            request.setAttribute(MESSAGE_ATTRIBUTE, PASSWORD_PROBLEM);
+            request.setAttribute("isPasswordProblem", "true");
             request.getRequestDispatcher(LOGIN_JSP).forward(request, response);
         }
         if (IS_PERFORM_LOGGING) getLogger().addRecord(ENDING_WORK_MESSAGE_TEMPLATE.formatted(SERVLET_GET_NAME));
