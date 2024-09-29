@@ -60,7 +60,11 @@ public class SubscriptionsStorage {
 
     public HashMap<UUID, User> getPublishersFollower(User follower) {
         HashMap<UUID, User> publishers = new HashMap<>();
-        // todo
+        for (Map.Entry entry: subscriptions.entrySet()) {
+            if (((Subscription) entry.getValue()).getFollower().equals(follower)) {
+                publishers.put((UUID) entry.getKey(), ((Subscription) entry.getValue()).getPublisher());
+            }
+        }
         return publishers;
     }
 
