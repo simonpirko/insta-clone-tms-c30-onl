@@ -111,7 +111,7 @@ public class UsersStorage {
 
     private void deleteHeirs(User user) {
         PostsStorage.getInstance().deletePostOwner(user);
-        SubscriptionsStorage.getInstance().deleteSubscriptionSubscriber(user);
+        SubscriptionsStorage.getInstance().deleteSubscriptionFollower(user);
         SubscriptionsStorage.getInstance().deleteSubscriptionPublisher(user);
     }
 

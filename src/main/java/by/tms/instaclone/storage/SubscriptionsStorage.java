@@ -33,8 +33,8 @@ public class SubscriptionsStorage {
         return subscriptions;
     }
 
-    public Subscription newSubscription(User subscriber, User publisher) {
-        Subscription subscription = new Subscription(subscriber, publisher);
+    public Subscription newSubscription(User follower, User publisher) {
+        Subscription subscription = new Subscription(follower, publisher);
         subscriptions.put(subscription.getUuid(), subscription);
         // todo: с переходом к БД - сделать как с Объектом
         String rowText = SUBSCRIPTIONS_CSV_FORMAT_TEMPLATE.formatted(subscription.getUuid().toString(),
@@ -73,9 +73,9 @@ public class SubscriptionsStorage {
         rewrite();
     }
 
-    public void deleteSubscriptionSubscriber(User subscriber) {
+    public void deleteSubscriptionFollower(User follower) {
         for (Map.Entry entry: subscriptions.entrySet()) {
-            if (((Subscription) entry.getValue()).getFollower().equals(subscriber)) {
+            if (((Subscription) entry.getValue()).getFollower().equals(follower)) {
                 subscriptions.remove(entry.getKey());
             }
         }

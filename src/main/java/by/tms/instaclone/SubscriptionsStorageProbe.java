@@ -35,7 +35,7 @@ public class SubscriptionsStorageProbe {
 //        subscriptionsStorage.deleteSubscription(deleteSubscription);
 int i = 0;
         subscriptionsStorage.deleteSubscriptionPublisher(alex); // 3 to deleting    "0cdb37b3-75ab-4b65-bce6-09d3c4985578" - Alex
-        subscriptionsStorage.deleteSubscriptionSubscriber(alex); // 2 to deleting   "0cdb37b3-75ab-4b65-bce6-09d3c4985578" - Alex
+        subscriptionsStorage.deleteSubscriptionFollower(alex); // 2 to deleting   "0cdb37b3-75ab-4b65-bce6-09d3c4985578" - Alex
 
 i = 1;
     }
