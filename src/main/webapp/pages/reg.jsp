@@ -35,15 +35,18 @@
             <form class="col-4" action="/reg" method="post">
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Name</label>
-                    <input type="text" name="name" class="form-control" id="exampleInputEmail1">
+                    <input type="text" name="name" class="form-control" id="exampleInputEmail1" value="${name}">
+                    <div style="color: red">${errorName}</div>
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputEmail2" class="form-label">Username</label>
-                    <input type="text" name="username" class="form-control" id="exampleInputEmail2">
+                    <input type="text" name="username" class="form-control" id="exampleInputEmail2" value="${username}">
+                    <div style="color: red">${errorUsername}</div>
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Password</label>
-                    <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+                    <input type="password" name="password" class="form-control" id="exampleInputPassword1" value="${password}">
+                    <div style="color: red">${errorPassword}</div>
                 </div>
                 <div class="container text-center">
                     <button type="submit" class="btn btn-primary">Registration

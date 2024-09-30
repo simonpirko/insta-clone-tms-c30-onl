@@ -1,5 +1,7 @@
 package by.tms.instaclone.keepers;
 
+import java.util.regex.Pattern;
+
 public class KeeperConstants {
     public static final String LF = "\n";
     public static final String SEPARATOR_CSV = ";";
@@ -34,6 +36,9 @@ public class KeeperConstants {
     public static final String USER_PARAMETER = "user";
     public static final String CURRENT_USER_ATTRIBUTE = "currentUser";
     public static final String MESSAGE_ATTRIBUTE = "message";
+    public static final Pattern NAME_REGEX = Pattern.compile("^[a-zA-Z]{2,15}$");
+    public static final Pattern USERNAME_REGEX = Pattern.compile("^[a-zA-Z0-9]{2,15}$");
+    public static final Pattern PASSWORD_REGEX = Pattern.compile("([a-zA-Z0-9!@$%^&*()_\\-+]){8,}");
 
     // todo сделать присвоение из файла настройки
     public static final boolean IS_PERFORM_LOGGING = true;
