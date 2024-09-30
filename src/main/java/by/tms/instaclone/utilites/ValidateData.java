@@ -8,7 +8,7 @@ public class ValidateData {
 
     public String name;
     public static final String ERROR_VALIDATE_NAME = "Invalid name: Only letters (min 2 letters, max 15 letters)";
-    public static final String ERROR_VALIDATE_USERNAME = "Invalid username: Only letters (min 2 letters, max 15 letters)";
+    public static final String ERROR_VALIDATE_USERNAME = "Invalid username: Only letters and numbers (min 2, max 15)";
     public static final String ERROR_VALIDATE_PASSWORD = "Invalid password: Letters, numbers, min 8 characters";
 
     public static boolean validateName (String name) {
@@ -27,7 +27,7 @@ public class ValidateData {
     }
 
     public static String getErrorValidateUsername (String username) {
-        if (validateName(username)) return null;
+        if (validateUsername(username)) return null;
         return ERROR_VALIDATE_USERNAME;
     }
 
@@ -37,7 +37,7 @@ public class ValidateData {
     }
 
     public static String getErrorValidatePassword (String password) {
-        if (validateName(password)) return null;
+        if (validatePassword(password)) return null;
         return ERROR_VALIDATE_PASSWORD;
     }
 

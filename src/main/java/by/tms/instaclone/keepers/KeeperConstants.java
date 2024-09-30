@@ -37,7 +37,7 @@ public class KeeperConstants {
     public static final String CURRENT_USER_ATTRIBUTE = "currentUser";
     public static final String MESSAGE_ATTRIBUTE = "message";
     public static final Pattern NAME_REGEX = Pattern.compile("^[a-zA-Z]{2,15}$");
-    public static final Pattern USERNAME_REGEX = Pattern.compile("^[a-zA-Z]{2,15}$");
+    public static final Pattern USERNAME_REGEX = Pattern.compile("^[a-zA-Z0-9]{2,15}$");
     public static final Pattern PASSWORD_REGEX = Pattern.compile("([a-zA-Z0-9!@$%^&*()_\\-+]){8,}");
 
     // todo сделать присвоение из файла настройки

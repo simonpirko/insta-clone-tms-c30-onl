@@ -33,16 +33,8 @@ public class RegistrationServlet extends HttpServlet {
             req.setAttribute("errorName", errorName);
             req.setAttribute("errorUsername", errorUsername);
             req.setAttribute("errorPassword", errorPassword);
-            getServletContext().getRequestDispatcher("/pages/reg.jsp").forward(req, resp);
+            req.getRequestDispatcher("/pages/reg.jsp").forward(req, resp);
         }
-//        if(!ValidateData.validateName(name) || !ValidateData.validateUsername(username) || !ValidateData.validatePassword(password)) {
-//            if (!ValidateData.validateName(name)){
-//
-//            }
-//        } else {
-//            resp.sendRedirect("/"); //создать юзера,сохранить.
-//        }
-
     }
 
 }
