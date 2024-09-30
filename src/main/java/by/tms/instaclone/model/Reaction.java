@@ -10,17 +10,25 @@ public class Reaction {
 
     private final UUID uuid; // идентификатор Реакции
     private final Post addressee; //  оцененный Пост
-    private boolean typeReaction; // есть ли лайк(true) или дизлайк(false)
     private final User owner; // Пользователь-прореагировавший
+    private boolean typeReaction; // есть ли лайк(true) или дизлайк(false)
     private LocalDateTime createAt;// время создания Реакции
 
 
-    public Reaction(Post postUuid, boolean typeReaction, User owner) {
+    public Reaction(Post postUuid, User owner, boolean typeReaction) {
         this.addressee = postUuid;
         this.typeReaction = typeReaction;
         this.owner = owner;
         this.uuid = UUID.randomUUID();
         this.createAt = LocalDateTime.now(TimeZoneSettings.getUtcClock());
+    }
+
+    public Reaction(UUID uuid, Post postUuid, User owner, boolean typeReaction, LocalDateTime createAt) {
+        this.uuid = uuid;
+        this.addressee = postUuid;
+        this.owner = owner;
+        this.typeReaction = typeReaction;
+        this.createAt = createAt;
     }
 
     public void setTypeReaction(boolean typeReaction) {
@@ -35,10 +43,6 @@ public class Reaction {
         return createAt;
     }
 
-    public User getReactingUuid() {
-        return owner;
-    }
-
     public boolean isTypeReaction() {
         return typeReaction;
     }
@@ -49,6 +53,14 @@ public class Reaction {
 
     public UUID getUuid() {
         return uuid;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setCreateAt(LocalDateTime createAt) {
+        this.createAt = createAt;
     }
 
     @Override
