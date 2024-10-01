@@ -1,4 +1,4 @@
-package by.tms.instaclone.servlet;
+/*package by.tms.instaclone.servlet;
 
 import by.tms.instaclone.utilites.ValidateData;
 import by.tms.instaclone.keepers.servants.UsersStorage;
@@ -50,4 +50,4 @@ public class RegistrationServlet extends HttpServlet {
             req.getRequestDispatcher("/pages/reg.jsp").forward(req, resp);
         }
     }
-}
+}*/

@@ -1,3 +1,4 @@
+/*
 package by.tms.instaclone.storage;
 
 import by.tms.instaclone.model.Comment;
@@ -14,9 +15,11 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-import static by.tms.instaclone.storage.Deleter.deleteContentCsvFile;
+*/
+/*import static by.tms.instaclone.storage.Deleter.deleteContentCsvFile;
 import static by.tms.instaclone.storage.Reader.readCsvFile;
-import static by.tms.instaclone.storage.Writer.writeCsvFile;
+import static by.tms.instaclone.storage.Writer.writeCsvFile;*//*
+
 
 public class CommentsStorage {
 
@@ -128,3 +131,4 @@ public class CommentsStorage {
     }
 
 }
+*/
