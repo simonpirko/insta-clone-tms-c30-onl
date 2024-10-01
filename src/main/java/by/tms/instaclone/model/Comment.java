@@ -21,6 +21,14 @@ public class Comment {
         this.createAt = LocalDateTime.now(TimeZoneSettings.getUtcClock());
     }
 
+    public Comment(UUID uuid, Post postUuid, User owner, String text, LocalDateTime createAt) {
+        this.uuid = uuid;
+        this.addressee = postUuid;
+        this.owner = owner;
+        this.text = text;
+        this.createAt = createAt;
+    }
+
     public UUID getUuid() {
         return uuid;
     }
