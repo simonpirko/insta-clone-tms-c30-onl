@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Xiaomi
@@ -24,14 +25,34 @@
             </div>
             <div class="row justify-content-center">
                 <p class="fs-5">Enter your login and password</p>
-                <form class="col-4" action="/" method="post">
+                <form class="col-4" action="/login" method="post">
                     <div class="mb-3">
-                        <label for="exampleInputEmail2" class="form-label">Login</label>
-                        <input type="text" name="username" class="form-control" id="exampleInputEmail2">
+                        <label for="InputLogin" class="form-label">Login</label>
+                        <input type="text" name="username" class="form-control" id="InputLogin">
+                        <c:if test="${isUsernameProblem}">
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert"> Wrong username!
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        </c:if>
+                        <c:if test="${isUsernameMissing}">
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert"> The username is missing!
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        </c:if>
                     </div>
                     <div class="mb-3">
-                        <label for="exampleInputPassword1" class="form-label">Password</label>
-                        <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+                        <label for="InputPassword" class="form-label">Password</label>
+                        <input type="password" name="password" class="form-control" id="InputPassword">
+                        <c:if test="${isPasswordProblem}">
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert"> Wrong password!
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        </c:if>
+                        <c:if test="${isPasswordMissing}">
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert"> The password is missing!
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        </c:if>
                     </div>
                     <button type="submit" class="btn btn-primary">Login</button>
                 </form>
