@@ -1,12 +1,18 @@
 package by.tms.instaclone.utilites;
 
-import by.tms.instaclone.keepers.interfaces.Writer;
+import by.tms.instaclone.storage.Writer;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
-import static by.tms.instaclone.keepers.KeeperConstants.*;
+import static by.tms.instaclone.storage.KeeperConstants.*;
 
 /**
  * Класс отвечает за ведение лога.
@@ -30,9 +36,18 @@ public class SiteLogger {
      * @param messageCustomer   - сообщение для логирования
      */
     public void addRecord(String messageCustomer) {
+        // todo пробую решить проблему с путями файла
+        ClassLoader classLoader = SiteLogger.class.getClassLoader();    // todo с таким решением работа идёт с файлами из target
+        File csvFile = new File(Objects.requireNonNull(classLoader.getResource(LOGS_FILE)).getFile());
+        //
         String record = LOGGER_MESSAGE_TEMPLATE.formatted(getStringDateTime(), messageCustomer);
         if (IS_PERFORM_FILE_LOGGING) {
-            Writer.threadWrite(LOGS_FILE, record);
+            try {
+                Files.write(Paths.get(csvFile.toString()), record.getBytes(), StandardOpenOption.APPEND);
+            } catch (IOException e) {
+                // todo решение не нравится - надо подумать
+                throw new RuntimeException(e);
+            }
         } else {
             System.out.printf(record);
         }

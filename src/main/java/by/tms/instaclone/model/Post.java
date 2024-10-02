@@ -20,7 +20,7 @@ public class Post {
 
     public Post(User owner, String text) {
         this.owner = owner;
-        this.text = text;
+        this.text = Objects.requireNonNullElse(text, "");
         this.uuid = UUID.randomUUID();
         this.createAt = LocalDateTime.now(TimeZoneSettings.getUtcClock());
     }
@@ -28,7 +28,7 @@ public class Post {
     public Post(UUID postUUID, User owner, String text, LocalDateTime createAt) {
         this.uuid = postUUID;
         this.owner = owner;
-        this.text = text;
+        this.text = Objects.requireNonNullElse(text, "");
         this.createAt = createAt;
     }
 
@@ -45,7 +45,7 @@ public class Post {
     }
 
     public void setText(String text) {
-        this.text = text;
+        this.text = Objects.requireNonNullElse(text, "");
     }
 
     public UUID getUuid() {

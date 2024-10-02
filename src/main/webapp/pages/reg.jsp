@@ -30,7 +30,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="container text-center">
-                <p class="fs-5">Enter your name,login and password</p>
+                <p class="fs-5">Enter your name, login and password</p>
             </div>
             <form class="col-4" action="/reg" method="post">
                 <div class="mb-3">
