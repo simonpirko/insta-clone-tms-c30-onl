@@ -103,6 +103,11 @@ public class UsersStorage {
         return users.get(uuid);
     }
 
+    public User getUser(String username) {
+
+        return null;
+    }
+
     /**
      * Метод удаляет переданного Пользователя
      * Пользователь удаляется из Storage и USERS_CSV_FILE (см. deleteContentCsvFile())

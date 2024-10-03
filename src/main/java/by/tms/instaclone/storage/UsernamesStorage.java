@@ -28,6 +28,10 @@ public class UsernamesStorage {
         usernames.put(user.getUsername(), user.getUuid());
     }
 
+    public UUID getUUID(String username) {
+        return usernames.get(username);
+    }
+
     public void deleteUser(String username) {
         usernames.remove(username);
     }
