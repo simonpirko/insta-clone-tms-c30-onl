@@ -19,6 +19,9 @@ import static by.tms.instaclone.storage.KeeperConstants.SEPARATOR_CSV;
 import static by.tms.instaclone.storage.Reader.readCsvFile;
 import static by.tms.instaclone.storage.Writer.writeCsvFile;
 
+/** Объект класса хранит все объекты класса Post
+ *  реализован как класс-одиночка *
+ */
 public class PostsStorage {
     private static PostsStorage postsStorage;
     private ConcurrentHashMap<UUID, Post> posts;
@@ -34,6 +37,12 @@ public class PostsStorage {
         return posts;
     }
 
+    /**
+     * Метод создаёт новый Post от имени ownerUser с текстом textPost и сохраняет её в POSTS_CSV_FILE
+     * @param ownerUser - объект-владелец поста
+     * @param textPost  - текст поста
+     * @return
+     */
     public Post newPost(User ownerUser, String textPost) {
         Post post = new Post(ownerUser, textPost);
         posts.put(post.getUuid(), post);
@@ -52,12 +61,20 @@ public class PostsStorage {
         writeCsvFile(POSTS_CSV_FILE, rowText);
     }
 
+    /**
+     * Метод удаляет указанный Post
+     * @param post - объект-Post
+     */
     public void deletePost(Post post) {
         deleteHeirs(post);
         posts.remove(post.getUuid());
         rewrite();
     }
 
+    /**
+     * Метод удаляет все посты указанного владельца из хранилища и POSTS_CSV_FILE (см. deletePost())
+     * @param owner - объект-владелец постов
+     */
     public void deletePostOwner(User owner) {
         for (Map.Entry entry: posts.entrySet()) {
             if (((Post) entry.getValue()).getOwner().equals(owner)) {
@@ -68,10 +85,20 @@ public class PostsStorage {
         rewrite();
     }
 
+    /**
+     * Метод возращает объет-пост по его UUID
+     * @param uuid  - UUID поста
+     * @return      - объект поста
+     */
     public Post getPost(UUID uuid) {
         return posts.get(uuid);
     }
 
+    /**
+     * Метод возвращает набор постов их владельца по UUID объекта-владельца
+     * @param ownerUuid - UUID объекта-владельца
+     * @return          - набор постов
+     */
     public Map<UUID, Post> getPostsOwner(UUID ownerUuid) {
         Map<UUID, Post> postsOwner = new HashMap<>();
         for (Map.Entry entry: posts.entrySet()) {
@@ -82,6 +109,11 @@ public class PostsStorage {
         return postsOwner;
     }
 
+    /**
+     * Метод меняет текст в переданном посте
+     * @param post      - объект-пост, в котором меняется текст
+     * @param newText   - новый текст
+     */
     public void changeText(Post post, String newText) {
         Post newPost = posts.get(post.getUuid());
         newPost.setText(newText);

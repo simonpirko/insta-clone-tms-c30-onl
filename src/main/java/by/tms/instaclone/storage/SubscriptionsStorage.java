@@ -19,8 +19,7 @@ import static by.tms.instaclone.storage.Reader.readCsvFile;
 import static by.tms.instaclone.storage.Writer.writeCsvFile;
 
 /** Объект класса хранит все объекты класса Subscription
- *  реализован как класс-одиночка
- *
+ *  реализован как класс-одиночка *
  */
 public class SubscriptionsStorage {
     private static SubscriptionsStorage subscriptionsStorage;
