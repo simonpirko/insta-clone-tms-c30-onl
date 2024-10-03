@@ -18,6 +18,10 @@ import static by.tms.instaclone.storage.KeeperConstants.*;
 import static by.tms.instaclone.storage.Reader.readCsvFile;
 import static by.tms.instaclone.storage.Writer.writeCsvFile;
 
+/** Объект класса хранит все объекты класса Subscription
+ *  реализован как класс-одиночка
+ *
+ */
 public class SubscriptionsStorage {
     private static SubscriptionsStorage subscriptionsStorage;
     private ConcurrentHashMap<UUID, Subscription> subscriptions;
@@ -33,6 +37,11 @@ public class SubscriptionsStorage {
         return subscriptions;
     }
 
+    /**
+     * Метод создаёт новую подписку между follower и publisher и сохраняет её в SUBSCRIPTIONS_CSV_FILE
+     * @param follower  - объект-Подписчик
+     * @param publisher - объект-Публикатор (автор)
+     */
     public Subscription newSubscription(User follower, User publisher) {
         Subscription subscription = new Subscription(follower, publisher);
         subscriptions.put(subscription.getUuid(), subscription);
@@ -44,10 +53,19 @@ public class SubscriptionsStorage {
         return subscription;
     }
 
+    /**
+     * Метод возвращает подписку по её UUID
+     * @param uuid - UUID подписки
+     */
     public Subscription getSubscription(UUID uuid) {
         return subscriptions.get(uuid);
     }
 
+    /**
+     * Метод возвращает все подписки на указанного Публикатора
+     * @param publisher - объект-Публикатор
+     * @return followers - набор объектов-Подписчиков
+     */
     public HashMap<UUID, User> getFollowersPublisher(User publisher) {
         HashMap<UUID, User> followers = new HashMap<>();
         for (Map.Entry entry: subscriptions.entrySet()) {
@@ -58,6 +76,11 @@ public class SubscriptionsStorage {
         return followers;
     }
 
+    /**
+     * Метод возвращает все подписки указанного Подписчика
+     * @param follower - объект-Подписчик
+     * @return publishers - набор объектов-Публикаторов
+     */
     public HashMap<UUID, User> getPublishersFollower(User follower) {
         HashMap<UUID, User> publishers = new HashMap<>();
         for (Map.Entry entry: subscriptions.entrySet()) {
@@ -68,11 +91,20 @@ public class SubscriptionsStorage {
         return publishers;
     }
 
+    /**
+     * Метод удалаляет переданную Подписку
+     * Подписка удаляется из Storage и SUBSCRIPTIONS_CSV_FILE (см. deleteContentCsvFile())
+     * @param subscription - объект-Подписка
+     */
     public void deleteSubscription(Subscription subscription) {
         subscriptions.remove(subscription.getUuid());
         rewrite();
     }
 
+    /**
+     * Метод удалаляет все подписки объекта-Подписчика
+     * @param follower - объект-Подписчик
+     */
     public void deleteSubscriptionFollower(User follower) {
         for (Map.Entry entry: subscriptions.entrySet()) {
             if (((Subscription) entry.getValue()).getFollower().equals(follower)) {
@@ -82,6 +114,10 @@ public class SubscriptionsStorage {
         rewrite();
     }
 
+    /**
+     * Метод удалаляет все подписки на объект-Публикатор
+     * @param publisher
+     */
     public void deleteSubscriptionPublisher(User publisher) {
         for (Map.Entry entry: subscriptions.entrySet()) {
             if (((Subscription) entry.getValue()).getPublisher().equals(publisher)) {
