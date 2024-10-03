@@ -16,7 +16,7 @@
     <form class="col-4"   action="/post" method="post" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="formFile" class="form-label">Default file input example</label>
-            <input class="form-control" name="avatar" type="file" id="formFile">
+            <input class="form-control" name="photo" type="file" id="formFile">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>

@@ -25,8 +25,8 @@ public class RegistrationServlet extends HttpServlet {
         getServletContext().getRequestDispatcher("/pages/reg.jsp").forward(req, resp);
     }
 
-   // @Override
-   /* protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         String name = req.getParameter("name");
         String username = req.getParameter("username");
         String password = req.getParameter("password");
@@ -45,7 +45,7 @@ public class RegistrationServlet extends HttpServlet {
         req.setAttribute("username", username);
         req.setAttribute("password", password);
         if (ValidateData.validateName(name) && ValidateData.validateUsername(username) && ValidateData.validatePassword(password)) {
-            usersStorage.getUsernames();
+           // usersStorage.getUsernames();
             if(usernames.get(username)==null){
                 User user=new User(name,username,password);
                 usersStorage.newUser(user);
@@ -62,6 +62,6 @@ public class RegistrationServlet extends HttpServlet {
             req.setAttribute("errorUsername", errorUsername);
             req.setAttribute("errorPassword", errorPassword);
             req.getRequestDispatcher("/pages/reg.jsp").forward(req, resp);
-        }*/
+        }
     }
-//}
+}
