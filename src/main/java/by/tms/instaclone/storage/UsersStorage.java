@@ -120,9 +120,9 @@ public class UsersStorage {
         users = new ConcurrentHashMap<>();
         Optional<String> fileString = readCsvFile(USERS_CSV_FILE);
         if (fileString.get().length() > 0) {
-            String[] arrayRows = fileString.get().split(LF);   // делим csv-файл на строки по LF ("перевод каретки")
+            String[] arrayRows = fileString.get().split(LF);
             for (String row : arrayRows) {
-                String[] arrayWords = row.split(SEPARATOR_CSV);   // делим строку на "слова" по SEPARATOR_CSV
+                String[] arrayWords = row.split(SEPARATOR_CSV);
                 users.put(UUID.fromString(arrayWords[0]), new User(UUID.fromString(arrayWords[0]), arrayWords[1], arrayWords[2], arrayWords[3],
                         LocalDateTime.ofInstant(Instant.ofEpochSecond(Long.valueOf(arrayWords[4])), ZoneId.systemDefault())));
             }

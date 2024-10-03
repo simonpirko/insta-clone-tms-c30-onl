@@ -18,7 +18,7 @@ import static by.tms.instaclone.storage.KeeperConstants.*;
 import static by.tms.instaclone.storage.Reader.readCsvFile;
 import static by.tms.instaclone.storage.Writer.writeCsvFile;
 
-/** Объект класса хранит все объекты класса Subscription
+/** Объект класса хранит все объекты класса Subscription (далее Подписка)
  *  реализован как класс-одиночка *
  */
 public class SubscriptionsStorage {
@@ -37,9 +37,10 @@ public class SubscriptionsStorage {
     }
 
     /**
-     * Метод создаёт новую подписку между follower и publisher и сохраняет её в SUBSCRIPTIONS_CSV_FILE
-     * @param follower  - объект-Подписчик
-     * @param publisher - объект-Публикатор (автор)
+     * Метод создаёт новую Подписку между follower и publisher и сохраняет её в SUBSCRIPTIONS_CSV_FILE
+     * @param follower      - объект-Подписчик
+     * @param publisher     - объект-Публикатор (автор)
+     * @return subscription - новая Подписка
      */
     public Subscription newSubscription(User follower, User publisher) {
         Subscription subscription = new Subscription(follower, publisher);
@@ -55,6 +56,7 @@ public class SubscriptionsStorage {
     /**
      * Метод возвращает подписку по её UUID
      * @param uuid - UUID подписки
+     * @return subscription - найденная Подписка
      */
     public Subscription getSubscription(UUID uuid) {
         return subscriptions.get(uuid);
@@ -93,7 +95,7 @@ public class SubscriptionsStorage {
     /**
      * Метод удалаляет переданную Подписку
      * Подписка удаляется из Storage и SUBSCRIPTIONS_CSV_FILE (см. deleteContentCsvFile())
-     * @param subscription - объект-Подписка
+     * @param subscription - удаляемая Подписка
      */
     public void deleteSubscription(Subscription subscription) {
         subscriptions.remove(subscription.getUuid());
@@ -115,7 +117,7 @@ public class SubscriptionsStorage {
 
     /**
      * Метод удалаляет все подписки на объект-Публикатор
-     * @param publisher
+     * @param publisher - объект-Публикатор
      */
     public void deleteSubscriptionPublisher(User publisher) {
         for (Map.Entry entry: subscriptions.entrySet()) {
