@@ -16,7 +16,9 @@ import static by.tms.instaclone.storage.KeeperConstants.*;
 import static by.tms.instaclone.storage.Reader.readCsvFile;
 import static by.tms.instaclone.storage.Writer.writeCsvFile;
 
-// реализован как класс-Одиночка
+/** Объект класса хранит все объекты класса User (далее Пользователи)
+ *  реализован как класс-одиночка
+ */
 public class UsersStorage {
     private static UsersStorage usersStorage;
     private ConcurrentHashMap<UUID, User> users;
@@ -32,6 +34,13 @@ public class UsersStorage {
         return users;
     }
 
+    /**
+     * Метод создаёт нового Пользователя и сохраняет его в USERS_CSV_FILE
+     * @param name      - имя Пользователя
+     * @param username  - логин Пользователя
+     * @param password  - пароль Пользователя
+     * @return          - новый Пользователя
+     */
     public User newUser(String name, String username, String password) {
         User user = new User(name, username, password);
         users.put(user.getUuid(), user);
@@ -52,28 +61,53 @@ public class UsersStorage {
         writeCsvFile(USERS_CSV_FILE, rowText);
     }
 
+    /**
+     * Метод меняет для указанного Пользователя его User.name
+     * @param user      - Пользователя, у которого производится замена name
+     * @param newName   - новое name
+     */
     public void changeName(User user, String newName) {
         User newUser = users.get(user.getUuid());
         newUser.setName(newName);
         substitute(user, newUser);
     }
 
+    /**
+     * Метод меняет для указанного Пользователя его User.username
+     * @param user          - Пользователя, у которого производится замена username
+     * @param newUsername   - новый username
+     */
     public void changeUsername(User user, String newUsername) {
         User newUser = users.get(user.getUuid());
         newUser.setUsername(newUsername);
         substitute(user, newUser);
     }
 
+    /**
+     * Метод меняет для указанного Пользователя его User.password
+     * @param user          - Пользователя, у которого производится замена password
+     * @param newPassword   - новый password
+     */
     public void changePassword(User user, String newPassword) {
         User newUser = users.get(user.getUuid());
         newUser.setPassword(newPassword);
         substitute(user, newUser);
     }
 
+    /**
+     * Метод возвращает по указанному UUID Пользователя с таким UUID
+     * @param uuid  - UUID-Пользователя
+     * @return      - объект-Пользователь
+     */
     public User getUser(UUID uuid) {
         return users.get(uuid);
     }
 
+    /**
+     * Метод удаляет переданного Пользователя
+     * Пользователь удаляется из Storage и USERS_CSV_FILE (см. deleteContentCsvFile())
+     * @param user
+     */
     public void deleteUser(User user) {
         UsernamesStorage.getInstance().deleteUser(usersStorage.getUser(user.getUuid()).getUsername());
         PostsStorage.getInstance().deletePostOwner(user);
@@ -86,9 +120,9 @@ public class UsersStorage {
         users = new ConcurrentHashMap<>();
         Optional<String> fileString = readCsvFile(USERS_CSV_FILE);
         if (fileString.get().length() > 0) {
-            String[] arrayRows = fileString.get().split(LF);   // делим csv-файл на строки по LF ("перевод каретки")
+            String[] arrayRows = fileString.get().split(LF);
             for (String row : arrayRows) {
-                String[] arrayWords = row.split(SEPARATOR_CSV);   // делим строку на "слова" по SEPARATOR_CSV
+                String[] arrayWords = row.split(SEPARATOR_CSV);
                 users.put(UUID.fromString(arrayWords[0]), new User(UUID.fromString(arrayWords[0]), arrayWords[1], arrayWords[2], arrayWords[3],
                         LocalDateTime.ofInstant(Instant.ofEpochSecond(Long.valueOf(arrayWords[4])), ZoneId.systemDefault())));
             }
