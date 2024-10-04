@@ -20,7 +20,7 @@
         </div>
         <div class="col">
             <div class="flex-d justify-content-center">
-                <img src="https://1000logos.net/wp-content/uploads/2017/02/insta-logo.png" width="80px">
+                <img src="https://1000logos.net/wp-content/uploads/2017/02/insta-logo.png" width="60px">
                 <p class="fs-1">Insta-clone</p>
             </div>
             <div class="row justify-content-center">

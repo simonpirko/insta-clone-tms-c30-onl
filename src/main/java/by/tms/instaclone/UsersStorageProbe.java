@@ -13,15 +13,8 @@ public class UsersStorageProbe {
 //        getLogger().addRecord(ERROR_TEMPLATE.formatted(ERROR_IO_FILE_TEMPLATE.formatted(LOGS_FILE)));
 
 // работа со Storage
-
-        UsersStorage usersStorage = UsersStorage.getInstance();
-        UsernamesStorage usernamesStorage = UsernamesStorage.getInstance();
-
-        UUID uuidUser = usernamesStorage.getUUID("alex");
-
-        User user = usersStorage.getUser(uuidUser);
-        User user2 = UsersStorage.getInstance().getUser(UsernamesStorage.getInstance().getUUID("alex"));
-        User user3 = UsersStorage.getInstance().getUser("alex");
+        User user3 = UsersStorage.getInstance().getUser("alex");    // отдать User'а по username
+        UsersStorage.getInstance().newUser("Ivan", "login", "password");
 
 //        User ChangeNameUser = usersStorage.getUser(UUID.fromString("91df09b5-69af-39b5-a64d-1506f50fa4bb"));
 //        usersStorage.changeName(ChangeNameUser, "Proton 4");
