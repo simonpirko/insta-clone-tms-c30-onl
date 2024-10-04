@@ -103,6 +103,11 @@ public class UsersStorage {
         return users.get(uuid);
     }
 
+    /**
+     * Метод возвращает User'а по указанному username
+     * @param username  - username Пользователя
+     * @return      - объект-Пользователь
+     */
     public User getUser(String username) {
         return users.get(UsernamesStorage.getInstance().getUUID(username));
     }
