@@ -1,6 +1,8 @@
 package by.tms.instaclone.servlet;
 
+import by.tms.instaclone.model.Post;
 import by.tms.instaclone.model.User;
+import by.tms.instaclone.storage.PostsStorage;
 import by.tms.instaclone.storage.SubscriptionsStorage;
 
 import javax.servlet.ServletException;
@@ -10,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 import static by.tms.instaclone.storage.KeeperConstants.CURRENT_USER_ATTRIBUTE;
@@ -26,6 +30,14 @@ public class UserHomeServlet extends HttpServlet {
         req.setAttribute("nameCurrentUser",currentUser.getName());
         HashMap<UUID, User> followers = SubscriptionsStorage.getInstance().getFollowersPublisher(currentUser);
         HashMap<UUID, User> publishers = SubscriptionsStorage.getInstance().getPublishersFollower(currentUser);
+        HashMap<User, Post> hotPostsPublishers = new HashMap<>();
+        Post hotPost;
+        for (Map.Entry entry: publishers.entrySet()) {
+            User owner = (User) entry.getValue();
+            hotPost = PostsStorage.getInstance().getHotPostPublisher(owner);
+            hotPostsPublishers.put(owner,hotPost);
+        }
+
 
         req.getServletContext().getRequestDispatcher("/pages/template.jsp").forward(req, res);
     }

@@ -135,7 +135,7 @@ public class SubscriptionsStorage {
             String[] arrayRows = fileString.get().split(LF);
             for (String row : arrayRows) {
                 String[] arrayWords = row.split(SEPARATOR_CSV);
-                if ((arrayWords.length % 4) == 0) {
+                if (arrayWords.length > 0) {
                     subscriptions.put(UUID.fromString(arrayWords[0]), new Subscription(UUID.fromString(arrayWords[0]),
                             UsersStorage.getInstance().getUser(UUID.fromString(arrayWords[1])),
                             UsersStorage.getInstance().getUser(UUID.fromString(arrayWords[2])),
