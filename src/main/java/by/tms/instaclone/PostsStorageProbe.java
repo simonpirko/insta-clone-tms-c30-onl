@@ -3,15 +3,10 @@ package by.tms.instaclone;
 import by.tms.instaclone.model.Post;
 import by.tms.instaclone.model.User;
 import by.tms.instaclone.storage.PostsStorage;
-import by.tms.instaclone.storage.UsernamesStorage;
 import by.tms.instaclone.storage.UsersStorage;
 
 import java.util.HashMap;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
-
-import static by.tms.instaclone.storage.KeeperConstants.*;
-import static by.tms.instaclone.utilites.SiteLogger.getLogger;
 
 public class PostsStorageProbe {
     public static void main(String[] args) {
@@ -24,7 +19,7 @@ public class PostsStorageProbe {
 
         HashMap<UUID, Post> posts = PostsStorage.getInstance().getPostsOwner(owner.getUuid());
 
-        Post hotPost = postsStorage.getHotPostPublisher(owner);
+        Post hotPost = postsStorage.getHotPostOwner(owner);
 
 //        postsStorage.changeText(post, "Заменённый ТЕКСТ");
 

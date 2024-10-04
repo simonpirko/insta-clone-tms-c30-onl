@@ -109,8 +109,23 @@ public class PostsStorage {
         return postsOwner;
     }
 
-    public Post getHotPostPublisher(User ownerUser) {
-        HashMap<UUID, Post> postsOwner = getPostsOwner(ownerUser.getUuid());
+    /**
+     * Метод возвращает набор постов по их владельцу
+     * @param owner - объект-владелец
+     * @return      - набор постов
+     */
+    public HashMap<UUID, Post> getPostsOwner(User owner) {
+        HashMap<UUID, Post> postsOwner = new HashMap<>();
+        for (Map.Entry entry: posts.entrySet()) {
+            if (((Post) entry.getValue()).getOwner().equals(owner)) {
+                postsOwner.put(((Post) entry.getValue()).getUuid(), (Post) entry.getValue());
+            }
+        }
+        return postsOwner;
+    }
+
+    public Post getHotPostOwner(User owner) {
+        HashMap<UUID, Post> postsOwner = getPostsOwner(owner);
         LocalDateTime maxDateTime = LocalDateTime.of(1970, 3, 8, 8, 0, 0, 0);
         Post hotPost = null;
         for (Post post: postsOwner.values()) {

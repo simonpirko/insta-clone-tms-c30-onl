@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 import java.util.UUID;
 
 import static by.tms.instaclone.storage.KeeperConstants.CURRENT_USER_ATTRIBUTE;
@@ -34,7 +33,7 @@ public class UserHomeServlet extends HttpServlet {
         Post hotPost;
         for (Map.Entry entry: publishers.entrySet()) {
             User owner = (User) entry.getValue();
-            hotPost = PostsStorage.getInstance().getHotPostPublisher(owner);
+            hotPost = PostsStorage.getInstance().getHotPostOwner(owner);
             hotPostsPublishers.put(owner,hotPost);
         }
 
