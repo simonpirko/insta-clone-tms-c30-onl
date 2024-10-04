@@ -20,7 +20,8 @@ public class UsersStorageProbe {
         UUID uuidUser = usernamesStorage.getUUID("alex");
 
         User user = usersStorage.getUser(uuidUser);
-        User user2 = usersStorage.getUser(usernamesStorage.getUUID("alex"));
+        User user2 = UsersStorage.getInstance().getUser(UsernamesStorage.getInstance().getUUID("alex"));
+        User user3 = UsersStorage.getInstance().getUser("alex");
 
 //        User ChangeNameUser = usersStorage.getUser(UUID.fromString("91df09b5-69af-39b5-a64d-1506f50fa4bb"));
 //        usersStorage.changeName(ChangeNameUser, "Proton 4");

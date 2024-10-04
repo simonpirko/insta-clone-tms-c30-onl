@@ -104,8 +104,7 @@ public class UsersStorage {
     }
 
     public User getUser(String username) {
-
-        return null;
+        return users.get(UsernamesStorage.getInstance().getUUID(username));
     }
 
     /**

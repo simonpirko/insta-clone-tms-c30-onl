@@ -40,10 +40,10 @@ public class RegistrationServlet extends HttpServlet {
             System.out.println("Username already exists");
         }
 
-        resp.sendRedirect("/");
-        req.setAttribute("name", name);
-        req.setAttribute("username", username);
-        req.setAttribute("password", password);
+//        resp.sendRedirect("/");
+//        req.setAttribute("name", name);
+//        req.setAttribute("username", username);
+//        req.setAttribute("password", password);
 //        if (ValidateData.validateName(name) && ValidateData.validateUsername(username) && ValidateData.validatePassword(password)) {
 //            usersStorage.getUsernames();
 //            if(usernames.get(username)==null){
