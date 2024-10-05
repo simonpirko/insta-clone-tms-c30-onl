@@ -39,6 +39,7 @@ public class UserHomeServlet extends HttpServlet {
         req.setAttribute("textPostCurrentUser", hotPost.getText());
         req.setAttribute("isName1", "true");
         req.setAttribute("carousel", "carousel" + "1");
+        req.setAttribute("count", "3");
 
 
         req.getServletContext().getRequestDispatcher("/pages/template.jsp").forward(req, res);
