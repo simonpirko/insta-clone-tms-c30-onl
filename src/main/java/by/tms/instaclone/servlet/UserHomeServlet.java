@@ -26,30 +26,34 @@ public class UserHomeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
         User currentUser = (User) req.getSession().getAttribute(CURRENT_USER_ATTRIBUTE);
-        req.setAttribute("nameCurrentUser",currentUser.getName());
+        req.setAttribute("nameCurrentUser", currentUser.getName());
         HashMap<UUID, User> followers = SubscriptionsStorage.getInstance().getFollowersPublisher(currentUser);
         HashMap<UUID, User> publishers = SubscriptionsStorage.getInstance().getPublishersFollower(currentUser);
         HashMap<User, Post> hotPostsPublishers = new HashMap<>();
-        Post hotPost;
+        Post hotPost = null;
         for (Map.Entry entry: publishers.entrySet()) {
             User owner = (User) entry.getValue();
             hotPost = PostsStorage.getInstance().getHotPostOwner(owner);
             hotPostsPublishers.put(owner,hotPost);
         }
+        req.setAttribute("textPostCurrentUser", hotPost.getText());
+        req.setAttribute("isName1", "true");
+        req.setAttribute("carousel", "carousel" + "1");
 
 
         req.getServletContext().getRequestDispatcher("/pages/template.jsp").forward(req, res);
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+//    @Override
+//    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 //        String name = req.getParameter("name");
 //        String username = req.getParameter("username");
 //        String password = req.getParameter("password");
-        User currentUser = (User) req.getSession().getAttribute(CURRENT_USER_ATTRIBUTE);
-        req.setAttribute("nameCurrentUser",currentUser.getName());
 
-        int i = 0;
+//        User currentUser = (User) req.getSession().getAttribute(CURRENT_USER_ATTRIBUTE);
+//        req.setAttribute("nameCurrentUser",currentUser.getName());
+//
+//        int i = 0;
 
 //        if (ValidateData.validateName(name) && ValidateData.validateUsername(username) && ValidateData.validatePassword(password)) {
 //            ConcurrentHashMap<String, UUID> usernames = UsernamesStorage.getInstance().getUsernames();
@@ -69,6 +73,6 @@ public class UserHomeServlet extends HttpServlet {
 //            req.setAttribute("errorPassword", errorPassword);
 //            req.getRequestDispatcher(REGISTRATION_JSP).forward(req, resp);
 //        }
-    }
+//    }
 
 }
