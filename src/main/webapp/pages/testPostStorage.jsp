@@ -11,7 +11,10 @@
     <title></title>
 </head>
 <body>
-<jsp:include page="_header.jsp"/>
+<jsp:include page="_bootstrap.jsp"/>
+<div class="container text-center">
+<div class="row align-items-start">
+    <jsp:include page="_menubar.jsp"/>
 <div class="row col-9 bg-white">
     <form class="col-4"   action="/post" method="post" enctype="multipart/form-data">
         <div class="mb-3">
@@ -20,6 +23,8 @@
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+</div>
+</div>
 </div>
 </body>
 </html>

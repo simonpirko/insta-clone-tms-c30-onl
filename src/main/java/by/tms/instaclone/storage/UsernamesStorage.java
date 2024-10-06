@@ -6,8 +6,9 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-// Класс является "производной" от UsersStorage и выполняет роль квази-индекса UsersStorage по username
-// реализован как класс-Одиночка
+/** Класс является "производной" от UsersStorage и выполняет роль квази-индекса UsersStorage по username
+ * c его помощью легко определить уникальность User.username
+ * реализован как класс-Одиночка*/
 public class UsernamesStorage {
     private static UsernamesStorage usernamesStorage;
     private ConcurrentHashMap<String, UUID> usernames;
@@ -25,6 +26,10 @@ public class UsernamesStorage {
 
     public void newUser(User user) {
         usernames.put(user.getUsername(), user.getUuid());
+    }
+
+    public UUID getUUID(String username) {
+        return usernames.get(username);
     }
 
     public void deleteUser(String username) {
