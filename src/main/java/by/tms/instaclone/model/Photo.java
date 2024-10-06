@@ -19,6 +19,13 @@ public class Photo {
         this.format = format;
         this.createAt = LocalDateTime.now(TimeZoneSettings.getUtcClock()); //Сохраянем время создания сущности
     }
+    public Photo(UUID uuid,Post post,byte[] image,String format,LocalDateTime createAt) {
+        this.uuid = uuid;
+        this.post = post;
+        this.image = image;
+        this.format = format;
+        this.createAt = createAt;
+    }
 
     public LocalDateTime getCreateAt() {          //Метод возвращающий время создания сущности
         return createAt;
