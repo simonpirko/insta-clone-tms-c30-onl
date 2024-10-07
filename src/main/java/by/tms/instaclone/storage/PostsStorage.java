@@ -44,7 +44,7 @@ public class PostsStorage {
         return post;
     }
 
-    private void newPost(Post post) {
+    public void newPost(Post post) {
         posts.put(post.getUuid(), post);
         // todo: с переходом к БД - сделать как с Объектом
         String rowText = POSTS_CSV_FORMAT_TEMPLATE.formatted(post.getUuid().toString(), post.getOwner().getUuid().toString(),

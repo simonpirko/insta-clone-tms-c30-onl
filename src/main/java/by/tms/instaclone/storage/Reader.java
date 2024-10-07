@@ -24,6 +24,7 @@ public class Reader {
         ClassLoader classLoader = Reader.class.getClassLoader();
 //        String fileName = "db/user.csv";
         File csvFile = new File(Objects.requireNonNull(classLoader.getResource(nameFile)).getFile());
+        //File csvFile = new File(Reader.class.getProtectionDomain().getCodeSource().getLocation().getPath().concat(nameFile));
         // todo обработать случай, когда файла не существует - создать его
         //
         try {

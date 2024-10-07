@@ -14,7 +14,7 @@ public class KeeperConstants {
 //    public static final String USERS_CSV_FILE = "C:\\Users\\123\\IdeaProjects\\insta-clone-tms-c30-onl\\src\\main\\resources\\csv\\users.csv";
     public static final String USERS_CSV_FILE = "csv/users.csv";
     public static final String PHOTOS_CSV_FILE = "csv/photos.csv";
-    public static final String PATH_TO_PHOTOS = KeeperConstants.class.getProtectionDomain().getCodeSource().getLocation().getPath().concat("photos/");
+    public static final String PATH_TO_PHOTOS = KeeperConstants.class.getProtectionDomain().getCodeSource().getLocation().getPath().concat("photos/").substring(1);
 //    public static final String POSTS_CSV_FILE = "C:\\Users\\123\\IdeaProjects\\insta-clone-tms-c30-onl\\src\\main\\resources\\csv\\posts.csv";
     public static final String POSTS_CSV_FILE = "csv/posts.csv";
 //    public static final String LOGS_FILE = "C:\\Users\\123\\IdeaProjects\\insta-clone-tms-c30-onl\\src\\main\\resources\\logs\\logs.txt";

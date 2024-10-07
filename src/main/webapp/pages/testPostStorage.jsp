@@ -16,10 +16,14 @@
 <div class="row align-items-start">
     <jsp:include page="_menubar.jsp"/>
 <div class="row col-9 bg-white">
-    <form class="col-4"   action="/post" method="post" enctype="multipart/form-data">
+    <form class="col-7"   action="/post" method="post" enctype="multipart/form-data">
         <div class="mb-3">
-            <label for="formFile" class="form-label">Default file input example</label>
-            <input class="form-control" name="photo" type="file" id="formFile">
+            <label for="formFileMultiple" class="form-label">Select Photos</label>
+            <input class="form-control" name="photo" maxlength="5"  type="file" id="formFileMultiple" multiple>
+        </div>
+        <div class="mb-7">
+            <label for="exampleFormControlTextarea1" class="form-label">Post Text</label>
+            <textarea class="form-control" name="PostText" id="exampleFormControlTextarea1" rows="3"></textarea>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>

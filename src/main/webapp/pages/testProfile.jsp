@@ -16,7 +16,9 @@
     <div class="row align-items-start">
         <jsp:include page="_menubar.jsp"/>
         <div class="row col-9 bg-white">
+            <h4>${username}</h4>
             <img src="${pathToImage}">
+            <h4>${postText}</h4>
         </div>
     </div>
 </div>
