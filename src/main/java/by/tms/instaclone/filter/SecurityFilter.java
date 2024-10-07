@@ -14,7 +14,7 @@ public class SecurityFilter extends HttpFilter {
     @Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
         if (req.getSession().getAttribute("currentUser") == null) {
-            res.sendRedirect("/login");
+            res.sendRedirect("/user/login");
         } else {
             chain.doFilter(req, res);
         }

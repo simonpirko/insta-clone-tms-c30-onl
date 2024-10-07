@@ -15,6 +15,8 @@ public class KeeperConstants {
     public static final String ERROR_IO_FILE_TEMPLATE = "there was a problem when reading the '%s' file";
 //    public static final String USERS_CSV_FILE = "C:\\Users\\123\\IdeaProjects\\insta-clone-tms-c30-onl\\src\\main\\resources\\csv\\users.csv";
     public static final String USERS_CSV_FILE = "csv/users.csv";
+    public static final String PHOTOS_CSV_FILE = "csv/photos.csv";
+    public static final String PATH_TO_PHOTOS = KeeperConstants.class.getProtectionDomain().getCodeSource().getLocation().getPath().concat("photos/").substring(1);
 //    public static final String POSTS_CSV_FILE = "C:\\Users\\123\\IdeaProjects\\insta-clone-tms-c30-onl\\src\\main\\resources\\csv\\posts.csv";
     public static final String POSTS_CSV_FILE = "csv/posts.csv";
 //    public static final String LOGS_FILE = "C:\\Users\\123\\IdeaProjects\\insta-clone-tms-c30-onl\\src\\main\\resources\\logs\\logs.txt";
@@ -23,6 +25,7 @@ public class KeeperConstants {
 
     public static final String USERS_CSV_FORMAT_TEMPLATE = "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + LF;
     public static final String POSTS_CSV_FORMAT_TEMPLATE = "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + LF;
+    public static final String PHOTO_CSV_FORMAT_TEMPLATE = "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + LF;
     public static final String SUBSCRIPTIONS_CSV_FORMAT_TEMPLATE = "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + LF;
     public static final String DATE_TIME_LOGGER_TEMPLATE = "dd/MM/yyyy HH:mm:ss";
 

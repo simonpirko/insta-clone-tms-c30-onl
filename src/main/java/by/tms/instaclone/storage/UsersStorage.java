@@ -52,7 +52,7 @@ public class UsersStorage {
         return user;
     }
 
-    private void newUser(User user) {
+    public void newUser(User user) {
         users.put(user.getUuid(), user);
         UsernamesStorage.getInstance().newUser(user);
         // todo: с переходом к БД - сделать как с Объектом
