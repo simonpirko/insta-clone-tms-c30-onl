@@ -28,6 +28,11 @@ public class UsernamesStorage {
         usernames.put(user.getUsername(), user.getUuid());
     }
 
+    /**
+     * Метод возвращает объект UUID User'а по его username
+     * @param username  - username User'а, чей UUID хотим получить
+     * @return          - найденный UUID
+     */
     public UUID getUUID(String username) {
         return usernames.get(username);
     }

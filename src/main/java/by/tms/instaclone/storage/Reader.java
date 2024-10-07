@@ -16,8 +16,8 @@ public class Reader {
     /**
      * Метод производит чтение из nameFile
      *
-     * @param nameFile - имя файла (с путём), из которого считываются данные, помещаемые в String
-     * @return - возвращает указанный файл (nameFile) в виде строки
+     * @param nameFile - путь/имя файла, из которого считываются данные, помещаемые в String
+     * @return - возвращает содержимое файл в виде строки
      */
     public static Optional<String> readCsvFile(String nameFile) {
         // todo пробую решить проблему с путями файла

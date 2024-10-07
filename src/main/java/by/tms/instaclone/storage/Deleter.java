@@ -12,6 +12,10 @@ import static by.tms.instaclone.utilites.SiteLogger.getLogger;
 
 public class Deleter {
 
+    /**
+     * Метод производит удаление содержимого в указанном nameFile
+     * @param nameFile  - путь/имя файла
+     */
     public static void deleteContentCsvFile(String nameFile) {
         // todo пробую решить проблему с путями файла
         ClassLoader classLoader = Deleter.class.getClassLoader();    // todo с таким решением работа идёт с файлами из target

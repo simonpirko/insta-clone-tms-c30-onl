@@ -18,17 +18,20 @@
                             <li>
                                 <a href="/search" class="nav-link px-0 align-middle">
                                     <img width="32px" height="32px" src="https://st3.depositphotos.com/1507819/32085/v/450/depositphotos_320853210-stock-illustration-magnifier-vector-icon-on-black.jpg">
-                                    <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Search</span></a>
+                                    <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Search</span>
+                                </a>
                             </li>
                             <li>
                                 <a href="/post" class="nav-link px-0 align-middle">
                                     <img width="32px" height="32px" src="https://us.123rf.com/450wm/piren/piren1703/piren170301332/74444943-%D0%B7%D0%BD%D0%B0%D1%87%D0%BE%D0%BA-%C2%AB%D0%BF%D0%BB%D1%8E%D1%81%C2%BB-%D0%BD%D0%B0-%D1%87%D0%B5%D1%80%D0%BD%D0%BE%D0%BC-%D1%84%D0%BE%D0%BD%D0%B5.jpg">
-                                    <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">New post</span> </a>
+                                    <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">New post</span>
+                                </a>
                             </li>
                             <li>
                                 <a href="/profile" class="nav-link px-0 align-middle">
                                     <img width="32px" height="32px" src="https://media.istockphoto.com/id/1126403787/ru/%D0%B2%D0%B5%D0%BA%D1%82%D0%BE%D1%80%D0%BD%D0%B0%D1%8F/%D0%B7%D0%BD%D0%B0%D1%87%D0%BE%D0%BA-%D0%BF%D1%80%D0%BE%D1%84%D0%B8%D0%BB%D1%8F-%D0%BD%D0%B0-%D1%87%D0%B5%D1%80%D0%BD%D0%BE%D0%BC-%D1%84%D0%BE%D0%BD%D0%B5-%D0%B4%D0%BB%D1%8F-%D0%B3%D1%80%D0%B0%D1%84%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%BE%D0%B3%D0%BE-%D0%B8-%D0%B2%D0%B5%D0%B1-%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD%D0%B0-%D1%81%D0%BE%D0%B2%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9-%D0%BF%D1%80%D0%BE%D1%81%D1%82%D0%BE%D0%B9.jpg?s=612x612&w=0&k=20&c=Elhcmz7nFU5Op_knlcyMjO5fDbATWuSX7L0Q8UOO1Cw=">
-                                    <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Profile</span> </a>
+                                    <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Profile</span>
+                                </a>
                             </li>
                         </ul>
                         <hr>
@@ -42,7 +45,7 @@
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                                <li><a class="dropdown-item" href="user/logout">Logout</a></li>
                             </ul>
                         </div>
                     </div>
