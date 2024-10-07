@@ -2,7 +2,7 @@ package by.tms.instaclone.utilites;
 
 import java.util.regex.Matcher;
 
-import static by.tms.instaclone.keepers.KeeperConstants.*;
+import static by.tms.instaclone.storage.KeeperConstants.*;
 
 public class ValidateData {
 
