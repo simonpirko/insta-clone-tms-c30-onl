@@ -1,4 +1,4 @@
-/*package by.tms.instaclone.storage;
+package by.tms.instaclone.storage;
 
 import by.tms.instaclone.model.Comment;
 import by.tms.instaclone.model.Post;
@@ -15,9 +15,10 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-*//*import static by.tms.instaclone.storage.Deleter.deleteContentCsvFile;
+import static by.tms.instaclone.storage.Deleter.deleteContentCsvFile;
+import static by.tms.instaclone.storage.KeeperConstants.*;
 import static by.tms.instaclone.storage.Reader.readCsvFile;
-import static by.tms.instaclone.storage.Writer.writeCsvFile;*//*
+import static by.tms.instaclone.storage.Writer.writeCsvFile;
 
 public class ReactionsStorage {
 
@@ -33,11 +34,11 @@ public class ReactionsStorage {
 
     private ReactionsStorage() {
         reactions = new ConcurrentHashMap<>();
-        Optional<String> fileString = readCsvFile("csv/reactions.csv");
+        Optional<String> fileString = readCsvFile(REACTIONS_CSV_FILE);
         if (!fileString.get().isEmpty()) {
-            String[] arrayRows = fileString.get().split("\n");
+            String[] arrayRows = fileString.get().split(LF);
             for (String row : arrayRows) {
-                String[] arrayWords = row.split(";");
+                String[] arrayWords = row.split(SEPARATOR_CSV);
                 reactions.put(UUID.fromString(arrayWords[0]), new Reaction(UUID.fromString(arrayWords[0]),
                         PostsStorage.getInstance().getPost(UUID.fromString(arrayWords[1])),
                         UsersStorage.getInstance().getUser(UUID.fromString(arrayWords[2])),
@@ -54,25 +55,23 @@ public class ReactionsStorage {
     public Reaction newReaction(Post post, User user, boolean newReaction) {
         Reaction reaction = new Reaction(post, user, newReaction);
         reactions.put(reaction.getUuid(), reaction);
-        String reactionFormat = "%s;%s;%s;%s;%s;\n";
-        String rowText = reactionFormat.formatted(reaction.getUuid().toString(),
+        String rowText = REACTIONS_CSV_FORMAT_TEMPLATE.formatted(reaction.getUuid().toString(),
                 reaction.getAddressee().getUuid().toString(),
                 reaction.getOwner().getUuid().toString(),
                 String.valueOf(reaction.isTypeReaction()),
                 reaction.getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli()/1000);
-        writeCsvFile("csv/reactions.csv", rowText);
+        writeCsvFile(REACTIONS_CSV_FILE, rowText);
         return reaction;
     }
 
     private void newReaction(Reaction reaction) {
         reactions.put(reaction.getUuid(), reaction);
-        String reactionFormat = "%s;%s;%s;%s;\n";
-        String rowText = reactionFormat.formatted(reaction.getUuid().toString(),
+        String rowText = REACTIONS_CSV_FORMAT_TEMPLATE.formatted(reaction.getUuid().toString(),
                 reaction.getAddressee().getUuid().toString(),
                 reaction.getOwner().getUuid().toString(),
                 String.valueOf(reaction.isTypeReaction()),
                 reaction.getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli()/1000);
-        writeCsvFile("csv/reactions.csv", rowText);
+        writeCsvFile(REACTIONS_CSV_FILE, rowText);
     }
 
     public void deleteReaction(Reaction reaction) {
@@ -113,15 +112,15 @@ public class ReactionsStorage {
     private void rewrite() {
         StringBuilder contentReactionsStorage = new StringBuilder();
         for (Map.Entry entry: reactions.entrySet()) {
-            contentReactionsStorage.append(((Reaction) entry.getValue()).getUuid().toString()).append(";")
-                    .append(((Reaction) entry.getValue()).getAddressee().getUuid().toString()).append(";")
-                    .append(((Reaction) entry.getValue()).getOwner().getUuid().toString()).append(";")
-                    .append(((Reaction) entry.getValue()).isTypeReaction()).append(";")
-                    .append(((Reaction) entry.getValue()).getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli()/1000).append(";")
-                    .append("\n");
+            contentReactionsStorage.append(((Reaction) entry.getValue()).getUuid().toString()).append(SEPARATOR_CSV)
+                    .append(((Reaction) entry.getValue()).getAddressee().getUuid().toString()).append(SEPARATOR_CSV)
+                    .append(((Reaction) entry.getValue()).getOwner().getUuid().toString()).append(SEPARATOR_CSV)
+                    .append(((Reaction) entry.getValue()).isTypeReaction()).append(SEPARATOR_CSV)
+                    .append(((Reaction) entry.getValue()).getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli()/1000).append(SEPARATOR_CSV)
+                    .append(LF);
         }
-        deleteContentCsvFile("csv/reactions.csv");
-        writeCsvFile("csv/reactions.csv", contentReactionsStorage.toString());
+        deleteContentCsvFile(REACTIONS_CSV_FILE);
+        writeCsvFile(REACTIONS_CSV_FILE, contentReactionsStorage.toString());
     }
 
     private void substitute(Reaction oldReaction, Reaction newReaction) {
@@ -129,4 +128,4 @@ public class ReactionsStorage {
         newReaction(newReaction);
     }
 
-}*/
+}

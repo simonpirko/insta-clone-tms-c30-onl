@@ -51,7 +51,8 @@ public class LoginServlet extends HttpServlet {
         }
         if (usernames.get(username) != null && users.get(usernames.get(username)).getPassword().equals(password)) {
             request.getSession().setAttribute(CURRENT_USER_ATTRIBUTE, users.get(usernames.get(username)));
-            response.sendRedirect(USER_HOME_PATH);
+//            response.sendRedirect(USER_HOME_PATH);
+            response.sendRedirect(USER_NEW_POST_PATH); //удалить после мержа home
         } else {
             request.setAttribute(PASSWORD_PROBLEM, MESSAGE_TRUE);
             request.getRequestDispatcher(LOGIN_JSP).forward(request, response);

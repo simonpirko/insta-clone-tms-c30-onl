@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static by.tms.instaclone.storage.KeeperConstants.LOGIN_PATH;
-import static by.tms.instaclone.storage.KeeperConstants.LOGOUT_PATH;
+import static by.tms.instaclone.storage.KeeperConstants.USER_LOGOUT_PATH;
 
-@WebServlet(LOGOUT_PATH)
+@WebServlet(USER_LOGOUT_PATH)
 public class LogoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

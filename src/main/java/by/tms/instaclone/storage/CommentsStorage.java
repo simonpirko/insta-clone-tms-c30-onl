@@ -1,4 +1,3 @@
-/*
 package by.tms.instaclone.storage;
 
 import by.tms.instaclone.model.Comment;
@@ -15,10 +14,11 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-*/
-/*import static by.tms.instaclone.storage.Deleter.deleteContentCsvFile;
+
+import static by.tms.instaclone.storage.Deleter.deleteContentCsvFile;
+import static by.tms.instaclone.storage.KeeperConstants.*;
 import static by.tms.instaclone.storage.Reader.readCsvFile;
-import static by.tms.instaclone.storage.Writer.writeCsvFile;*//*
+import static by.tms.instaclone.storage.Writer.writeCsvFile;
 
 
 public class CommentsStorage {
@@ -35,11 +35,11 @@ public class CommentsStorage {
 
     private CommentsStorage() {
         comments = new ConcurrentHashMap<>();
-        Optional<String> fileString = readCsvFile("csv/comments.csv");
+        Optional<String> fileString = readCsvFile(COMMENTS_CSV_FILE);
         if (!fileString.get().isEmpty()) {
-            String[] arrayRows = fileString.get().split("\n");
+            String[] arrayRows = fileString.get().split(LF);
             for (String row : arrayRows) {
-                String[] arrayWords = row.split(";");
+                String[] arrayWords = row.split(SEPARATOR_CSV);
                 comments.put(UUID.fromString(arrayWords[0]), new Comment(UUID.fromString(arrayWords[0]),
                         PostsStorage.getInstance().getPost(UUID.fromString(arrayWords[1])),
                         UsersStorage.getInstance().getUser(UUID.fromString(arrayWords[2])), arrayWords[3],
@@ -55,25 +55,23 @@ public class CommentsStorage {
     public Comment newComment(Post post, User user, String textComment) {
         Comment comment = new Comment(post, user, textComment);
         comments.put(comment.getUuid(), comment);
-        String commentFormat = "%s;%s;%s;%s;%s;\n";
-        String rowText = commentFormat.formatted(comment.getUuid().toString(),
+        String rowText = COMMENTS_CSV_FORMAT_TEMPLATE.formatted(comment.getUuid().toString(),
                 comment.getAddressee().getUuid().toString(),
                 comment.getOwner().getUuid().toString(),
                 comment.getText(),
                 comment.getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli()/1000);
-        writeCsvFile("csv/comments.csv", rowText);
+        writeCsvFile(COMMENTS_CSV_FILE, rowText);
         return comment;
     }
 
     private void newComment(Comment comment) {
         comments.put(comment.getUuid(), comment);
-        String commentFormat = "%s;%s;%s;%s;\n";
-        String rowText = commentFormat.formatted(comment.getUuid().toString(),
+        String rowText = COMMENTS_CSV_FORMAT_TEMPLATE.formatted(comment.getUuid().toString(),
                 comment.getAddressee().getUuid().toString(),
                 comment.getOwner().getUuid().toString(),
                 comment.getText(),
                 comment.getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli()/1000);
-        writeCsvFile("csv/comments.csv", rowText);
+        writeCsvFile(COMMENTS_CSV_FILE, rowText);
     }
 
     public void deleteComment(Comment comment) {
@@ -114,15 +112,15 @@ public class CommentsStorage {
     private void rewrite() {
         StringBuilder contentCommentsStorage = new StringBuilder();
         for (Map.Entry entry: comments.entrySet()) {
-            contentCommentsStorage.append(((Comment) entry.getValue()).getUuid().toString()).append(";")
-                    .append(((Comment) entry.getValue()).getAddressee().getUuid().toString()).append(";")
-                    .append(((Comment) entry.getValue()).getOwner().getUuid().toString()).append(";")
-                    .append(((Comment) entry.getValue()).getText()).append(";")
-                    .append(((Comment) entry.getValue()).getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli()/1000).append(";")
-                    .append("\n");
+            contentCommentsStorage.append(((Comment) entry.getValue()).getUuid().toString()).append(SEPARATOR_CSV)
+                    .append(((Comment) entry.getValue()).getAddressee().getUuid().toString()).append(SEPARATOR_CSV)
+                    .append(((Comment) entry.getValue()).getOwner().getUuid().toString()).append(SEPARATOR_CSV)
+                    .append(((Comment) entry.getValue()).getText()).append(SEPARATOR_CSV)
+                    .append(((Comment) entry.getValue()).getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli()/1000).append(SEPARATOR_CSV)
+                    .append(LF);
         }
-        deleteContentCsvFile("csv/comments.csv");
-        writeCsvFile("csv/comments.csv", contentCommentsStorage.toString());
+        deleteContentCsvFile(COMMENTS_CSV_FILE);
+        writeCsvFile(COMMENTS_CSV_FILE, contentCommentsStorage.toString());
     }
 
     private void substitute(Comment oldComment, Comment newComment) {
@@ -131,4 +129,4 @@ public class CommentsStorage {
     }
 
 }
-*/
+

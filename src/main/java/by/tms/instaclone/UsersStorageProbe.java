@@ -38,7 +38,7 @@ public class UsersStorageProbe {
 //            System.out.println("Username already exists");  // действия, если User с username уже существует
 //        }
 
-        User user = usersStorage.getUser(uuidUser);
+//        User user = usersStorage.getUser(uuidUser);
         User user2 = UsersStorage.getInstance().getUser(UsernamesStorage.getInstance().getUUID("alex"));
         int i = 0;
     }
