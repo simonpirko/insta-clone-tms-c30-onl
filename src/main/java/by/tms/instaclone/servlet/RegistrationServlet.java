@@ -37,7 +37,7 @@ public class RegistrationServlet extends HttpServlet {
             ConcurrentHashMap<String, UUID> usernames = UsernamesStorage.getInstance().getUsernames();
             if(usernames.get(username)==null){
                 usersStorage.newUser(name,username,password);
-                resp.sendRedirect(USER_HOME_PATH);
+                resp.sendRedirect(LOGIN_PATH);
             } else {
                 req.setAttribute("message","Username already exists");
                 req.getRequestDispatcher(REGISTRATION_JSP).forward(req,resp);
