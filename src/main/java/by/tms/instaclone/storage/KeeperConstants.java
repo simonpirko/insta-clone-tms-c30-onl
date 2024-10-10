@@ -40,8 +40,6 @@ public class KeeperConstants {
     public static final String NEW_POST_JSP = "/pages/newPost.jsp";
 
     public static final String REGISTRATION_PATH = "/reg";
-    public static final String HOME_PATH = "/home";
-//    public static final String LOGIN_PATH = "/user/login";
     public static final String LOGIN_PATH = "/login";
     public static final String USER_HOME_PATH = "/user/home";
     public static final String USER_NEW_POST_PATH = "/user/newPost";
