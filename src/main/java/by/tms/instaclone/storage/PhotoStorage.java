@@ -16,10 +16,7 @@ import java.nio.file.Path;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Stream;
 
@@ -27,14 +24,14 @@ public class PhotoStorage {
     private ConcurrentHashMap<UUID, Photo> photos;
     private static PhotoStorage instance;
 
-    public static PhotoStorage getInstance(){
+    public static PhotoStorage getInstance() {
         if (instance == null) {
             instance = new PhotoStorage();
         }
         return instance;
     }
 
-    private PhotoStorage(){
+    private PhotoStorage() {
         photos = new ConcurrentHashMap<>();
         Optional<String> fileString = readCsvFile(PHOTOS_CSV_FILE);
         if (fileString.get().length() > 0) {
@@ -50,8 +47,7 @@ public class PhotoStorage {
                                     bytes,
                                     arrayWords[2],
                                     LocalDateTime.ofInstant(Instant.ofEpochSecond(Long.valueOf(arrayWords[3])), ZoneId.systemDefault()))));
-                }
-                catch (IOException exception){
+                } catch (IOException exception) {
                 }
             }
         }
@@ -72,22 +68,38 @@ public class PhotoStorage {
         }
     }
 
-    public Photo getPhoto(UUID uuid){
-            return photos.get(uuid);
+    public Photo getPhoto(UUID uuid) {
+        return photos.get(uuid);
     }
 
-    public Map<UUID, Photo> getPhotoOfPost(UUID PostUUID){
+    public Map<UUID, Photo> getPhotoOfPost(UUID postUUID) {
         Map<UUID, Photo> photoOfPost = new HashMap<>();
         Stream<Photo> photoStream = photos.values().stream();
         photoStream.filter(photo ->
-                photo.getPost().
-                getUuid().
-                equals(PostUUID)).
+                        photo.getPost().
+                                getUuid().
+                                equals(postUUID)).
                 forEach(photo -> photoOfPost.put(photo.getUuid(), photo));
         return photoOfPost;
     }
 
-    private void saveImage(UUID uuid, byte[] image, String format){
+    /**
+     * Метод создаёт набор тех фотографий, которые включены в Post с UUID равным postUUID
+     *
+     * @param postUUID - UUID поста
+     * @return - набор фотографий
+     */
+    public List<Photo> getPhotosPost(UUID postUUID) {
+        List<Photo> photosPost = new ArrayList<>();
+        Stream<Photo> photoStream = photos.values().stream();
+        photoStream.filter(photo -> photo.getPost().
+                        getUuid().
+                        equals(postUUID)).
+                forEach(photosPost::add);
+        return photosPost;
+    }
+
+    private void saveImage(UUID uuid, byte[] image, String format) {
         File imageFile = new File(PATH_TO_PHOTOS + uuid + "." + format);
         try (FileOutputStream fos = new FileOutputStream(imageFile)) {
             fos.write(image);
@@ -97,12 +109,11 @@ public class PhotoStorage {
     }
 
     private Optional<byte[]> getImage(String photoID) throws IOException {
-       Path pathToImage = Path.of(PATH_TO_PHOTOS.concat(photoID));
+        Path pathToImage = Path.of(PATH_TO_PHOTOS.concat(photoID));
         if (Files.exists(pathToImage)) {
             return Optional.ofNullable(Files.readAllBytes(pathToImage));
-        }
-        else{
-                return Optional.empty();
+        } else {
+            return Optional.empty();
         }
     }
 }

@@ -19,8 +19,9 @@ import static by.tms.instaclone.storage.KeeperConstants.SEPARATOR_CSV;
 import static by.tms.instaclone.storage.Reader.readCsvFile;
 import static by.tms.instaclone.storage.Writer.writeCsvFile;
 
-/** Объект класса хранит все объекты класса Post
- *  реализован как класс-одиночка *
+/**
+ * Объект класса хранит все объекты класса Post
+ * реализован как класс-одиночка
  */
 public class PostsStorage {
     private static PostsStorage postsStorage;
@@ -39,8 +40,9 @@ public class PostsStorage {
 
     /**
      * Метод создаёт новый Post от имени ownerUser с текстом textPost и сохраняет её в POSTS_CSV_FILE
+     *
      * @param ownerUser - объект-владелец поста
-     * @param textPost  - текст поста
+     * @param textPost - текст поста
      * @return
      */
     public Post newPost(User ownerUser, String textPost) {
@@ -48,7 +50,7 @@ public class PostsStorage {
         posts.put(post.getUuid(), post);
         // todo: с переходом к БД - сделать как с Объектом
         String rowText = POSTS_CSV_FORMAT_TEMPLATE.formatted(post.getUuid().toString(), post.getOwner().getUuid().toString(),
-                post.getText(), post.getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli()/1000);
+                post.getText(), post.getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli() / 1000);
         writeCsvFile(POSTS_CSV_FILE, rowText);
         return post;
     }
@@ -57,12 +59,13 @@ public class PostsStorage {
         posts.put(post.getUuid(), post);
         // todo: с переходом к БД - сделать как с Объектом
         String rowText = POSTS_CSV_FORMAT_TEMPLATE.formatted(post.getUuid().toString(), post.getOwner().getUuid().toString(),
-                post.getText(), post.getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli()/1000);
+                post.getText(), post.getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli() / 1000);
         writeCsvFile(POSTS_CSV_FILE, rowText);
     }
 
     /**
      * Метод удаляет указанный Post
+     *
      * @param post - объект-Post
      */
     public void deletePost(Post post) {
@@ -73,10 +76,11 @@ public class PostsStorage {
 
     /**
      * Метод удаляет все посты указанного владельца из хранилища и POSTS_CSV_FILE (см. deletePost())
+     *
      * @param owner - объект-владелец постов
      */
     public void deletePostOwner(User owner) {
-        for (Map.Entry entry: posts.entrySet()) {
+        for (Map.Entry entry : posts.entrySet()) {
             if (((Post) entry.getValue()).getOwner().equals(owner)) {
                 deleteHeirs((Post) entry.getValue());
                 posts.remove(entry.getKey());
@@ -87,8 +91,9 @@ public class PostsStorage {
 
     /**
      * Метод возращает объет-пост по его UUID
-     * @param uuid  - UUID поста
-     * @return      - объект поста
+     *
+     * @param uuid - UUID поста
+     * @return - объект поста
      */
     public Post getPost(UUID uuid) {
         return posts.get(uuid);
@@ -96,12 +101,13 @@ public class PostsStorage {
 
     /**
      * Метод возвращает набор постов их владельца по UUID объекта-владельца
+     *
      * @param ownerUuid - UUID объекта-владельца
-     * @return          - набор постов
+     * @return - набор постов
      */
     public HashMap<UUID, Post> getPostsOwner(UUID ownerUuid) {
         HashMap<UUID, Post> postsOwner = new HashMap<>();
-        for (Map.Entry entry: posts.entrySet()) {
+        for (Map.Entry entry : posts.entrySet()) {
             if (((Post) entry.getValue()).getOwner().getUuid().equals(ownerUuid)) {
                 postsOwner.put(((Post) entry.getValue()).getUuid(), (Post) entry.getValue());
             }
@@ -111,12 +117,13 @@ public class PostsStorage {
 
     /**
      * Метод возвращает набор постов по их владельцу
+     *
      * @param owner - объект-владелец
-     * @return      - набор постов
+     * @return - набор постов
      */
     public HashMap<UUID, Post> getPostsOwner(User owner) {
         HashMap<UUID, Post> postsOwner = new HashMap<>();
-        for (Map.Entry entry: posts.entrySet()) {
+        for (Map.Entry entry : posts.entrySet()) {
             if (((Post) entry.getValue()).getOwner().equals(owner)) {
                 postsOwner.put(((Post) entry.getValue()).getUuid(), (Post) entry.getValue());
             }
@@ -128,7 +135,7 @@ public class PostsStorage {
         HashMap<UUID, Post> postsOwner = getPostsOwner(owner);
         LocalDateTime maxDateTime = LocalDateTime.of(1970, 3, 8, 8, 0, 0, 0);
         Post hotPost = null;
-        for (Post post: postsOwner.values()) {
+        for (Post post : postsOwner.values()) {
             if (post.getCreateAt().isAfter(maxDateTime)) {
                 hotPost = post;
             }
@@ -137,9 +144,28 @@ public class PostsStorage {
     }
 
     /**
+     * Метод возращает последний Post Владельца по UUID Владельца
+     *
+     * @param ownerUuid - UUID Владельца
+     * @return - Post, последний по дате публикации или NULL, если постов нет совсем
+     */
+    public Post getLastPostOwner(UUID ownerUuid) {
+        HashMap<UUID, Post> postsOwner = getPostsOwner(UsersStorage.getInstance().getUser(ownerUuid));
+        LocalDateTime maxDateTime = LocalDateTime.of(1970, 3, 8, 8, 0, 0, 0);
+        Post lastPost = null;
+        for (Post post : postsOwner.values()) {
+            if (post.getCreateAt().isAfter(maxDateTime)) {
+                lastPost = post;
+            }
+        }
+        return lastPost;
+    }
+
+    /**
      * Метод меняет текст в переданном посте
-     * @param post      - объект-пост, в котором меняется текст
-     * @param newText   - новый текст
+     *
+     * @param post - объект-пост, в котором меняется текст
+     * @param newText - новый текст
      */
     public void changeText(Post post, String newText) {
         Post newPost = posts.get(post.getUuid());
@@ -163,11 +189,11 @@ public class PostsStorage {
 
     private void rewrite() {
         StringBuilder contentPostsStorage = new StringBuilder();
-        for (Map.Entry entry: posts.entrySet()) {
+        for (Map.Entry entry : posts.entrySet()) {
             contentPostsStorage.append(((Post) entry.getValue()).getUuid().toString()).append(SEPARATOR_CSV)
                     .append(((Post) entry.getValue()).getOwner().getUuid().toString()).append(SEPARATOR_CSV)
                     .append(((Post) entry.getValue()).getText()).append(SEPARATOR_CSV)
-                    .append(((Post) entry.getValue()).getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli()/1000).append(SEPARATOR_CSV)
+                    .append(((Post) entry.getValue()).getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli() / 1000).append(SEPARATOR_CSV)
                     .append(LF);
         }
         deleteContentCsvFile(POSTS_CSV_FILE);
