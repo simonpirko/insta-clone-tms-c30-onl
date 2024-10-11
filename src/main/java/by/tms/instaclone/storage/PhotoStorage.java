@@ -16,6 +16,7 @@ import java.nio.file.Path;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -42,7 +43,7 @@ public class PhotoStorage {
             for (String row : arrayRows) {
                 String[] arrayWords = row.split(SEPARATOR_CSV);// делим строку на "слова" по SEPARATOR_CSV
                 try {
-                    Optional<byte[]> image = getImage(arrayWords[0]);
+                    Optional<byte[]> image = getImage(arrayWords[0], arrayWords[2]);
                     image.ifPresent(bytes -> photos.put(
                             UUID.fromString(arrayWords[0]),
                             new Photo(UUID.fromString(arrayWords[0]),
@@ -64,7 +65,7 @@ public class PhotoStorage {
             Photo photo = new Photo(post, ImageInByte, format[1]);
             photos.put(photo.getUuid(), photo);
             saveImage(photo.getUuid(), ImageInByte, format[1]);
-            String rowText = PHOTO_CSV_FORMAT_TEMPLATE.formatted(photo.getUuid(), post.getUuid(), format[1], photo.getCreateAt());
+            String rowText = PHOTO_CSV_FORMAT_TEMPLATE.formatted(photo.getUuid(), post.getUuid(), format[1], photo.getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli()/1000);
             writeCsvFile(PHOTOS_CSV_FILE, rowText);
 
         } else {
@@ -96,8 +97,9 @@ public class PhotoStorage {
         }
     }
 
-    private Optional<byte[]> getImage(String photoID) throws IOException {
-       Path pathToImage = Path.of(PATH_TO_PHOTOS.concat(photoID));
+    public Optional<byte[]> getImage(String photoID, String format) throws IOException {
+       Path pathToImage = Path.of(PATH_TO_PHOTOS.concat(photoID+"."+format));
+        //File file = new File(PATH_TO_PHOTOS + photoID+"."+format);
         if (Files.exists(pathToImage)) {
             return Optional.ofNullable(Files.readAllBytes(pathToImage));
         }
