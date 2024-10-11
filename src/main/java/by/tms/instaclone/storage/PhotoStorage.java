@@ -36,13 +36,16 @@ public class PhotoStorage {
         photos = new ConcurrentHashMap<>();
         Optional<String> fileString = readCsvFile(PHOTOS_CSV_FILE);
         if (fileString.get().length() > 0) {
-            String[] arrayRows = fileString.get().split(LF);   // делим csv-файл на строки по LF ("перевод каретки")
+            String[] arrayRows = fileString.get().split(LF);
             for (String row : arrayRows) {
-                String[] arrayWords = row.split(SEPARATOR_CSV);// делим строку на "слова" по SEPARATOR_CSV
+                String[] arrayWords = row.split(SEPARATOR_CSV);
                 Optional<byte[]> image = null;
-                image = getImage(arrayWords[0].concat(".").concat(arrayWords[2]));
-                image.ifPresent(bytes -> photos.put(UUID.fromString(arrayWords[0]), new Photo(UUID.fromString(arrayWords[0]),  // валится тут!
-                        PostsStorage.getInstance().getPost(UUID.fromString(arrayWords[1])), bytes, arrayWords[2],
+                image = getImage(arrayWords[0].concat(".").concat(arrayWords[2])); // исправление AlexGarag
+                image.ifPresent(bytes -> photos.put(UUID.fromString(arrayWords[0]),
+                        new Photo(UUID.fromString(arrayWords[0]),  // валится тут!
+                        PostsStorage.getInstance().getPost(UUID.fromString(arrayWords[1])),
+                                bytes,
+                                arrayWords[2],
                         LocalDateTime.ofInstant(Instant.ofEpochSecond(Long.valueOf(arrayWords[3])), ZoneId.systemDefault()))));
             }
         }
@@ -100,7 +103,7 @@ public class PhotoStorage {
         }
     }
 
-    private Optional<byte[]> getImage(String nameFilePhoto) {   // мой вариант
+    private Optional<byte[]> getImage(String nameFilePhoto) {   // вариант AlexGarag
         Adapter adaptedPath = new Adapter(PATH_TO_PHOTOS);
         Path pathPhoto = Path.of(adaptedPath.getPathToOs().concat(nameFilePhoto));
         if (Files.exists(pathPhoto)) {
