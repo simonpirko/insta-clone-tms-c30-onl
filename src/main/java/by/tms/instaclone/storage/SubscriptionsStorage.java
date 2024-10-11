@@ -7,10 +7,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static by.tms.instaclone.storage.Deleter.deleteContentCsvFile;
@@ -87,6 +84,23 @@ public class SubscriptionsStorage {
         for (Map.Entry entry: subscriptions.entrySet()) {
             if (((Subscription) entry.getValue()).getFollower().equals(follower)) {
                 publishers.put((UUID) entry.getKey(), ((Subscription) entry.getValue()).getPublisher());
+            }
+        }
+        return publishers;
+    }
+
+    /**
+     * Метод возвращает все подписки указанного Подписчика по его UUID
+     * @param followerUuid - UUID объекта-Подписчик
+     * @return publishers - набор объектов-Публикаторов
+     */
+    public List<User> getPublishersFollower(UUID followerUuid) {
+        List<User> publishers = new ArrayList<>();
+        for (Map.Entry entry: subscriptions.entrySet()) {
+            UUID followerSubscriptionUuid = ((Subscription) entry.getValue()).getFollower().getUuid();
+            if (followerSubscriptionUuid.equals(followerUuid)) {
+                User publisher = ((Subscription) entry.getValue()).getPublisher();
+                publishers.add(publisher);
             }
         }
         return publishers;

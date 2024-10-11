@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static by.tms.instaclone.storage.KeeperConstants.SLAGE;
+import static by.tms.instaclone.storage.KeeperConstants.USER_PROFILE_PATH;
 
 public class PublisherCardDto {
     private static String namePublisher;
@@ -31,7 +32,7 @@ public class PublisherCardDto {
         UUID uuidPublisher = UsernamesStorage.getInstance().getUUID(userName);
         userNamePublisher = UsersStorage.getInstance().getUser(uuidPublisher).getUsername();
         namePublisher = UsersStorage.getInstance().getUser(uuidPublisher).getName();
-        urlPublisher = "/user/profile" + SLAGE + userNamePublisher;
+        urlPublisher = USER_PROFILE_PATH + SLAGE + userNamePublisher;
         textPost = PostsStorage.getInstance().getLastPostOwner(uuidPublisher).getText();
         createAt = PostsStorage.getInstance().getPost(uuidPublisher).getCreateAt();
         photosPost = new ArrayList<>(PhotoStorage.getInstance().getPhotosPost(uuidPublisher));
