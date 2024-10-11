@@ -1,5 +1,6 @@
 package by.tms.instaclone.dto;
 
+import by.tms.instaclone.model.Post;
 import by.tms.instaclone.storage.PhotoStorage;
 import by.tms.instaclone.storage.PostsStorage;
 import by.tms.instaclone.storage.UsersStorage;
@@ -12,13 +13,13 @@ import java.util.List;
 import java.util.UUID;
 
 import static by.tms.instaclone.storage.KeeperConstants.SLAGE;
-import static by.tms.instaclone.storage.KeeperConstants.USER_PROFILE_PATH;
+import static by.tms.instaclone.storage.KeeperConstants.USER_PROFILE_URL;
 
 public class PublisherCardDto {
     private static String namePublisher;
     private static String userNamePublisher;
     private static String urlPublisher;
-    private static String textPost;
+    private static List<Post> postsPublisher;
     private static LocalDateTime createAt;
     private static List<Photo> photosPost;
     private static String carouselName;
@@ -32,8 +33,8 @@ public class PublisherCardDto {
         UUID uuidPublisher = UsernamesStorage.getInstance().getUUID(userName);
         userNamePublisher = UsersStorage.getInstance().getUser(uuidPublisher).getUsername();
         namePublisher = UsersStorage.getInstance().getUser(uuidPublisher).getName();
-        urlPublisher = USER_PROFILE_PATH + SLAGE + userNamePublisher;
-        textPost = PostsStorage.getInstance().getLastPostOwner(uuidPublisher).getText();
+        urlPublisher = USER_PROFILE_URL + SLAGE + userNamePublisher;
+        List<Post> postsPublisher = PostsStorage.getInstance().getLastPostOwner(uuidPublisher);
         createAt = PostsStorage.getInstance().getPost(uuidPublisher).getCreateAt();
         photosPost = new ArrayList<>(PhotoStorage.getInstance().getPhotosPost(uuidPublisher));
         carouselName = uuidPublisher + "Carousel";
@@ -56,8 +57,8 @@ public class PublisherCardDto {
         return urlPublisher;
     }
 
-    public String getTextPost() {
-        return textPost;
+    public List<Post> getPostsPublisher() {
+        return postsPublisher;
     }
 
     public LocalDateTime getCreateAt() {

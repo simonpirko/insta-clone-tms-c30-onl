@@ -7,10 +7,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static by.tms.instaclone.storage.Deleter.deleteContentCsvFile;
@@ -149,16 +146,18 @@ public class PostsStorage {
      * @param ownerUuid - UUID Владельца
      * @return - Post, последний по дате публикации или NULL, если постов нет совсем
      */
-    public Post getLastPostOwner(UUID ownerUuid) {
+    public List<Post> getLastPostOwner(UUID ownerUuid) {
         HashMap<UUID, Post> postsOwner = getPostsOwner(UsersStorage.getInstance().getUser(ownerUuid));
         LocalDateTime maxDateTime = LocalDateTime.of(1970, 3, 8, 8, 0, 0, 0);
+        List<Post> posts = new ArrayList<>();
         Post lastPost = null;
         for (Post post : postsOwner.values()) {
             if (post.getCreateAt().isAfter(maxDateTime)) {
                 lastPost = post;
             }
         }
-        return lastPost;
+        posts.add(lastPost);
+        return posts;
     }
 
     /**

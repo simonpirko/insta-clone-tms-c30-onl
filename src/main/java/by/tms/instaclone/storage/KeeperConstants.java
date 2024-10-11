@@ -41,7 +41,7 @@ public class KeeperConstants {
     public static final String USER_HOME_PATH = "/user/home";
     public static final String USER_NEW_POST_PATH = "/user/newPost";
     public static final String USER_LOGOUT_PATH = "/user/logout";
-    public static final String USER_PROFILE_PATH = "/user/profile";
+    public static final String USER_PROFILE_URL = "/user/profile";
 
 
     public static final Pattern NAME_REGEX = Pattern.compile("^[a-zA-Z]{2,15}$");
