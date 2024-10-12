@@ -32,6 +32,7 @@ public class NewPostServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         User curUser = (User) req.getSession().getAttribute(CURRENT_USER_ATTRIBUTE);
         Collection<Part> parts = req.getParts();
         String textPost = req.getParameter("textPost");
