@@ -16,14 +16,14 @@
                     <div class="card" style="width: 35rem;">
                         <div class="card-body">
                             <ul class="pagination">
-                                <a href="#" class="card-link">${nameCurrentUser}</a>
+                                <a href="#${urlProfileUser}" class="card-link">${nameUser}</a>
                                 <p class="card-text invisible">space</p>
                                 <p class="card-text">Time create post:</p>
                                 <p class="card-text invisible">_</p>
                                 <p class="card-text">${dateTimePost}</p>
                             </ul>
                         </div>
-                        <div id="${i}" class="carousel slide">
+                        <div id="${Carousel}" class="carousel slide">
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
                                     <img src="..." class="d-block w-100" alt="...">
@@ -35,24 +35,24 @@
                                     <img src="..." class="d-block w-100" alt="...">
                                 </div>
                             </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#${i}"
+                            <button class="carousel-control-prev" type="button" data-bs-target="#${Carousel}"
                                     data-bs-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Previous</span>
                             </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#${i}"
+                            <button class="carousel-control-next" type="button" data-bs-target="#${Carousel}"
                                     data-bs-slide="next">
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Next</span>
                             </button>
                         </div>
                         <div class="card-body">
-                            <p class="card-text">${textPostCurrentUser}</p>
+                            <p class="card-text">${textPostUser}</p>
                         </div>
                         <div class="btn-group btn-group-sm" role="group" aria-label="Small button group">
-                            <button type="button" class="btn btn-outline-primary">Like</button>
-                            <button type="button" class="btn btn-outline-primary">Dislike</button>
-                            <button type="button" class="btn btn-outline-primary">Comment</button>
+                            <button type="button" class="btn btn-outline-primary">${Like}</button>
+                            <button type="button" class="btn btn-outline-primary">${Dislike}</button>
+                            <button type="button" class="btn btn-outline-primary">${Comment}</button>
                         </div>
                     </div>
                 </c:forEach>

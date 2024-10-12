@@ -154,6 +154,7 @@ public class PostsStorage {
         for (Post post : postsOwner.values()) {
             if (post.getCreateAt().isAfter(maxDateTime)) {
                 lastPost = post;
+                maxDateTime = post.getCreateAt();
             }
         }
         posts.add(lastPost);

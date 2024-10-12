@@ -2,10 +2,7 @@ package by.tms.instaclone.servlet;
 
 import by.tms.instaclone.dto.PublisherCardDto;
 import by.tms.instaclone.dto.UserHomePageDto;
-import by.tms.instaclone.model.Post;
 import by.tms.instaclone.model.User;
-import by.tms.instaclone.storage.PostsStorage;
-import by.tms.instaclone.storage.SubscriptionsStorage;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,13 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
-import static by.tms.instaclone.storage.KeeperConstants.CURRENT_USER_ATTRIBUTE;
-import static by.tms.instaclone.storage.KeeperConstants.USER_HOME_PATH;
+import static by.tms.instaclone.storage.KeeperConstants.*;
 
 
 @WebServlet(name = "UserHomeServlet", value = USER_HOME_PATH)
@@ -51,8 +44,7 @@ public class UserHomeServlet extends HttpServlet {
 //        req.setAttribute("carousel", "carousel" + "1");
 //        req.setAttribute("count", "3");
 
-
-        req.getServletContext().getRequestDispatcher("/pages/template.jsp").forward(req, res);
+        req.getServletContext().getRequestDispatcher(HOME_USER_JSP).forward(req, res);
     }
 
 //    @Override

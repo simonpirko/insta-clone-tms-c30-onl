@@ -31,6 +31,7 @@ public class KeeperConstants {
     public static final String DATE_TIME_LOGGER_TEMPLATE = "dd/MM/yyyy HH:mm:ss";
 
     public static final String HOME_JSP = "/pages/home.jsp";
+    public static final String HOME_USER_JSP = "/pages/homePageUser.jsp";
     public static final String REGISTRATION_JSP = "/pages/registration.jsp";
     public static final String PROFILE_JSP = "/pages/profile.jsp";
     public static final String LOGIN_JSP = "/pages/login.jsp";

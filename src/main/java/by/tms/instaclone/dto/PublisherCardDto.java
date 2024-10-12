@@ -1,11 +1,9 @@
 package by.tms.instaclone.dto;
 
 import by.tms.instaclone.model.Post;
-import by.tms.instaclone.storage.PhotoStorage;
 import by.tms.instaclone.storage.PostsStorage;
 import by.tms.instaclone.storage.UsersStorage;
 import by.tms.instaclone.storage.UsernamesStorage;
-import by.tms.instaclone.model.Photo;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -19,9 +17,9 @@ public class PublisherCardDto {
     private static String namePublisher;
     private static String userNamePublisher;
     private static String urlPublisher;
-    private static List<Post> postsPublisher;
-    private static LocalDateTime createAt;
-    private static List<Photo> photosPost;
+    private static List<String> textLastPostPublisher = new ArrayList<>();
+    private static List<LocalDateTime> createAtLastPost = new ArrayList<>();
+//    private static List<Image> photosPost;              // todo объект-фото не нужно, надо просто фото
     private static String carouselName;
     private static String carouselBottomPrevious;
     private static String carouselBottomNext;
@@ -34,15 +32,17 @@ public class PublisherCardDto {
         userNamePublisher = UsersStorage.getInstance().getUser(uuidPublisher).getUsername();
         namePublisher = UsersStorage.getInstance().getUser(uuidPublisher).getName();
         urlPublisher = USER_PROFILE_URL + SLAGE + userNamePublisher;
-        List<Post> postsPublisher = PostsStorage.getInstance().getLastPostOwner(uuidPublisher);
-        createAt = PostsStorage.getInstance().getPost(uuidPublisher).getCreateAt();
-        photosPost = new ArrayList<>(PhotoStorage.getInstance().getPhotosPost(uuidPublisher));
-        carouselName = uuidPublisher + "Carousel";
-        carouselBottomPrevious = uuidPublisher + "CarouselBottomPrevious";
-        carouselBottomNext = uuidPublisher + "CarouselBottomNext";
-        likeBottom = uuidPublisher + "Like";
-        dislikeBottom = uuidPublisher + "Dislike";
-        commentBottom = uuidPublisher + "Comment";
+        List<Post> lastPostsPublisher = new ArrayList<>(PostsStorage.getInstance().getLastPostOwner(uuidPublisher));
+        for (Post post : lastPostsPublisher) {
+            textLastPostPublisher.add(post.getText());
+            createAtLastPost.add(post.getCreateAt());
+        }
+        carouselName = "Carousel^" + uuidPublisher;
+        carouselBottomPrevious = "CarouselBottomPrevious^" + uuidPublisher;
+        carouselBottomNext = "CarouselBottomNext^" + uuidPublisher;
+        likeBottom = "Like^" + uuidPublisher;
+        dislikeBottom = "Dislike^" + uuidPublisher;
+        commentBottom = "Comment^" + uuidPublisher;
     }
 
     public String getNamePublisher() {
@@ -57,17 +57,17 @@ public class PublisherCardDto {
         return urlPublisher;
     }
 
-    public List<Post> getPostsPublisher() {
-        return postsPublisher;
+    public List<String> getTextLastPostPublisher() {
+        return textLastPostPublisher;
     }
 
-    public LocalDateTime getCreateAt() {
-        return createAt;
+    public List<LocalDateTime> getCreatePost() {
+        return createAtLastPost;
     }
 
-    public List<Photo> getPhotosPost() {
-        return photosPost;
-    }
+//    public List<Photo> getPhotosPost() {
+//        return photosPost;
+//    }
 
     public String getCarouselName() {
         return carouselName;
