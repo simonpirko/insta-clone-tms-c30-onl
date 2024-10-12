@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.UUID;
 
 public class UserHomePageDto {
-    private static String name;
-    private static String username;
-    private static List<PublisherCardDto> publishersCards = new ArrayList<>();
+    private final String name;
+    private final String username;
+    private final List<PublisherCardDto> publishersCards;
 
     public UserHomePageDto(String username1) {
         UUID uuid = UsernamesStorage.getInstance().getUUID(username1);
@@ -20,11 +20,11 @@ public class UserHomePageDto {
         name = user.getName();
         username = user.getUsername();
         List<User> publishers = SubscriptionsStorage.getInstance().getPublishersFollower(user.getUuid());
+        publishersCards = new ArrayList<>();
         for (User publisher : publishers) {
-            publishersCards.add(new PublisherCardDto(publisher.getUsername()));
+            PublisherCardDto pcDto = new PublisherCardDto(publisher.getUsername());
+            publishersCards.add(pcDto);
         }
-
-        int i = 0;
     }
 
     public String getName() {

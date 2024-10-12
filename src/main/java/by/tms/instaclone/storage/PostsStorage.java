@@ -157,7 +157,9 @@ public class PostsStorage {
                 maxDateTime = post.getCreateAt();
             }
         }
-        posts.add(lastPost);
+        if (lastPost != null) {
+            posts.add(lastPost);
+        }
         return posts;
     }
 

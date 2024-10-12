@@ -14,18 +14,18 @@ import static by.tms.instaclone.storage.KeeperConstants.SLAGE;
 import static by.tms.instaclone.storage.KeeperConstants.USER_PROFILE_URL;
 
 public class PublisherCardDto {
-    private static String namePublisher;
-    private static String userNamePublisher;
-    private static String urlPublisher;
-    private static List<String> textLastPostPublisher = new ArrayList<>();
-    private static List<LocalDateTime> createAtLastPost = new ArrayList<>();
+    private final String namePublisher;
+    private final String userNamePublisher;
+    private final String urlPublisher;
+    private final List<String> textLastPostPublisher;
+    private final List<LocalDateTime> createAtLastPost;
 //    private static List<Image> photosPost;              // todo объект-фото не нужно, надо просто фото
-    private static String carouselName;
-    private static String carouselBottomPrevious;
-    private static String carouselBottomNext;
-    private static String likeBottom;
-    private static String dislikeBottom;
-    private static String commentBottom;
+    private final String carouselName;
+    private final String carouselBottomPrevious;
+    private final String carouselBottomNext;
+    private final String likeBottom;
+    private final String dislikeBottom;
+    private final String commentBottom;
 
     public PublisherCardDto(String userName) {
         UUID uuidPublisher = UsernamesStorage.getInstance().getUUID(userName);
@@ -33,6 +33,8 @@ public class PublisherCardDto {
         namePublisher = UsersStorage.getInstance().getUser(uuidPublisher).getName();
         urlPublisher = USER_PROFILE_URL + SLAGE + userNamePublisher;
         List<Post> lastPostsPublisher = new ArrayList<>(PostsStorage.getInstance().getLastPostOwner(uuidPublisher));
+        textLastPostPublisher = new ArrayList<>();
+        createAtLastPost = new ArrayList<>();
         for (Post post : lastPostsPublisher) {
             textLastPostPublisher.add(post.getText());
             createAtLastPost.add(post.getCreateAt());
@@ -43,6 +45,8 @@ public class PublisherCardDto {
         likeBottom = "Like^" + uuidPublisher;
         dislikeBottom = "Dislike^" + uuidPublisher;
         commentBottom = "Comment^" + uuidPublisher;
+
+        int i = 0; // todo delete after debugging!
     }
 
     public String getNamePublisher() {
@@ -58,11 +62,11 @@ public class PublisherCardDto {
     }
 
     public List<String> getTextLastPostPublisher() {
-        return textLastPostPublisher;
+        return new ArrayList<>(textLastPostPublisher);
     }
 
     public List<LocalDateTime> getCreatePost() {
-        return createAtLastPost;
+        return new ArrayList<>(createAtLastPost);
     }
 
 //    public List<Photo> getPhotosPost() {
