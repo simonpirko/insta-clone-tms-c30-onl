@@ -27,7 +27,9 @@ public class UserHomeServlet extends HttpServlet {
         String usernameCurrentUser = pageDto.getUsername();
         List<PublisherCardDto> publishersCardsPages = pageDto.getPublishersCards();
 
-        int publishersCardsCount = publishersCardsPages.size();
+        req.setAttribute("listExample", publishersCardsPages);
+
+//        int publishersCardsCount = publishersCardsPages.size();
 
 //        req.setAttribute("nameCurrentUser", currentUser.getName());
 //        HashMap<UUID, User> followers = SubscriptionsStorage.getInstance().getFollowersPublisher(currentUser);

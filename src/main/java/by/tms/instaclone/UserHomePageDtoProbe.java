@@ -19,6 +19,8 @@ public class UserHomePageDtoProbe {
         String usernameCurrentUser = pageDto.getUsername();
         List<PublisherCardDto> publishersCardsPages = pageDto.getPublishersCards();
 
+//        for ()
+
         int publishersCardsCount = publishersCardsPages.size();
     }
 }
