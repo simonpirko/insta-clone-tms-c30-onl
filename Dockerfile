@@ -7,4 +7,4 @@ COPY src /build/src
 RUN mvn package
 
 FROM tomcat:9-jdk17-temurin as integrate
-COPY --from=builder /build/target/insta-clone-tms-c30-onl.war /usr/local/tomcat/webapps/
+COPY --from=builder /build/target/ROOT.war /usr/local/tomcat/webapps/

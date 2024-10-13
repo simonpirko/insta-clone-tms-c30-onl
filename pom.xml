@@ -37,7 +37,7 @@
     </dependencies>
 
     <build>
-        <finalName>insta-clone-tms-c30-onl</finalName>
+        <finalName>ROOT</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -45,6 +45,15 @@
                 <version>3.4.0</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <webResources>
+                        <resource>
+                            <directory>target/ROOT/META-INF</directory>
+                            <includes>
+                                <include>*.*</include>
+                            </includes>
+                            <targetPath>META-INF</targetPath>
+                        </resource>
+                    </webResources>
                 </configuration>
             </plugin>
         </plugins>
