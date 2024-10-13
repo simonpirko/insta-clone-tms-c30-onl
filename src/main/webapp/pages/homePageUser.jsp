@@ -12,7 +12,7 @@
         <div class="row col-9">
             <!-- вставить контент -->
             <div class="container">
-                <c:forEach items="${listExample}" var="listValue">
+                <c:forEach items="${list}" var="listValue">
                     <div class="card" style="width: 35rem;">
                         <div class="card-body">
                             <ul class="pagination">

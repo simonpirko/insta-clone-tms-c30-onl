@@ -38,6 +38,7 @@ public class KeeperConstants {
     public static final String PROFILE_JSP = "/pages/profile.jsp";
     public static final String LOGIN_JSP = "/pages/login.jsp";
     public static final String NEW_POST_JSP = "/pages/newPost.jsp";
+    public static final String ERROR_JSP = "/pages/error.jsp";
 
     public static final String REGISTRATION_PATH = "/reg";
     public static final String LOGIN_PATH = "/login";
