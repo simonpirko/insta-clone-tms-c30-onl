@@ -1,9 +1,8 @@
 package by.tms.instaclone.servlet;
 
-import by.tms.instaclone.model.Post;
+import by.tms.instaclone.dto.PublisherCardDto;
+import by.tms.instaclone.dto.UserHomePageDto;
 import by.tms.instaclone.model.User;
-import by.tms.instaclone.storage.PostsStorage;
-import by.tms.instaclone.storage.SubscriptionsStorage;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,12 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.List;
 
-import static by.tms.instaclone.storage.KeeperConstants.CURRENT_USER_ATTRIBUTE;
-import static by.tms.instaclone.storage.KeeperConstants.USER_HOME_PATH;
+import static by.tms.instaclone.storage.KeeperConstants.*;
 
 
 @WebServlet(name = "UserHomeServlet", value = USER_HOME_PATH)
@@ -26,23 +22,13 @@ public class UserHomeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
         User currentUser = (User) req.getSession().getAttribute(CURRENT_USER_ATTRIBUTE);
-        req.setAttribute("nameCurrentUser", currentUser.getName());
-        HashMap<UUID, User> followers = SubscriptionsStorage.getInstance().getFollowersPublisher(currentUser);
-        HashMap<UUID, User> publishers = SubscriptionsStorage.getInstance().getPublishersFollower(currentUser);
-        HashMap<User, Post> hotPostsPublishers = new HashMap<>();
-        Post hotPost = null;
-        for (Map.Entry entry: publishers.entrySet()) {
-            User owner = (User) entry.getValue();
-            hotPost = PostsStorage.getInstance().getHotPostOwner(owner);
-            hotPostsPublishers.put(owner,hotPost);
-        }
-        req.setAttribute("textPostCurrentUser", hotPost.getText());
-        req.setAttribute("isName1", "true");
-        req.setAttribute("carousel", "carousel" + "1");
-        req.setAttribute("count", "3");
+        UserHomePageDto pageDto = new UserHomePageDto(currentUser.getUsername());
+        String nameCurrentUser = pageDto.getName();
+        String usernameCurrentUser = pageDto.getUsername();
+        List<PublisherCardDto> publishersCardsPages = pageDto.getPublishersCards();
 
-
-        req.getServletContext().getRequestDispatcher("/pages/template.jsp").forward(req, res);
+        req.setAttribute("listExample", publishersCardsPages);
+        req.getServletContext().getRequestDispatcher(HOME_USER_JSP).forward(req, res);
     }
 
 //    @Override
