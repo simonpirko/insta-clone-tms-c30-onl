@@ -75,6 +75,21 @@ public class SubscriptionsStorage {
     }
 
     /**
+     * Метод возвращает всех Подписчиков Публикатора, указанного через его UUID
+     * @param publisherUuid - UUID Публикатор
+     * @return followers - List<User> (набор) объектов-Подписчиков
+     */
+    public List<User> getFollowersPublisher(UUID publisherUuid) {
+        List<User> followers = new ArrayList<>();
+        for (Map.Entry entry: subscriptions.entrySet()) {
+            if (((Subscription) entry.getValue()).getPublisher().getUuid().equals(publisherUuid)) {
+                followers.add(((Subscription) entry.getValue()).getFollower());
+            }
+        }
+        return followers;
+    }
+
+    /**
      * Метод возвращает все подписки указанного Подписчика
      * @param follower - объект-Подписчик
      * @return publishers - набор объектов-Публикаторов
@@ -90,9 +105,9 @@ public class SubscriptionsStorage {
     }
 
     /**
-     * Метод возвращает все подписки указанного Подписчика по его UUID
-     * @param followerUuid - UUID объекта-Подписчик
-     * @return publishers - набор объектов-Публикаторов
+     * Метод возвращает всех Публикаторов Подписчика, указанного через его UUID
+     * @param followerUuid - UUID объекта-Подписчика
+     * @return publishers - List<User> (набор) объектов-Публикаторов
      */
     public List<User> getPublishersFollower(UUID followerUuid) {
         List<User> publishers = new ArrayList<>();

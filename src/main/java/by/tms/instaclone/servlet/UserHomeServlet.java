@@ -28,24 +28,6 @@ public class UserHomeServlet extends HttpServlet {
         List<PublisherCardDto> publishersCardsPages = pageDto.getPublishersCards();
 
         req.setAttribute("listExample", publishersCardsPages);
-
-//        int publishersCardsCount = publishersCardsPages.size();
-
-//        req.setAttribute("nameCurrentUser", currentUser.getName());
-//        HashMap<UUID, User> followers = SubscriptionsStorage.getInstance().getFollowersPublisher(currentUser);
-//        HashMap<UUID, User> publishers = SubscriptionsStorage.getInstance().getPublishersFollower(currentUser);
-//        HashMap<User, Post> hotPostsPublishers = new HashMap<>();
-//        Post hotPost = null;
-//        for (Map.Entry entry: publishers.entrySet()) {
-//            User owner = (User) entry.getValue();
-//            hotPost = PostsStorage.getInstance().getHotPostOwner(owner);
-//            hotPostsPublishers.put(owner,hotPost);
-//        }
-//        req.setAttribute("textPostCurrentUser", hotPost.getText());
-//        req.setAttribute("isName1", "true");
-//        req.setAttribute("carousel", "carousel" + "1");
-//        req.setAttribute("count", "3");
-
         req.getServletContext().getRequestDispatcher(HOME_USER_JSP).forward(req, res);
     }
 

@@ -5,10 +5,15 @@ import by.tms.instaclone.dto.UserHomePageDto;
 import by.tms.instaclone.model.User;
 import by.tms.instaclone.storage.UsersStorage;
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static by.tms.instaclone.storage.KeeperConstants.CURRENT_USER_ATTRIBUTE;
+import static by.tms.instaclone.storage.KeeperConstants.*;
 
 public class UserHomePageDtoProbe {
 
@@ -19,7 +24,12 @@ public class UserHomePageDtoProbe {
         String usernameCurrentUser = pageDto.getUsername();
         List<PublisherCardDto> publishersCardsPages = pageDto.getPublishersCards();
 
-//        for ()
+//        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(DATE_TIME_CREATE_POST_TEMPLATE);
+//        List<LocalDateTime> dateTime = publishersCardsPages.get(0).getCreatePost();
+//        List<String> dateTimeString = new ArrayList<>();
+//        for (LocalDateTime date : dateTime) {
+//            dateTimeString.add(date.format(dateTimeFormatter));
+//        }
 
         int publishersCardsCount = publishersCardsPages.size();
     }

@@ -29,6 +29,7 @@ public class KeeperConstants {
     public static final String COMMENTS_CSV_FORMAT_TEMPLATE = "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + LF;
     public static final String REACTIONS_CSV_FORMAT_TEMPLATE = "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + "%s" + SEPARATOR_CSV + LF;
     public static final String DATE_TIME_LOGGER_TEMPLATE = "dd/MM/yyyy HH:mm:ss";
+    public static final String DATE_TIME_CREATE_POST_TEMPLATE = "dd/MM/yyyy, HH:mm:ss";
 
     public static final String HOME_JSP = "/pages/home.jsp";
     public static final String HOME_USER_JSP = "/pages/homePageUser.jsp";

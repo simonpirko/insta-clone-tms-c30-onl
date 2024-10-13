@@ -13,77 +13,54 @@
         <div class="row col-9">
             <!-- вставить контент -->
             <div class="container">
-
-<%--                <select>--%>
-<%--                    <%--%>
-<%--                        UserHomePageDto instance = new UserHomePageDto(());--%>
-<%--                        for(int i = 0; i < instance.itemCount(); i++){--%>
-<%--                            out.println("<option>"+instance.getItem(i).getName()+"</option>");--%>
-<%--                        }--%>
-<%--                    %>--%>
-<%--                </select>--%>
-
                 <c:forEach items="${listExample}" var="listValue">
-                    <li>${listValue}</li>
+                    <div class="card" style="width: 35rem;">
+                        <div class="card-body">
+                            <ul class="pagination">
+                                <a href="${listValue.urlPublisher}" class="card-link">${listValue.namePublisher}</a>
+                                <p class="card-text invisible">space</p>
+                                <c:forEach items="${listValue.createAtLastPost}" var="text">
+                                    <p class="card-text">Time create post:</p>
+                                    <p class="card-text invisible">_</p>
+                                    <p class="card-text">${text}</p>
+                                </c:forEach>
+                            </ul>
+                            <c:forEach items="${listValue.textLastPostPublisher}" var="textPost">
+                                <p class="card-text">${textPost}</p>
+                            </c:forEach>
+                        </div>
+                        <div id="${listValue.carouselName}" class="carousel slide">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="..." class="d-block w-100" alt="...">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="..." class="d-block w-100" alt="...">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="..." class="d-block w-100" alt="...">
+                                </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button"
+                                    data-bs-target="#${listValue.carouselName}"
+                                    data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button"
+                                    data-bs-target="#${listValue.carouselName}"
+                                    data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                        <div class="btn-group btn-group-sm" role="group" aria-label="Small button group">
+                            <button type="button" class="btn btn-outline-primary">Like</button>
+                            <button type="button" class="btn btn-outline-primary">Dislike</button>
+                            <button type="button" class="btn btn-outline-primary">Comment</button>
+                        </div>
+                    </div>
                 </c:forEach>
-
-<%--                <c:forEach items="${listExample}" var="listValue" varStatus="loop">--%>
-<%--                    <option value="${loop.index}">${listValue}</option>--%>
-<%--                </c:forEach>--%>
-
-<%--                <c:forEach items="${listExample}" var="listValue">--%>
-<%--                    <tr>--%>
-<%--                        <td>${listExample.name}</td>--%>
-<%--                        <td>${listExample.username}</td>--%>
-<%--                        <td>${listValue.otherObject.id}</td>--%>
-<%--                        <td>${listValue.otherObject.name}</td>--%>
-<%--                    </tr>--%>
-<%--                </c:forEach>--%>
-
-<%--                <c:forEach var="publishersCardsPages" items="list">--%>
-<%--                    <div class="card" style="width: 35rem;">--%>
-<%--                        <div class="card-body">--%>
-<%--                            <ul class="pagination">--%>
-<%--                                <a href="#${urlProfileUser}" class="card-link">...</a>--%>
-<%--                                <p class="card-text invisible">space</p>--%>
-<%--                                <p class="card-text">Time create post:</p>--%>
-<%--                                <p class="card-text invisible">_</p>--%>
-<%--                                <p class="card-text">${dateTimePost}</p>--%>
-<%--                            </ul>--%>
-<%--                        </div>--%>
-<%--                        <div id="${Carousel}" class="carousel slide">--%>
-<%--                            <div class="carousel-inner">--%>
-<%--                                <div class="carousel-item active">--%>
-<%--                                    <img src="..." class="d-block w-100" alt="...">--%>
-<%--                                </div>--%>
-<%--                                <div class="carousel-item">--%>
-<%--                                    <img src="..." class="d-block w-100" alt="...">--%>
-<%--                                </div>--%>
-<%--                                <div class="carousel-item">--%>
-<%--                                    <img src="..." class="d-block w-100" alt="...">--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
-<%--                            <button class="carousel-control-prev" type="button" data-bs-target="#${Carousel}"--%>
-<%--                                    data-bs-slide="prev">--%>
-<%--                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>--%>
-<%--                                <span class="visually-hidden">Previous</span>--%>
-<%--                            </button>--%>
-<%--                            <button class="carousel-control-next" type="button" data-bs-target="#${Carousel}"--%>
-<%--                                    data-bs-slide="next">--%>
-<%--                                <span class="carousel-control-next-icon" aria-hidden="true"></span>--%>
-<%--                                <span class="visually-hidden">Next</span>--%>
-<%--                            </button>--%>
-<%--                        </div>--%>
-<%--                        <div class="card-body">--%>
-<%--                            <p class="card-text">${textPostUser}</p>--%>
-<%--                        </div>--%>
-<%--                        <div class="btn-group btn-group-sm" role="group" aria-label="Small button group">--%>
-<%--                            <button type="button" class="btn btn-outline-primary">${Like}</button>--%>
-<%--                            <button type="button" class="btn btn-outline-primary">${Dislike}</button>--%>
-<%--                            <button type="button" class="btn btn-outline-primary">${Comment}</button>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                </c:forEach>--%>
             </div>
             <!-- вставить контент -->
         </div>
