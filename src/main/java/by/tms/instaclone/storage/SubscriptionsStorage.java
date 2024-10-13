@@ -121,6 +121,18 @@ public class SubscriptionsStorage {
         return publishers;
     }
 
+    public boolean isSubscription(UUID followerUuid, UUID publisherUuid) {
+        for (Map.Entry entry: subscriptions.entrySet()) {
+            UUID followerSubscriptionUuid = ((Subscription) entry.getValue()).getFollower().getUuid();
+            UUID publisherSubscriptionUuid = ((Subscription) entry.getValue()).getPublisher().getUuid();
+            if (followerSubscriptionUuid.equals(followerUuid)
+                    && publisherSubscriptionUuid.equals(publisherUuid)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Метод удалаляет переданную Подписку
      * Подписка удаляется из Storage и SUBSCRIPTIONS_CSV_FILE (см. deleteContentCsvFile())
