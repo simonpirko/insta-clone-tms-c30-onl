@@ -2,6 +2,7 @@ package by.tms.instaclone.storage;
 
 import by.tms.instaclone.model.Photo;
 import by.tms.instaclone.model.Post;
+import by.tms.instaclone.utilites.Adapter;
 
 import static by.tms.instaclone.storage.KeeperConstants.*;
 import static by.tms.instaclone.storage.Reader.readCsvFile;
@@ -35,20 +36,17 @@ public class PhotoStorage {
         photos = new ConcurrentHashMap<>();
         Optional<String> fileString = readCsvFile(PHOTOS_CSV_FILE);
         if (fileString.get().length() > 0) {
-            String[] arrayRows = fileString.get().split(LF);   // делим csv-файл на строки по LF ("перевод каретки")
+            String[] arrayRows = fileString.get().split(LF);
             for (String row : arrayRows) {
-                String[] arrayWords = row.split(SEPARATOR_CSV);// делим строку на "слова" по SEPARATOR_CSV
-                try {
-                    Optional<byte[]> image = getImage(arrayWords[0]);
-                    image.ifPresent(bytes -> photos.put(
-                            UUID.fromString(arrayWords[0]),
-                            new Photo(UUID.fromString(arrayWords[0]),
-                                    PostsStorage.getInstance().getPost(UUID.fromString(arrayWords[1])),
-                                    bytes,
-                                    arrayWords[2],
-                                    LocalDateTime.ofInstant(Instant.ofEpochSecond(Long.valueOf(arrayWords[3])), ZoneId.systemDefault()))));
-                } catch (IOException exception) {
-                }
+                String[] arrayWords = row.split(SEPARATOR_CSV);
+                Optional<byte[]> image = null;
+                image = getImage(arrayWords[0].concat(".").concat(arrayWords[2])); // исправление AlexGarag
+                image.ifPresent(bytes -> photos.put(UUID.fromString(arrayWords[0]),
+                        new Photo(UUID.fromString(arrayWords[0]),  // валится тут!
+                        PostsStorage.getInstance().getPost(UUID.fromString(arrayWords[1])),
+                                bytes,
+                                arrayWords[2],
+                        LocalDateTime.ofInstant(Instant.ofEpochSecond(Long.valueOf(arrayWords[3])), ZoneId.systemDefault()))));
             }
         }
     }
@@ -75,10 +73,7 @@ public class PhotoStorage {
     public Map<UUID, Photo> getPhotoOfPost(UUID postUUID) {
         Map<UUID, Photo> photoOfPost = new HashMap<>();
         Stream<Photo> photoStream = photos.values().stream();
-        photoStream.filter(photo ->
-                        photo.getPost().
-                                getUuid().
-                                equals(postUUID)).
+        photoStream.filter(photo -> photo.getPost().getUuid().equals(postUUID)).
                 forEach(photo -> photoOfPost.put(photo.getUuid(), photo));
         return photoOfPost;
     }
@@ -108,12 +103,39 @@ public class PhotoStorage {
         }
     }
 
-    private Optional<byte[]> getImage(String photoID) throws IOException {
-        Path pathToImage = Path.of(PATH_TO_PHOTOS.concat(photoID));
-        if (Files.exists(pathToImage)) {
-            return Optional.ofNullable(Files.readAllBytes(pathToImage));
+    private Optional<byte[]> getImage(String nameFilePhoto) {   // вариант AlexGarag
+        Adapter adaptedPath = new Adapter(PATH_TO_PHOTOS);
+        Path pathPhoto = Path.of(adaptedPath.getPathToOs().concat(nameFilePhoto));
+        if (Files.exists(pathPhoto)) {
+            try {
+                return Optional.of(Files.readAllBytes(pathPhoto));
+            } catch (IOException e) {
+                throw new RuntimeException(e); // todo сформировать ID-error и сообщить + запись в лог
+            }
         } else {
             return Optional.empty();
         }
     }
+
+//    private Optional<byte[]> getImage(String photoID) throws IOException { // вариант Романа
+//        ClassLoader classLoader = KeeperConstants.class.getClassLoader();
+//        File csvFile = new File(Objects.requireNonNull(classLoader.getResource("/")).getFile());
+//        Path pathToImage = Path.of(csvFile.getParent().concat(photoID));
+//        if (Files.exists(pathToImage)) {
+//            return Optional.ofNullable(Files.readAllBytes(pathToImage));
+//        }
+//        else{
+//            return Optional.empty();
+//        }
+//    }
+
+//    private Optional<byte[]> getImage(String photoID) throws IOException { // старый вариант
+//        Path pathToImage = Path.of(PATH_TO_PHOTOS.concat(photoID));
+//        if (Files.exists(pathToImage)) {
+//            return Optional.ofNullable(Files.readAllBytes(pathToImage));
+//        }
+//        else{
+//            return Optional.empty();
+//        }
+//    }
 }
