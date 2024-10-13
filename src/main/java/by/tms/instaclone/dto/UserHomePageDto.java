@@ -1,30 +1,24 @@
 package by.tms.instaclone.dto;
-
-import by.tms.instaclone.model.User;
-import by.tms.instaclone.storage.SubscriptionsStorage;
-import by.tms.instaclone.storage.UsernamesStorage;
-import by.tms.instaclone.storage.UsersStorage;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
+/**
+ * Класс описывает содерижимое для страницы ./user/home
+ */
 public class UserHomePageDto {
-    private final String name;
-    private final String username;
-    private final List<PublisherCardDto> publishersCards;
+    private String name;
+    private String username;
+    private List<PublisherCardLastPostDto> publishersCards;
 
-    public UserHomePageDto(String username1) {
-        UUID uuid = UsernamesStorage.getInstance().getUUID(username1);
-        User user = UsersStorage.getInstance().getUser(uuid);
-        name = user.getName();
-        username = user.getUsername();
-        List<User> publishers = SubscriptionsStorage.getInstance().getPublishersFollower(user.getUuid());
-        publishersCards = new ArrayList<>();
-        for (User publisher : publishers) {
-            PublisherCardDto pcDto = new PublisherCardDto(publisher.getUsername());
-            publishersCards.add(pcDto);
-        }
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPublishersCards(List<PublisherCardLastPostDto> list) {
+        this.publishersCards = list;
     }
 
     public String getName() {
@@ -35,7 +29,7 @@ public class UserHomePageDto {
         return username;
     }
 
-    public List<PublisherCardDto> getPublishersCards() {
+    public List<PublisherCardLastPostDto> getPublishersCards() {
         return publishersCards;
     }
 }

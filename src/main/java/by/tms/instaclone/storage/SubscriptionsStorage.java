@@ -35,8 +35,8 @@ public class SubscriptionsStorage {
 
     /**
      * Метод создаёт новую Подписку между follower и publisher и сохраняет её в SUBSCRIPTIONS_CSV_FILE
-     * @param follower      - объект-Подписчик
-     * @param publisher     - объект-Публикатор (автор)
+     * @param follower - объект-Подписчик
+     * @param publisher - объект-Публикатор (автор)
      * @return subscription - новая Подписка
      */
     public Subscription newSubscription(User follower, User publisher) {

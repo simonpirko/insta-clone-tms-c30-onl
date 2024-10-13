@@ -1,6 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%--<%@ page import="by.tms.instaclone.dto.UserHomePageDto" %>--%>
 <html>
 <head>
     <title>Title page</title> <!-- вставить название страницы -->
