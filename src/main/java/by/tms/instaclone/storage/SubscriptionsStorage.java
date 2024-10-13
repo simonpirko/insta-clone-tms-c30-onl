@@ -121,6 +121,12 @@ public class SubscriptionsStorage {
         return publishers;
     }
 
+    /**
+     * Метод возвращает true/false в зависимости от того, подписан ли Подписчик на Публикатора
+     * @param followerUuid - UUID объекта-Подписчика
+     * @param publisherUuid - UUID объекта-Публикатора
+     * @return boolean
+     */
     public boolean isSubscription(UUID followerUuid, UUID publisherUuid) {
         for (Map.Entry entry: subscriptions.entrySet()) {
             UUID followerSubscriptionUuid = ((Subscription) entry.getValue()).getFollower().getUuid();

@@ -10,7 +10,7 @@ import java.util.UUID;
 public class SubscriptionsStorageProbe {
     public static void main(String[] args) {
 // работа со Storage
-        List<User> followers = new ArrayList<>();
+        List<User> followers = new ArrayList<>(); // будут: Atom, Alex-2, Rome1
         followers = SubscriptionsStorage.getInstance().getFollowersPublisher(UUID.fromString("aa44061c-62f5-37a9-b126-43053134c2d6"));
 
         boolean isSubscribed = SubscriptionsStorage.getInstance().isSubscription(UUID.fromString("029ad4c2-5c5c-309d-b578-604976d65aa1"),
