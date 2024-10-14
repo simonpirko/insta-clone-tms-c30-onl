@@ -7,10 +7,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static by.tms.instaclone.storage.Deleter.deleteContentCsvFile;
@@ -38,8 +35,8 @@ public class SubscriptionsStorage {
 
     /**
      * Метод создаёт новую Подписку между follower и publisher и сохраняет её в SUBSCRIPTIONS_CSV_FILE
-     * @param follower      - объект-Подписчик
-     * @param publisher     - объект-Публикатор (автор)
+     * @param follower - объект-Подписчик
+     * @param publisher - объект-Публикатор (автор)
      * @return subscription - новая Подписка
      */
     public Subscription newSubscription(User follower, User publisher) {
@@ -78,6 +75,21 @@ public class SubscriptionsStorage {
     }
 
     /**
+     * Метод возвращает всех Подписчиков Публикатора, указанного через его UUID
+     * @param publisherUuid - UUID Публикатор
+     * @return followers - List<User> (набор) объектов-Подписчиков
+     */
+    public List<User> getFollowersPublisher(UUID publisherUuid) {
+        List<User> followers = new ArrayList<>();
+        for (Map.Entry entry: subscriptions.entrySet()) {
+            if (((Subscription) entry.getValue()).getPublisher().getUuid().equals(publisherUuid)) {
+                followers.add(((Subscription) entry.getValue()).getFollower());
+            }
+        }
+        return followers;
+    }
+
+    /**
      * Метод возвращает все подписки указанного Подписчика
      * @param follower - объект-Подписчик
      * @return publishers - набор объектов-Публикаторов
@@ -90,6 +102,41 @@ public class SubscriptionsStorage {
             }
         }
         return publishers;
+    }
+
+    /**
+     * Метод возвращает всех Публикаторов Подписчика, указанного через его UUID
+     * @param followerUuid - UUID объекта-Подписчика
+     * @return publishers - List<User> (набор) объектов-Публикаторов
+     */
+    public List<User> getPublishersFollower(UUID followerUuid) {
+        List<User> publishers = new ArrayList<>();
+        for (Map.Entry entry: subscriptions.entrySet()) {
+            UUID followerSubscriptionUuid = ((Subscription) entry.getValue()).getFollower().getUuid();
+            if (followerSubscriptionUuid.equals(followerUuid)) {
+                User publisher = ((Subscription) entry.getValue()).getPublisher();
+                publishers.add(publisher);
+            }
+        }
+        return publishers;
+    }
+
+    /**
+     * Метод возвращает true/false в зависимости от того, подписан ли Подписчик на Публикатора
+     * @param followerUuid - UUID объекта-Подписчика
+     * @param publisherUuid - UUID объекта-Публикатора
+     * @return boolean
+     */
+    public boolean isSubscription(UUID followerUuid, UUID publisherUuid) {
+        for (Map.Entry entry: subscriptions.entrySet()) {
+            UUID followerSubscriptionUuid = ((Subscription) entry.getValue()).getFollower().getUuid();
+            UUID publisherSubscriptionUuid = ((Subscription) entry.getValue()).getPublisher().getUuid();
+            if (followerSubscriptionUuid.equals(followerUuid)
+                    && publisherSubscriptionUuid.equals(publisherUuid)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
