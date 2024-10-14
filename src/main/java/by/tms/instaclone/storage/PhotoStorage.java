@@ -16,6 +16,7 @@ import java.nio.file.Path;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Stream;
@@ -57,7 +58,7 @@ public class PhotoStorage {
             Photo photo = new Photo(post, ImageInByte, format[1]);
             photos.put(photo.getUuid(), photo);
             saveImage(photo.getUuid(), ImageInByte, format[1]);
-            String rowText = PHOTO_CSV_FORMAT_TEMPLATE.formatted(photo.getUuid(), post.getUuid(), format[1], photo.getCreateAt());
+            String rowText = PHOTO_CSV_FORMAT_TEMPLATE.formatted(photo.getUuid(), post.getUuid(), format[1], photo.getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli()/1000);
             writeCsvFile(PHOTOS_CSV_FILE, rowText);
 
         } else {
