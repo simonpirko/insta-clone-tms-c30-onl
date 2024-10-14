@@ -12,7 +12,7 @@ public class Photo {
     private final byte[] image;
     private final String format;
     private final LocalDateTime createAt;
-//
+
     public Photo(Post post,byte[] image,String format) {
         this.uuid = UUID.randomUUID();
         this.post = post;
@@ -31,12 +31,15 @@ public class Photo {
     public LocalDateTime getCreateAt() {          //Метод возвращающий время создания сущности
         return createAt;
     }
+
     public UUID getUuid() {                        //Метод для возвращающий UUID сущности Фото
         return uuid;
     }
+
     public Post getPost() {                        //Метод для возвращающий Post которому принадлежит фото
         return post;
     }
+
     public byte[] getImage() {
         return image;
     }

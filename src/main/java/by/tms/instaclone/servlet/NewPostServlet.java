@@ -50,6 +50,6 @@ public class NewPostServlet extends HttpServlet {
                 photoStorage.addPhoto(post, part);
             }
         }
-        resp.sendRedirect("/");
+        resp.sendRedirect(USER_HOME_PATH);
     }
 }
