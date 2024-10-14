@@ -3,6 +3,8 @@ package by.tms.instaclone.servlet;
 import by.tms.instaclone.DTOs.ProfileDTO;
 import by.tms.instaclone.model.User;
 import by.tms.instaclone.services.profileService.ProfileService;
+import by.tms.instaclone.storage.SubscriptionsStorage;
+import by.tms.instaclone.storage.UsersStorage;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,12 +32,31 @@ public class ProfileServlet extends HttpServlet {
         } else {
             ProfileDTO profileDTO = profileDTOOptional.get();
             req.getSession().setAttribute("usernameProfile", profileDTO.getUsername());
+            req.getSession().setAttribute("usernameSession", user.getUsername());
             req.getSession().setAttribute("countPostProfile", profileDTO.getCountPost());
             req.getSession().setAttribute("countSubscriberProfile", profileDTO.getCountSubscriber());
             req.getSession().setAttribute("countSubscriptionProfile", profileDTO.getCountSubscription());
             req.getSession().setAttribute("statusSubscriptionProfile", profileDTO.getStatusSubscription());
             getServletContext().getRequestDispatcher("/pages/profile.jsp").forward(req, resp);
         }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String URL = req.getRequestURI().substring(14);
+        String[] paramsUrl = URL.split("/");
+
+        switch (paramsUrl[0]) {
+            case "subscribe":
+                SubscriptionsStorage.getInstance().newSubscription(UsersStorage.getInstance().getUser(paramsUrl[1]), UsersStorage.getInstance().getUser(paramsUrl[2]));
+                break;
+            case "unsubscribe":
+                SubscriptionsStorage.getInstance().deleteSubscriptionFollower(UsersStorage.getInstance().getUser(paramsUrl[1]));
+                break;
+        }
+        resp.sendRedirect("/user/profile/"+paramsUrl[2]);
+
+
     }
 }
 

@@ -46,15 +46,32 @@
                             </li>
                         </ul>
                         </p>
+
                         <c:if test="${statusSubscriptionProfile == 0}">
-                            <button type="button" class="btn btn-primary">Remake</button>
-                        </c:if>
-                        <c:if test="${statusSubscriptionProfile == 1}">
-                            <button type="button" class="btn btn-primary">Subscribe</button>
-                        </c:if>
-                        <c:if test="${statusSubscriptionProfile == 2}">
-                            <button type="button" class="btn btn-danger">Unsubscribe</button>
-                        </c:if>
+                        <form class="col-4" action="/user/profile/remake/${usernameProfile}" method="get"
+                              enctype="multipart/form-data">
+                            <button type="submit" class="btn btn-primary">Remake</button>
+
+                            </c:if>
+                            <c:if test="${statusSubscriptionProfile == 1}">
+                            <form class="col-4" action="/user/profile/subscribe/${usernameSession}/${usernameProfile}"
+                                  method="post"
+                                  enctype="multipart/form-data">
+
+                                <button type="submit" name="type" value="Subscribe" class="btn btn-primary">Subscribe
+                                </button>
+                            </form>
+                            </c:if>
+                            <c:if test="${statusSubscriptionProfile == 2}">
+                            <form class="col-4" action="/user/profile/unsubscribe/${usernameSession}/${usernameProfile}"
+                                  method="post"
+                                  enctype="multipart/form-data">
+                                <button type="submit" name="type" value="Unsubscribe" class="btn btn-danger">
+                                    Unsubscribe
+                                </button>
+                            </form>
+                            </c:if>
+
                     </div>
                 </div>
             </div>
