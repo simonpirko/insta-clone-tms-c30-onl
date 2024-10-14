@@ -2,6 +2,7 @@ package by.tms.instaclone.storage;
 
 import by.tms.instaclone.model.Photo;
 import by.tms.instaclone.model.Post;
+import by.tms.instaclone.utilites.Adapter;
 
 import static by.tms.instaclone.storage.KeeperConstants.*;
 import static by.tms.instaclone.storage.Reader.readCsvFile;
@@ -24,6 +25,7 @@ import java.util.stream.Stream;
 public class PhotoStorage {
     private ConcurrentHashMap<UUID, Photo> photos;
     private static PhotoStorage instance;
+    private Adapter adapter = new Adapter(PATH_TO_PHOTOS);
 
     public static PhotoStorage getInstance() {
         if (instance == null) {
@@ -98,7 +100,7 @@ public class PhotoStorage {
     }
 
     private void saveImage(UUID uuid, byte[] image, String format) {
-        File imageFile = new File(PATH_TO_PHOTOS + uuid + "." + format);
+        File imageFile = new File(adapter.getPathToOs() + uuid + "." + format);
         try (FileOutputStream fos = new FileOutputStream(imageFile)) {
             fos.write(image);
         } catch (Exception e) {
@@ -114,7 +116,8 @@ public class PhotoStorage {
      * @return - набор байтов фотографии
      */
     public Optional<byte[]> getBytePhoto(String photoID, String format) {
-        Path pathToImage = Path.of(PATH_TO_PHOTOS.concat(photoID + "." + format));
+
+        Path pathToImage = Path.of(adapter.getPathToOs().concat(photoID + "." + format));
         if (Files.exists(pathToImage)) {
             try {
                 return Optional.ofNullable(Files.readAllBytes(pathToImage));
