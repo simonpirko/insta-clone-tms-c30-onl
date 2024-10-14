@@ -2,7 +2,6 @@ package by.tms.instaclone.storage;
 
 import by.tms.instaclone.model.Photo;
 import by.tms.instaclone.model.Post;
-import by.tms.instaclone.utilites.Adapter;
 
 import static by.tms.instaclone.storage.KeeperConstants.*;
 import static by.tms.instaclone.storage.Reader.readCsvFile;
@@ -40,13 +39,13 @@ public class PhotoStorage {
             for (String row : arrayRows) {
                 String[] arrayWords = row.split(SEPARATOR_CSV);
                 Optional<byte[]> image = null;
-                image = getImage(arrayWords[0].concat(".").concat(arrayWords[2])); // исправление AlexGarag
+                image = getBytePhoto(arrayWords[0], arrayWords[2]);
                 image.ifPresent(bytes -> photos.put(UUID.fromString(arrayWords[0]),
-                        new Photo(UUID.fromString(arrayWords[0]),  // валится тут!
-                        PostsStorage.getInstance().getPost(UUID.fromString(arrayWords[1])),
+                        new Photo(UUID.fromString(arrayWords[0]),
+                                PostsStorage.getInstance().getPost(UUID.fromString(arrayWords[1])),
                                 bytes,
                                 arrayWords[2],
-                        LocalDateTime.ofInstant(Instant.ofEpochSecond(Long.valueOf(arrayWords[3])), ZoneId.systemDefault()))));
+                                LocalDateTime.ofInstant(Instant.ofEpochSecond(Long.valueOf(arrayWords[3])), ZoneId.systemDefault()))));
             }
         }
     }
@@ -84,13 +83,16 @@ public class PhotoStorage {
      * @param postUUID - UUID поста
      * @return - набор фотографий
      */
-    public List<Photo> getPhotosPost(UUID postUUID) {
-        List<Photo> photosPost = new ArrayList<>();
-        Stream<Photo> photoStream = photos.values().stream();
-        photoStream.filter(photo -> photo.getPost().
-                        getUuid().
-                        equals(postUUID)).
-                forEach(photosPost::add);
+    public List<String> getPhotosPost(UUID postUUID) {
+        List<String> photosPost = new ArrayList<>();
+        for (Photo photo : photos.values()) {
+            if (photo.getPost().getUuid().equals(postUUID)) {
+                String uuidPhoto = photo.getUuid().toString();
+                String formatPhoto = photo.getFormat();
+                Optional<byte[]> imageInByte = getBytePhoto(uuidPhoto, formatPhoto);
+                imageInByte.ifPresent(bytes -> photosPost.add(Base64.getEncoder().encodeToString(bytes)));
+            }
+        }
         return photosPost;
     }
 
@@ -103,39 +105,23 @@ public class PhotoStorage {
         }
     }
 
-    private Optional<byte[]> getImage(String nameFilePhoto) {   // вариант AlexGarag
-        Adapter adaptedPath = new Adapter(PATH_TO_PHOTOS);
-        Path pathPhoto = Path.of(adaptedPath.getPathToOs().concat(nameFilePhoto));
-        if (Files.exists(pathPhoto)) {
+    /**
+     * Метод передаёт байтовый набор фотографии, указанной через её имя и расширение
+     *
+     * @param photoID - имя фотографии
+     * @param format - формат фотографии
+     * @return - набор байтов фотографии
+     */
+    public Optional<byte[]> getBytePhoto(String photoID, String format) {
+        Path pathToImage = Path.of(PATH_TO_PHOTOS.concat(photoID + "." + format));
+        if (Files.exists(pathToImage)) {
             try {
-                return Optional.of(Files.readAllBytes(pathPhoto));
+                return Optional.ofNullable(Files.readAllBytes(pathToImage));
             } catch (IOException e) {
-                throw new RuntimeException(e); // todo сформировать ID-error и сообщить + запись в лог
+                throw new RuntimeException(e);
             }
         } else {
             return Optional.empty();
         }
     }
-
-//    private Optional<byte[]> getImage(String photoID) throws IOException { // вариант Романа
-//        ClassLoader classLoader = KeeperConstants.class.getClassLoader();
-//        File csvFile = new File(Objects.requireNonNull(classLoader.getResource("/")).getFile());
-//        Path pathToImage = Path.of(csvFile.getParent().concat(photoID));
-//        if (Files.exists(pathToImage)) {
-//            return Optional.ofNullable(Files.readAllBytes(pathToImage));
-//        }
-//        else{
-//            return Optional.empty();
-//        }
-//    }
-
-//    private Optional<byte[]> getImage(String photoID) throws IOException { // старый вариант
-//        Path pathToImage = Path.of(PATH_TO_PHOTOS.concat(photoID));
-//        if (Files.exists(pathToImage)) {
-//            return Optional.ofNullable(Files.readAllBytes(pathToImage));
-//        }
-//        else{
-//            return Optional.empty();
-//        }
-//    }
 }

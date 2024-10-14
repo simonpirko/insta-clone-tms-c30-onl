@@ -3,22 +3,14 @@ package by.tms.instaclone.model;
 import by.tms.instaclone.settings.TimeZoneSettings;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Objects;
 import java.util.UUID;
 
 public class Post {
-
-    //commentList: список ссылок на оставленные Комментарии
-    //likeList: список ссылок на пользователей поставивших “лайк” посту
-    //image: фото поста
-
-
-    private final UUID uuid;// идентификатор Поста
-    private final User owner; // **** Пользователь создатель поста (получается конструктором);
-    private String text; // текст Поста
-    private ArrayList<Photo> photos;
-    private LocalDateTime createAt;// время создания Поста
+    private final UUID uuid;
+    private final User owner;
+    private String text;
+    private LocalDateTime createAt;
 
     public Post(User owner, String text) {
         this.owner = owner;

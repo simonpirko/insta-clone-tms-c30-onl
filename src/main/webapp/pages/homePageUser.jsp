@@ -30,15 +30,11 @@
                         </div>
                         <div id="${listValue.carouselName}" class="carousel slide">
                             <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <img src="..." class="d-block w-100" alt="...">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="..." class="d-block w-100" alt="...">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="..." class="d-block w-100" alt="...">
-                                </div>
+                                <c:forEach items="${listValue.photosLastPost}" var="Photo">
+                                    <div class="carousel-item active">
+                                        <img width="320px" height="320px" src="data:image/jpeg;base64,${Photo}" class="d-block w-100" alt="Photo">
+                                    </div>
+                            </c:forEach>
                             </div>
                             <button class="carousel-control-prev" type="button"
                                     data-bs-target="#${listValue.carouselName}"

@@ -11,7 +11,7 @@ public class PublisherCardLastPostDto {
     private String urlPublisher;
     private List<String> textLastPostPublisher;
     private List<String> createAtLastPost;
-//    private static List<Image> photosPost;              // todo объект-фото не нужно, надо просто фото
+    private List<String> photosLastPost;
     private String carouselName;
 
     public void setNamePublisher(String namePublisher) {
@@ -26,12 +26,16 @@ public class PublisherCardLastPostDto {
         this.urlPublisher = urlPublisher;
     }
 
-    public void setTextLastPostPublisher(List<String> textLastPostPublisher) {
+    public void setTextLastPost(List<String> textLastPostPublisher) {
         this.textLastPostPublisher = textLastPostPublisher;
     }
 
     public void setCreateAtLastPost(List<String> createAtLastPost) {
         this.createAtLastPost = createAtLastPost;
+    }
+
+    public void setPhotosLastPost(List<String> photosLastPost) {
+        this.photosLastPost = photosLastPost;
     }
 
     public void setCarouselName(String carouselName) {
@@ -58,9 +62,9 @@ public class PublisherCardLastPostDto {
         return createAtLastPost;
     }
 
-//    public List<Photo> getPhotosPost() {
-//        return photosPost;
-//    }
+    public List<String> getPhotosLastPost() {
+        return photosLastPost;
+    }
 
     public String getCarouselName() {
         return carouselName;
