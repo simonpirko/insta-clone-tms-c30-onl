@@ -54,6 +54,7 @@ public class ProfileServlet extends HttpServlet {
                 SubscriptionsStorage.getInstance().deleteSubscriptionFollower(UsersStorage.getInstance().getUser(paramsUrl[1]));
                 break;
         }
+
         resp.sendRedirect("/user/profile/"+paramsUrl[2]);
 
 
