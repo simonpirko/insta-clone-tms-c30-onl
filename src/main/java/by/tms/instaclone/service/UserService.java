@@ -13,16 +13,14 @@ import java.util.Optional;
 import java.util.UUID;
 
 /**
- * Класс описывает формирование контента для страницы ./user/home
+ * Класс описывает формирование контента для Пользователя
  */
-public class UserHomePageService {
-    private final String usernameOwner;
+public class UserService {
 
-    public UserHomePageService(String username) {
-        this.usernameOwner = username;
-    }
-
-    public Optional<UserHomePageDto> collect() {
+    /**
+     * Метод формирует контент для HOME_USER_JSP
+     */
+    public Optional<UserHomePageDto> collectHomePageContent(String usernameOwner) {
         UserHomePageDto userHomePageDto = new UserHomePageDto();
         UUID uuidOwner = UsernamesStorage.getInstance().getUUID(usernameOwner);
         User owner = UsersStorage.getInstance().getUser(uuidOwner);
@@ -31,8 +29,8 @@ public class UserHomePageService {
         List<User> publishers = SubscriptionsStorage.getInstance().getPublishersFollower(owner.getUuid());
         List<PublisherCardLastPostDto> publishersCards = new ArrayList<>();
         for (User publisher : publishers) {
-            PublisherCardLastPostService content = new PublisherCardLastPostService(publisher.getUsername());
-            Optional<PublisherCardLastPostDto> publisherCard = content.collect();
+            PublisherService content = new PublisherService();
+            Optional<PublisherCardLastPostDto> publisherCard = content.collectLastPost(publisher.getUsername());
             if (!publisherCard.isEmpty()) {
                 publishersCards.add(publisherCard.get());
             }

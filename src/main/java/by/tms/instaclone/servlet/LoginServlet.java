@@ -19,7 +19,6 @@ import static by.tms.instaclone.storage.KeeperConstants.*;
 public class LoginServlet extends HttpServlet {
     private static final String LOGIN_USER = "username";
     private static final String PASSWORD_USER = "password";
-//    private static final String CURRENT_USER_ATTRIBUTE = "currentUser";
     private static final String MESSAGE_TRUE = "true";
     private static final String USERNAME_MISSING = "isUsernameMissing";
     private static final String USERNAME_PROBLEM = "isUsernameProblem";
