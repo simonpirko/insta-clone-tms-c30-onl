@@ -2,10 +2,7 @@ package by.tms.instaclone.service;
 
 import by.tms.instaclone.dto.PublisherCardLastPostDto;
 import by.tms.instaclone.model.Post;
-import by.tms.instaclone.storage.PhotoStorage;
-import by.tms.instaclone.storage.PostsStorage;
-import by.tms.instaclone.storage.UsernamesStorage;
-import by.tms.instaclone.storage.UsersStorage;
+import by.tms.instaclone.storage.*;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -34,14 +31,20 @@ public class PublisherService {
         List<String> textLastPost = new ArrayList<>();
         List<String> createAtLastPost = new ArrayList<>();
         List<String> photosLastPost = new ArrayList<>();
+        long countLikeLastPost = 0;
+        long countDislikeLastPost = 0;
         for (Post post : lastPostsPublisher) {
             textLastPost.add(post.getText());
             createAtLastPost.add(post.getCreateAt().format(dateTimeFormatter));
             photosLastPost = PhotoStorage.getInstance().getPhotosPost(post.getUuid());
+            countLikeLastPost = ReactionsStorage.getInstance().getCountLikePost(post.getUuid());
+            countDislikeLastPost = ReactionsStorage.getInstance().getCountDislikePost(post.getUuid());
         }
         publisherCardLastPostDto.setTextLastPost(textLastPost);
         publisherCardLastPostDto.setCreateAtLastPost(createAtLastPost);
         publisherCardLastPostDto.setPhotosLastPost(photosLastPost);
+        publisherCardLastPostDto.setCountLikeLastPost(countLikeLastPost);
+        publisherCardLastPostDto.setCountDislikeLastPost(countDislikeLastPost);
         publisherCardLastPostDto.setCarouselName("Carousel" + "-" + usernamePublisher);
         return Optional.of(publisherCardLastPostDto);
     }
