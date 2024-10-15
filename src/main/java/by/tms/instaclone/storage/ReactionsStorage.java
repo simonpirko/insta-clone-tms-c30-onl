@@ -103,6 +103,22 @@ public class ReactionsStorage {
         return reactionPost;
     }
 
+    /**
+     * Метод возвращает количество лайков у Поста, идентифируемого через его UUID
+     * @param postUuid - UUID Поста
+     * @return likeCount - количество лайков
+     */
+    public long getCountLikePost(UUID postUuid) {
+        long likeCount = 0;
+        for (Map.Entry entry: reactions.entrySet()) {
+            if (((Reaction) entry.getValue()).getAddressee().getUuid().equals(postUuid)
+            && ((Reaction) entry.getValue()).isTypeReaction()) {
+                likeCount++;
+            }
+        }
+        return likeCount;
+    }
+
     public void changeReaction(Reaction reaction, boolean newTypeReaction) {
         Reaction newReaction = reactions.get(reaction.getUuid());
         newReaction.setTypeReaction(newTypeReaction);
