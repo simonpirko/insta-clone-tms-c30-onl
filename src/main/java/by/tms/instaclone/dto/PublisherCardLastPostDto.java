@@ -41,4 +41,32 @@ public class PublisherCardLastPostDto {
     public void setCarouselName(String carouselName) {
         this.carouselName = carouselName;
     }
+
+    public String getNamePublisher() {
+        return namePublisher;
+    }
+
+    public String getUsernamePublisher() {
+        return usernamePublisher;
+    }
+
+    public String getUrlPublisher() {
+        return urlPublisher;
+    }
+
+    public List<String> getTextLastPostPublisher() {
+        return textLastPostPublisher;
+    }
+
+    public List<String> getCreateAtLastPost() {
+        return createAtLastPost;
+    }
+
+    public List<String> getPhotosLastPost() {
+        return photosLastPost;
+    }
+
+    public String getCarouselName() {
+        return carouselName;
+    }
 }
