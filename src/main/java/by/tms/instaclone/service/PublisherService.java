@@ -33,6 +33,7 @@ public class PublisherService {
         List<String> photosLastPost = new ArrayList<>();
         long countLikeLastPost = 0;
         long countDislikeLastPost = 0;
+        int count = 0;
         for (Post post : lastPostsPublisher) {
             textLastPost.add(post.getText());
             createAtLastPost.add(post.getCreateAt().format(dateTimeFormatter));

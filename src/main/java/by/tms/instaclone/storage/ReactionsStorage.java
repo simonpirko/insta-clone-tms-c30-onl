@@ -59,7 +59,7 @@ public class ReactionsStorage {
                 reaction.getAddressee().getUuid().toString(),
                 reaction.getOwner().getUuid().toString(),
                 String.valueOf(reaction.isTypeReaction()),
-                reaction.getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli()/1000);
+                reaction.getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli() / 1000);
         writeCsvFile(REACTIONS_CSV_FILE, rowText);
         return reaction;
     }
@@ -70,7 +70,7 @@ public class ReactionsStorage {
                 reaction.getAddressee().getUuid().toString(),
                 reaction.getOwner().getUuid().toString(),
                 String.valueOf(reaction.isTypeReaction()),
-                reaction.getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli()/1000);
+                reaction.getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli() / 1000);
         writeCsvFile(REACTIONS_CSV_FILE, rowText);
     }
 
@@ -85,7 +85,7 @@ public class ReactionsStorage {
 
     public Map<UUID, Reaction> getReactionOwner(UUID ownerUuid) {
         Map<UUID, Reaction> reactionOwner = new HashMap<>();
-        for (Map.Entry entry: reactions.entrySet()) {
+        for (Map.Entry entry : reactions.entrySet()) {
             if (((Reaction) entry.getValue()).getOwner().getUuid().equals(ownerUuid)) {
                 reactionOwner.put(((Reaction) entry.getValue()).getUuid(), (Reaction) entry.getValue());
             }
@@ -95,7 +95,7 @@ public class ReactionsStorage {
 
     public Map<UUID, Reaction> getReactionPost(UUID postUuid) {
         Map<UUID, Reaction> reactionPost = new HashMap<>();
-        for (Map.Entry entry: reactions.entrySet()) {
+        for (Map.Entry entry : reactions.entrySet()) {
             if (((Reaction) entry.getValue()).getAddressee().getUuid().equals(postUuid)) {
                 reactionPost.put(((Reaction) entry.getValue()).getUuid(), (Reaction) entry.getValue());
             }
@@ -105,14 +105,15 @@ public class ReactionsStorage {
 
     /**
      * Метод возвращает количество лайков у Поста, идентифируемого через его UUID
+     *
      * @param postUuid - UUID Поста
      * @return likeCount - количество лайков
      */
     public long getCountLikePost(UUID postUuid) {
         long likeCount = 0;
-        for (Map.Entry entry: reactions.entrySet()) {
+        for (Map.Entry entry : reactions.entrySet()) {
             if (((Reaction) entry.getValue()).getAddressee().getUuid().equals(postUuid)
-            && ((Reaction) entry.getValue()).isTypeReaction()) {
+                    && ((Reaction) entry.getValue()).isTypeReaction()) {
                 likeCount++;
             }
         }
@@ -121,12 +122,13 @@ public class ReactionsStorage {
 
     /**
      * Метод возвращает количество дизлайков у Поста, идентифируемого через его UUID
+     *
      * @param postUuid - UUID Поста
      * @return dislikeCount - количество лайков
      */
     public long getCountDislikePost(UUID postUuid) {
         long dislikeCount = 0;
-        for (Map.Entry entry: reactions.entrySet()) {
+        for (Map.Entry entry : reactions.entrySet()) {
             if (((Reaction) entry.getValue()).getAddressee().getUuid().equals(postUuid)
                     && !((Reaction) entry.getValue()).isTypeReaction()) {
                 dislikeCount++;
@@ -143,12 +145,12 @@ public class ReactionsStorage {
 
     private void rewrite() {
         StringBuilder contentReactionsStorage = new StringBuilder();
-        for (Map.Entry entry: reactions.entrySet()) {
+        for (Map.Entry entry : reactions.entrySet()) {
             contentReactionsStorage.append(((Reaction) entry.getValue()).getUuid().toString()).append(SEPARATOR_CSV)
                     .append(((Reaction) entry.getValue()).getAddressee().getUuid().toString()).append(SEPARATOR_CSV)
                     .append(((Reaction) entry.getValue()).getOwner().getUuid().toString()).append(SEPARATOR_CSV)
                     .append(((Reaction) entry.getValue()).isTypeReaction()).append(SEPARATOR_CSV)
-                    .append(((Reaction) entry.getValue()).getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli()/1000).append(SEPARATOR_CSV)
+                    .append(((Reaction) entry.getValue()).getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli() / 1000).append(SEPARATOR_CSV)
                     .append(LF);
         }
         deleteContentCsvFile(REACTIONS_CSV_FILE);
@@ -159,5 +161,4 @@ public class ReactionsStorage {
         deleteReaction(oldReaction);
         newReaction(newReaction);
     }
-
 }
