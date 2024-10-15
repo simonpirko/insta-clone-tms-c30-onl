@@ -45,6 +45,17 @@ public class PublisherService {
         publisherCardLastPostDto.setCreateAtLastPost(createAtLastPost);
         publisherCardLastPostDto.setPhotosLastPost(photosLastPost);
         publisherCardLastPostDto.setCountLikeLastPost(countLikeLastPost);
+        if (countLikeLastPost > 0) {
+            publisherCardLastPostDto.setLikeBottom("Like - " + countLikeLastPost);
+        } else {
+            publisherCardLastPostDto.setLikeBottom("Like");
+        }
+        if (countDislikeLastPost > 0) {
+            publisherCardLastPostDto.setDislikeBottom("Dislike - " + countDislikeLastPost);
+        } else {
+            publisherCardLastPostDto.setDislikeBottom("Dislike");
+        }
+        publisherCardLastPostDto.setCommentBottom("Comment");
         publisherCardLastPostDto.setCountDislikeLastPost(countDislikeLastPost);
         publisherCardLastPostDto.setCarouselName("Carousel" + "-" + usernamePublisher);
         return Optional.of(publisherCardLastPostDto);

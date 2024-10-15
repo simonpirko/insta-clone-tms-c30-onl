@@ -32,7 +32,7 @@ public class UserHomeServlet extends HttpServlet {
             String nameCurrentUser = userHomePageContent.get().getName();
             String usernameCurrentUser = userHomePageContent.get().getUsername();
             List<PublisherCardLastPostDto> publishersCards = userHomePageContent.get().getPublishersCards();
-            req.setAttribute("list", publishersCards);
+            req.setAttribute("content", publishersCards);
             req.getServletContext().getRequestDispatcher(HOME_USER_JSP).forward(req, res);
         }
     }

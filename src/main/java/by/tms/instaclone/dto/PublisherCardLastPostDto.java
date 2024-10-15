@@ -15,6 +15,9 @@ public class PublisherCardLastPostDto {
     private long countLikeLastPost;
     private long countDislikeLastPost;
     private String carouselName;
+    private String likeBottom;
+    private String dislikeBottom;
+    private String CommentBottom;
 
     public void setNamePublisher(String namePublisher) {
         this.namePublisher = namePublisher;
@@ -52,6 +55,18 @@ public class PublisherCardLastPostDto {
         this.countDislikeLastPost = countDislikeLastPost;
     }
 
+    public void setLikeBottom(String likeBottom) {
+        this.likeBottom = likeBottom;
+    }
+
+    public void setDislikeBottom(String dislikeBottom) {
+        this.dislikeBottom = dislikeBottom;
+    }
+
+    public void setCommentBottom(String commentBottom) {
+        CommentBottom = commentBottom;
+    }
+
     public String getNamePublisher() {
         return namePublisher;
     }
@@ -86,5 +101,17 @@ public class PublisherCardLastPostDto {
 
     public long getCountDislikeLastPost() {
         return countDislikeLastPost;
+    }
+
+    public String getLikeBottom() {
+        return likeBottom;
+    }
+
+    public String getDislikeBottom() {
+        return dislikeBottom;
+    }
+
+    public String getCommentBottom() {
+        return CommentBottom;
     }
 }
