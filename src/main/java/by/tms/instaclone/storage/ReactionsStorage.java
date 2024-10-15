@@ -119,6 +119,22 @@ public class ReactionsStorage {
         return likeCount;
     }
 
+    /**
+     * Метод возвращает количество дизлайков у Поста, идентифируемого через его UUID
+     * @param postUuid - UUID Поста
+     * @return dislikeCount - количество лайков
+     */
+    public long getCountDislikePost(UUID postUuid) {
+        long dislikeCount = 0;
+        for (Map.Entry entry: reactions.entrySet()) {
+            if (((Reaction) entry.getValue()).getAddressee().getUuid().equals(postUuid)
+                    && !((Reaction) entry.getValue()).isTypeReaction()) {
+                dislikeCount++;
+            }
+        }
+        return dislikeCount;
+    }
+
     public void changeReaction(Reaction reaction, boolean newTypeReaction) {
         Reaction newReaction = reactions.get(reaction.getUuid());
         newReaction.setTypeReaction(newTypeReaction);
