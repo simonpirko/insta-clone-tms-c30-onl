@@ -18,7 +18,7 @@ import static by.tms.instaclone.storage.KeeperConstants.*;
 import static by.tms.instaclone.storage.KeeperConstants.ERROR_JSP;
 
 
-@WebServlet(name = "UserHomeServlet", value = USER_HOME_PATH)
+@WebServlet(name = "UserHomeServlet", value = USER_HOME_URL)
 public class UserHomeServlet extends HttpServlet {
 
     @Override

@@ -53,13 +53,14 @@
                         <form action="/user/home/event" method="post">
                             <button type="submit"
                                     class="btn btn-outline-primary btn-xs"
-                                    name="button" value="like">${contentValue.likeTitleButton}</button>
+<%--                                    name="button" value="like">${contentValue.likeTitleButton}</button>--%>
+                                    name="button" value="${contentValue.likeValueButton}">${contentValue.likeTitleButton}</button>
                             <button type="submit"
                                     class="btn btn-outline-primary btn-xs"
-                                    name="button" value="dislike">${contentValue.dislikeTitleButton}</button>
+                                    name="button" value="${contentValue.dislikeValueButton}">${contentValue.dislikeTitleButton}</button>
                             <button type="submit"
                                     class="btn btn-outline-primary btn-xs"
-                                    name="button" value="comment">${contentValue.commentTitleButton}</button>
+                                    name="button" value="${contentValue.commentValueButton}">${contentValue.commentTitleButton}</button>
                         </form>
 
 <%--                        <ul class="pagination">--%>

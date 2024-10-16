@@ -2,8 +2,11 @@ package by.tms.instaclone.servlet;
 
 import by.tms.instaclone.dto.PublisherCardLastPostDto;
 import by.tms.instaclone.dto.UserHomePageDto;
+import by.tms.instaclone.model.Post;
 import by.tms.instaclone.model.User;
 import by.tms.instaclone.service.UserService;
+import by.tms.instaclone.storage.PostsStorage;
+import by.tms.instaclone.storage.ReactionsStorage;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,17 +17,30 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static by.tms.instaclone.storage.KeeperConstants.*;
 
-@WebServlet(name = "UserHomeEventServlet", value = "/user/home/event")
+@WebServlet(name = "UserHomeEventServlet", value = USER_HOME_EVENT_URL)
 public class UserHomeEventServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        System.out.println("UserHomeEventServlet");
-
         User currentUser = (User) req.getSession().getAttribute(CURRENT_USER_ATTRIBUTE);
+        String integralParameter = req.getParameter("button");
+        int numberPositionSeparator = integralParameter.indexOf(ID_SEPARATOR);
+        String typeButton = integralParameter.substring(0, numberPositionSeparator);
+        Post post = PostsStorage.getInstance().getPost(UUID.fromString(integralParameter.substring(numberPositionSeparator + 1)));
+        switch (typeButton) {
+            case LIKE_BUTTON:
+                ReactionsStorage.getInstance().newReaction(post, currentUser, LIKE);
+                break;
+            case DISLIKE_BUTTON:
+                ReactionsStorage.getInstance().newReaction(post, currentUser, DISLIKE);
+                break;
+            case COMMENT_BUTTON:
+                System.out.println("UserHomeEventServlet this button is not processed");
+        }
         Optional<UserHomePageDto> userHomePageContent = new UserService().collectHomePageContent(currentUser.getUsername());
         if (userHomePageContent.isEmpty()) {
             req.setAttribute("message", "Error! Page not collector!");
@@ -34,11 +50,7 @@ public class UserHomeEventServlet extends HttpServlet {
             String usernameCurrentUser = userHomePageContent.get().getUsername();
             List<PublisherCardLastPostDto> publishersCards = userHomePageContent.get().getPublishersCards();
             req.setAttribute("content", publishersCards);
-//            req.getServletContext().getRequestDispatcher(HOME_USER_JSP).forward(req, res);
-            res.sendRedirect(USER_HOME_PATH);
+            res.sendRedirect(USER_HOME_URL);
         }
-
-//        res.sendRedirect(USER_HOME_PATH);
-
     }
 }
