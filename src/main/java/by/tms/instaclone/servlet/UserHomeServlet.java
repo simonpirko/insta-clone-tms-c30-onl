@@ -3,7 +3,7 @@ package by.tms.instaclone.servlet;
 import by.tms.instaclone.dto.PublisherCardLastPostDto;
 import by.tms.instaclone.dto.UserHomePageDto;
 import by.tms.instaclone.model.User;
-import by.tms.instaclone.service.UserHomePageService;
+import by.tms.instaclone.service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,8 +24,7 @@ public class UserHomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         User currentUser = (User) req.getSession().getAttribute(CURRENT_USER_ATTRIBUTE);
-        UserHomePageService shaperContent = new UserHomePageService(currentUser.getUsername());
-        Optional<UserHomePageDto> userHomePageContent = shaperContent.collect();
+        Optional<UserHomePageDto> userHomePageContent = new UserService().collectHomePageContent(currentUser.getUsername());
         if (userHomePageContent.isEmpty()) {
             req.setAttribute("message", "Error! Page not collector!");
             getServletContext().getRequestDispatcher(ERROR_JSP).forward(req, res);

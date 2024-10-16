@@ -16,16 +16,14 @@ import java.util.UUID;
 import static by.tms.instaclone.storage.KeeperConstants.*;
 
 /**
- * Класс формирует контент для "Карточка Последнего поста Публикатора"
+ * Класс описывает контент Публикатора
  */
-public class PublisherCardLastPostService {
-    private final String usernamePublisher;
+public class PublisherService {
 
-    public PublisherCardLastPostService(String username) {
-        usernamePublisher = username;
-    }
-
-    public Optional<PublisherCardLastPostDto> collect() {
+    /**
+     * Класс формирует контент для "Карточка Последнего поста Публикатора"
+     */
+    public Optional<PublisherCardLastPostDto> collectLastPost(String usernamePublisher) {
         PublisherCardLastPostDto publisherCardLastPostDto = new PublisherCardLastPostDto();
         UUID uuidPublisher = UsernamesStorage.getInstance().getUUID(usernamePublisher);
         publisherCardLastPostDto.setNamePublisher(UsersStorage.getInstance().getUser(uuidPublisher).getName());

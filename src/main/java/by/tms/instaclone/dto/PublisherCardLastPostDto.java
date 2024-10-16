@@ -3,7 +3,7 @@ package by.tms.instaclone.dto;
 import java.util.List;
 
 /**
- * Класс описывает содержимое профиля Публикатора
+ * Класс описывает  контент для "Карточка Последнего поста Публикатора"
  */
 public class PublisherCardLastPostDto {
     private String namePublisher;
@@ -68,9 +68,5 @@ public class PublisherCardLastPostDto {
 
     public String getCarouselName() {
         return carouselName;
-    }
-
-    public PublisherCardLastPostDto getPublisherCard() {
-        return this;
     }
 }
