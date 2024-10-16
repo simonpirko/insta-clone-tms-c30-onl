@@ -46,16 +46,16 @@ public class PublisherService {
         publisherCardLastPostDto.setPhotosLastPost(photosLastPost);
         publisherCardLastPostDto.setCountLikeLastPost(countLikeLastPost);
         if (countLikeLastPost > 0) {
-            publisherCardLastPostDto.setLikeBottom("Like - " + countLikeLastPost);
+            publisherCardLastPostDto.setLikeTitleButton("Like - " + countLikeLastPost);
         } else {
-            publisherCardLastPostDto.setLikeBottom("Like");
+            publisherCardLastPostDto.setLikeTitleButton("Like");
         }
         if (countDislikeLastPost > 0) {
-            publisherCardLastPostDto.setDislikeBottom("Dislike - " + countDislikeLastPost);
+            publisherCardLastPostDto.setDislikeTitleButton("Dislike - " + countDislikeLastPost);
         } else {
-            publisherCardLastPostDto.setDislikeBottom("Dislike");
+            publisherCardLastPostDto.setDislikeTitleButton("Dislike");
         }
-        publisherCardLastPostDto.setCommentBottom("Comment");
+        publisherCardLastPostDto.setCommentTitleButton("Comment");
         publisherCardLastPostDto.setCountDislikeLastPost(countDislikeLastPost);
         publisherCardLastPostDto.setCarouselName("Carousel" + "-" + usernamePublisher);
         return Optional.of(publisherCardLastPostDto);

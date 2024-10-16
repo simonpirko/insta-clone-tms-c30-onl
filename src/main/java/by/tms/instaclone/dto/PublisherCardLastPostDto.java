@@ -15,9 +15,9 @@ public class PublisherCardLastPostDto {
     private long countLikeLastPost;
     private long countDislikeLastPost;
     private String carouselName;
-    private String likeBottom;
-    private String dislikeBottom;
-    private String CommentBottom;
+    private String likeTitleButton;
+    private String dislikeTitleButton;
+    private String CommentTitleButton;
 
     public void setNamePublisher(String namePublisher) {
         this.namePublisher = namePublisher;
@@ -55,16 +55,16 @@ public class PublisherCardLastPostDto {
         this.countDislikeLastPost = countDislikeLastPost;
     }
 
-    public void setLikeBottom(String likeBottom) {
-        this.likeBottom = likeBottom;
+    public void setLikeTitleButton(String likeTitleButton) {
+        this.likeTitleButton = likeTitleButton;
     }
 
-    public void setDislikeBottom(String dislikeBottom) {
-        this.dislikeBottom = dislikeBottom;
+    public void setDislikeTitleButton(String dislikeTitleButton) {
+        this.dislikeTitleButton = dislikeTitleButton;
     }
 
-    public void setCommentBottom(String commentBottom) {
-        CommentBottom = commentBottom;
+    public void setCommentTitleButton(String commentTitleButton) {
+        CommentTitleButton = commentTitleButton;
     }
 
     public String getNamePublisher() {
@@ -103,15 +103,15 @@ public class PublisherCardLastPostDto {
         return countDislikeLastPost;
     }
 
-    public String getLikeBottom() {
-        return likeBottom;
+    public String getLikeTitleButton() {
+        return likeTitleButton;
     }
 
-    public String getDislikeBottom() {
-        return dislikeBottom;
+    public String getDislikeTitleButton() {
+        return dislikeTitleButton;
     }
 
-    public String getCommentBottom() {
-        return CommentBottom;
+    public String getCommentTitleButton() {
+        return CommentTitleButton;
     }
 }
