@@ -49,11 +49,24 @@
                                 <span class="visually-hidden">Next</span>
                             </button>
                         </div>
-                        <ul class="pagination">
-                            <button type="button" class="btn btn-outline-primary btn-xs">${contentValue.likeBottom}</button>
-                            <button type="button" class="btn btn-outline-primary btn-xs">${contentValue.dislikeBottom}</button>
-                            <button type="button" class="btn btn-outline-primary btn-xs">${contentValue.commentBottom}</button>
-                        </ul>
+
+                        <form action="/user/home/event" method="post">
+                            <button type="submit"
+                                    class="btn btn-outline-primary btn-xs"
+                                    name="button" value="like">${contentValue.likeBottom}</button>
+                            <button type="submit"
+                                    class="btn btn-outline-primary btn-xs"
+                                    name="button" value="dislike">${contentValue.dislikeBottom}</button>
+                            <button type="submit"
+                                    class="btn btn-outline-primary btn-xs"
+                                    name="button" value="comment">${contentValue.commentBottom}</button>
+                        </form>
+
+<%--                        <ul class="pagination">--%>
+<%--                            <button type="button" class="btn btn-outline-primary btn-xs">${contentValue.likeBottom}</button>--%>
+<%--                            <button type="button" class="btn btn-outline-primary btn-xs">${contentValue.dislikeBottom}</button>--%>
+<%--                            <button type="button" class="btn btn-outline-primary btn-xs">${contentValue.commentBottom}</button>--%>
+<%--                        </ul>--%>
                     </div>
                 </c:forEach>
             </div>
