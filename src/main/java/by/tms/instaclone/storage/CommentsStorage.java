@@ -8,10 +8,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 
@@ -93,14 +90,14 @@ public class CommentsStorage {
         return commentOwner;
     }
 
-    public Map<UUID, Comment> getCommentPost(UUID postUuid) {
-        Map<UUID, Comment> commentPost = new HashMap<>();
+    public List<Comment> getAllCommentsPost(UUID postUuid) {
+        List<Comment> commentsPost = new ArrayList<>();
         for (Map.Entry entry: comments.entrySet()) {
             if (((Comment) entry.getValue()).getAddressee().getUuid().equals(postUuid)) {
-                commentPost.put(((Comment) entry.getValue()).getUuid(), (Comment) entry.getValue());
+                commentsPost.add((Comment) entry.getValue());
             }
         }
-        return commentPost;
+        return commentsPost;
     }
 
     public void changeText(Comment comment, String newText) {

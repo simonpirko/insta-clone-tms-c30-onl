@@ -8,7 +8,7 @@ public class CommentsDto {
     private UUID comentUUID;
     private String username;
     private String textComment;
-    private LocalDateTime createdAt;
+    private String createdAt;
 
     public UUID getComentUUID() {
         return comentUUID;
@@ -34,11 +34,11 @@ public class CommentsDto {
         this.textComment = textComment;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public String getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
 }

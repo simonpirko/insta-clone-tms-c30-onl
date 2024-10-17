@@ -1,17 +1,29 @@
 package by.tms.instaclone.dto;
 
+import by.tms.instaclone.model.Photo;
 import by.tms.instaclone.model.Reaction;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 public class PostDto {
 
+   private UUID postUUID;
    private String username;
    private String textPost;
-   private LocalDateTime createdAt;
+   private String createdAt;
    private List<Reaction> reactions;
    private List<CommentsDto> comments;
+   private List<String> photos;
+
+   public UUID getPostUUID() {
+      return postUUID;
+   }
+
+   public void setPostUUID(UUID postUUID) {
+      this.postUUID = postUUID;
+   }
 
    public String getUsername() {
       return username;
@@ -29,11 +41,11 @@ public class PostDto {
       this.textPost = textPost;
    }
 
-   public LocalDateTime getCreatedAt() {
+   public String getCreatedAt() {
       return createdAt;
    }
 
-   public void setCreatedAt(LocalDateTime createdAt) {
+   public void setCreatedAt(String createdAt) {
       this.createdAt = createdAt;
    }
 
@@ -51,5 +63,13 @@ public class PostDto {
 
    public void setComments(List<CommentsDto> comments) {
       this.comments = comments;
+   }
+
+   public List<String> getPhotos() {
+      return photos;
+   }
+
+   public void setPhotos(List<String> photos) {
+      this.photos = photos;
    }
 }

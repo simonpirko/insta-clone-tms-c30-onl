@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Al
-  Date: 07.10.2024
-  Time: 21:02
-  To change this template use File | Settings | File Templates.
---%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -18,23 +12,22 @@
         <div class="row col-9">
             <div class="container">
                 <div class="card mx-auto p-2 float-start" style="width: 30rem;">
-                    <button type="button" class="btn btn-outline-primary">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-left float-start" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
-                        </svg>
-                        Publications
-                    </button>
+                    <a href="/user/profile/${postDto.username}" class="card">
+                        <button type="button" class="btn btn-outline-primary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-left float-start" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+                            </svg>
+                            Publications
+                        </button>
+                    </a>
                     <div id="carouselExample" class="carousel slide">
                         <div class="carousel-inner">
+                            <c:forEach items="${postDto.photos}" var="photo">
                             <div class="carousel-item active">
-                                <img src="${postimage1}" class="d-block w-100" alt="...">
+                                <img width="320px" height="320px" src="data:image/jpeg;base64,${photo}"
+                                     class="d-block w-100" alt="Photo">
                             </div>
-                            <div class="carousel-item">
-                                <img src="${postimage2}" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="${postimage3}" class="d-block w-100" alt="...">
-                            </div>
+                            </c:forEach>
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -46,8 +39,13 @@
                         </button>
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">${username}</h5>
-                        <p class="card-text">${textpost}</p>
+                        <h5 class="card-title">
+                            <a href="/user/profile/${postDto.username}"
+                               class="card-link">${postDto.username}
+                            </a>
+                        </h5>
+                        <p class="card-text">${postDto.createdAt}</p>
+                        <p class="card-text">${postDto.textPost}</p>
                         <div class="btn-group" role="group" aria-label="Basic outlined example">
                             <button type="button" class="btn btn-outline-primary">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
@@ -67,40 +65,27 @@
                         </div>
                     </div>
                 </div>
-                <p>
-                    <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                        Comments
-                    </a>
-                </p>
-                <div class="collapse" id="collapseExample">
-                    <h5 class="card-title">${username1}</h5>
-                    <div class="card card-body">
-                        ${comment1}
-                    </div>
-                    <div class="collapse" id="collapseExample">
-                        <h5 class="card-title">${username2}</h5>
-                        <div class="card card-body">
-                            ${comment2}
+                <div>
+                    <form action="/user/post" method="post">
+                        <input type="hidden" value="${postDto.postUUID}" name="postUUID">
+                        <div class="input-group-sm mb-3 body-tertiary">
+                            <span class="input-group-text"</span>
+                            <input type="text" class="form-control" name="commentText" placeholder="Write a comment..." aria-label="Write a comment..." aria-describedby="basic-addon1">
+                            <button class="btn btn-outline-secondary" type="submit">send</button>
                         </div>
-                    </div>
-                    <div class="collapse" id="collapseExample">
-                        <h5 class="card-title">${username3}</h5>
-                        <div class="card card-body">
-                            ${comment3}
-                        </div>
-                        <div class="collapse" id="collapseExample">
-                            <h5 class="card-title">${username4}</h5>
-                            <div class="card card-body">
-                                ${comment4}
-                            </div>
-                            <div class="input-group-sm mb-3 body-tertiary">
-                                <span class="input-group-text"</span>
-                                <input type="text" class="form-control" placeholder="Write a comment..." aria-label="Write a comment..." aria-describedby="basic-addon1">
-                                <button class="btn btn-outline-secondary" type="button" id="button-addon2">send</button>
-                            </div>
-                        </div>
-                    </div>
+                    </form>
                 </div>
+                <c:forEach items="${postDto.comments}" var="comment">
+                    <div class="card card-body">
+                        <h3>
+                            <a href="/user/profile/${comment.username}"
+                                class="card-link">${comment.username}
+                            </a>
+                        </h3>
+                        <h5>${comment.createdAt}</h5>
+                        <h3>${comment.textComment}</h3>
+                    </div>
+                </c:forEach>
             </div>
         </div>
     </div>
