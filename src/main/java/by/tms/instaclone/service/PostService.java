@@ -26,7 +26,6 @@ public class PostService {
     PhotoStorage photoStorage = PhotoStorage.getInstance();
     PostDto postDto = new PostDto();
     List<CommentsDto> commentsDtoList = new ArrayList<>();
-    List<String> test = new ArrayList<>();
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(DATE_TIME_CREATE_POST_TEMPLATE);
 
     public PostDto getContent(UUID postUUID) {
@@ -46,11 +45,8 @@ public class PostService {
             commentsDto.setUsername(comment.getOwner().getUsername());
             commentsDto.setTextComment(comment.getText());
             commentsDto.setCreatedAt(comment.getCreateAt().format(dateTimeFormatter));
-            test.add(comment.getText());
             commentsDtoList.add(commentsDto);
         }
-        System.out.println(test.toString());
-        System.out.println(commentsDtoList);
         postDto.setComments(commentsDtoList);
         postDto.setPhotos(photoStorage.getPhotosPost(postUUID));
 
