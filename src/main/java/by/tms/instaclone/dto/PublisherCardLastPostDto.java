@@ -16,12 +16,6 @@ public class PublisherCardLastPostDto {
     private long countLikeLastPost;
     private long countDislikeLastPost;
     private String carouselName;
-    private String likeTitleButton;
-    private String likeValueButton;
-    private String dislikeTitleButton;
-    private String dislikeValueButton;
-    private String commentTitleButton;
-    private String commentValueButton;
 
     public void setNamePublisher(String namePublisher) {
         this.namePublisher = namePublisher;
@@ -63,30 +57,6 @@ public class PublisherCardLastPostDto {
         this.countDislikeLastPost = countDislikeLastPost;
     }
 
-    public void setLikeTitleButton(String likeTitleButton) {
-        this.likeTitleButton = likeTitleButton;
-    }
-
-    public void setLikeValueButton(String likeValueButton) {
-        this.likeValueButton = likeValueButton;
-    }
-
-    public void setDislikeTitleButton(String dislikeTitleButton) {
-        this.dislikeTitleButton = dislikeTitleButton;
-    }
-
-    public void setDislikeValueButton(String dislikeValueButton) {
-        this.dislikeValueButton = dislikeValueButton;
-    }
-
-    public void setCommentTitleButton(String commentTitleButton) {
-        this.commentTitleButton = commentTitleButton;
-    }
-
-    public void setCommentValueButton(String commentValueButton) {
-        this.commentValueButton = commentValueButton;
-    }
-
     public String getNamePublisher() {
         return namePublisher;
     }
@@ -125,29 +95,5 @@ public class PublisherCardLastPostDto {
 
     public long getCountDislikeLastPost() {
         return countDislikeLastPost;
-    }
-
-    public String getLikeTitleButton() {
-        return likeTitleButton;
-    }
-
-    public String getLikeValueButton() {
-        return likeValueButton;
-    }
-
-    public String getDislikeTitleButton() {
-        return dislikeTitleButton;
-    }
-
-    public String getDislikeValueButton() {
-        return dislikeValueButton;
-    }
-
-    public String getCommentTitleButton() {
-        return commentTitleButton;
-    }
-
-    public String getCommentValueButton() {
-        return commentValueButton;
     }
 }

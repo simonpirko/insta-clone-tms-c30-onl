@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title page</title> <!-- вставить название страницы -->
+    <title>UserHome</title>
 </head>
 <body>
 <jsp:include page="_bootstrap.jsp"/>
@@ -10,7 +10,7 @@
     <div class="row">
         <jsp:include page="_menubar.jsp"/>
         <div class="row col-9">
-            <!-- вставить контент -->
+
             <div class="container">
                 <c:forEach items="${content}" var="contentValue">
                     <div class="card" style="width: 35rem;">
@@ -54,32 +54,41 @@
                         <ul class="pagination">
                             <form action="/user/home/like" method="post">
                                 <input type="hidden" value="${contentValue.uuidPost}" name="uuidPost">
-                                <button type="submit"
-                                        class="btn btn-outline-primary btn-xs"
-                                        name="button" <%--value="${contentValue.likeValueButton}"--%>>${contentValue.likeTitleButton}</button>
+<%--                                <c:if test="${contentValue.countLikeLastPost > 0}">--%>
+<%--                                    <button type="submit"--%>
+<%--                                            class="btn btn-outline-primary btn-xs"--%>
+<%--                                            name="button">Like - ${contentValue.countLikeLastPost}</button>--%>
+<%--                                </c:if>--%>
+                                <c:if test="${contentValue.countLikeLastPost = 0}">
+                                    <button type="submit"
+                                            class="btn btn-outline-primary btn-xs"
+                                            name="button">Like</button>
+                                </c:if>
                             </form>
-                            <form action="/user/home/dislike" method="post">
-                                <input type="hidden" value="${contentValue.uuidPost}" name="uuidPost">
-                                <button type="submit"
-                                        class="btn btn-outline-primary btn-xs"
-                                        name="button" <%--value="${contentValue.dislikeValueButton}"--%>>${contentValue.dislikeTitleButton}</button>
-                            </form>
-                            <form action="/user/home/comment" method="post">
-                                <input type="hidden" value="${contentValue.uuidPost}" name="uuidPost">
-                                <button type="submit"
-                                        class="btn btn-outline-primary btn-xs"
-                                        name="button" <%--value="${contentValue.commentValueButton}"--%>>${contentValue.commentTitleButton}</button>
-                            </form>
+<%--                            <form action="/user/home/dislike" method="post">--%>
+<%--                                <input type="hidden" value="${contentValue.uuidPost}" name="uuidPost">--%>
+<%--                                <c:if test="${contentValue.countDislikeLastPost > 0}">--%>
+<%--                                    <button type="submit"--%>
+<%--                                            class="btn btn-outline-primary btn-xs"--%>
+<%--                                            name="button">Dislike - ${contentValue.countDislikeLastPost}</button>--%>
+<%--                                </c:if>--%>
+<%--                                <c:if test="${contentValue.countDislikeLastPost = 0}">--%>
+<%--                                    <button type="submit"--%>
+<%--                                            class="btn btn-outline-primary btn-xs"--%>
+<%--                                            name="button">Dislike</button>--%>
+<%--                                </c:if>--%>
+<%--                            </form>--%>
+<%--                            <form action="/user/home/comment" method="post">--%>
+<%--                                <input type="hidden" value="${contentValue.uuidPost}" name="uuidPost">--%>
+<%--                                <button type="submit"--%>
+<%--                                        class="btn btn-outline-primary btn-xs"--%>
+<%--                                        name="button">Comment</button>--%>
+<%--                            </form>--%>
                         </ul>
-                            <%--                        <ul class="pagination">--%>
-                            <%--                            <button type="button" class="btn btn-outline-primary btn-xs">${contentValue.likeBottom}</button>--%>
-                            <%--                            <button type="button" class="btn btn-outline-primary btn-xs">${contentValue.dislikeBottom}</button>--%>
-                            <%--                            <button type="button" class="btn btn-outline-primary btn-xs">${contentValue.commentBottom}</button>--%>
-                            <%--                        </ul>--%>
                     </div>
                 </c:forEach>
             </div>
-            <!-- вставить контент -->
+
         </div>
     </div>
 </div>
