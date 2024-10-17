@@ -39,28 +39,14 @@ public class PublisherService {
             createAtLastPost.add(post.getCreateAt().format(dateTimeFormatter));
             photosLastPost = PhotoStorage.getInstance().getPhotosPost(post.getUuid());
             countLikeLastPost = ReactionsStorage.getInstance().getCountLikePost(post.getUuid());
-            publisherCardLastPostDto.setLikeValueButton(LIKE_BUTTON + ID_SEPARATOR + post.getUuid());
             countDislikeLastPost = ReactionsStorage.getInstance().getCountDislikePost(post.getUuid());
-            publisherCardLastPostDto.setDislikeValueButton(DISLIKE_BUTTON + ID_SEPARATOR + post.getUuid());
-            publisherCardLastPostDto.setCommentValueButton(COMMENT_BUTTON + ID_SEPARATOR + post.getUuid());
+            publisherCardLastPostDto.setUuidPost(post.getUuid().toString());
         }
         publisherCardLastPostDto.setTextLastPost(textLastPost);
         publisherCardLastPostDto.setCreateAtLastPost(createAtLastPost);
         publisherCardLastPostDto.setPhotosLastPost(photosLastPost);
         publisherCardLastPostDto.setCountLikeLastPost(countLikeLastPost);
-        if (countLikeLastPost > 0) {
-            publisherCardLastPostDto.setLikeTitleButton(LIKE_BUTTON + " - " + countLikeLastPost);
-        } else {
-            publisherCardLastPostDto.setLikeTitleButton(LIKE_BUTTON);
-        }
-        if (countDislikeLastPost > 0) {
-            publisherCardLastPostDto.setDislikeTitleButton(DISLIKE_BUTTON + " - " + countDislikeLastPost);
-        } else {
-            publisherCardLastPostDto.setDislikeTitleButton(DISLIKE_BUTTON);
-        }
-        publisherCardLastPostDto.setCommentTitleButton(COMMENT_BUTTON);
         publisherCardLastPostDto.setCountDislikeLastPost(countDislikeLastPost);
-        publisherCardLastPostDto.setCarouselName("Carousel" + "-" + usernamePublisher);
         return Optional.of(publisherCardLastPostDto);
     }
 }
