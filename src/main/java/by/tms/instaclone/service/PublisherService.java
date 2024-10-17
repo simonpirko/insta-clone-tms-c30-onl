@@ -18,7 +18,7 @@ import static by.tms.instaclone.storage.KeeperConstants.*;
 public class PublisherService {
 
     /**
-     * Класс формирует контент для "Карточка Последнего поста Публикатора"
+     * Метод формирует контент для "Карточка Последнего поста Публикатора"
      */
     public Optional<PublisherCardLastPostDto> collectLastPost(String usernamePublisher) {
         PublisherCardLastPostDto publisherCardLastPostDto = new PublisherCardLastPostDto();

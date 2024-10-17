@@ -152,8 +152,8 @@ public class SubscriptionsStorage {
             if (followerSubscriptionUuid.equals(followerUuid)
                     && publisherSubscriptionUuid.equals(publisherUuid)) {
                 deleteSubscription((Subscription) entry.getValue());
+                break;
             }
-            break;
         }
     }
 
