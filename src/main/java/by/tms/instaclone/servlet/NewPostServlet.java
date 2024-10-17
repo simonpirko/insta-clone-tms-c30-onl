@@ -50,6 +50,6 @@ public class NewPostServlet extends HttpServlet {
                 photoStorage.addPhoto(post, part);
             }
         }
-        resp.sendRedirect(USER_HOME_URL);
+        resp.sendRedirect(USER_POST_PATH + "?postUUID=" + post.getUuid());
     }
 }
