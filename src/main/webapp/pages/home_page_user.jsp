@@ -12,48 +12,62 @@
         <div class="row col-9">
             <!-- вставить контент -->
             <div class="container">
-                <c:forEach items="${list}" var="listValue">
+                <c:forEach items="${content}" var="contentValue">
                     <div class="card" style="width: 35rem;">
                         <div class="card-body">
                             <ul class="pagination">
-                                <a href="${listValue.urlPublisher}" class="card-link">${listValue.namePublisher}</a>
+                                <a href="${contentValue.urlPublisher}" class="card-link">${contentValue.namePublisher}</a>
                                 <p class="card-text invisible">space</p>
-                                <c:forEach items="${listValue.createAtLastPost}" var="text">
+                                <c:forEach items="${contentValue.createAtLastPost}" var="text">
                                     <p class="card-text">Time create post:</p>
                                     <p class="card-text invisible">_</p>
                                     <p class="card-text">${text}</p>
                                 </c:forEach>
                             </ul>
-                            <c:forEach items="${listValue.textLastPostPublisher}" var="textPost">
+                            <c:forEach items="${contentValue.textLastPostPublisher}" var="textPost">
                                 <p class="card-text">${textPost}</p>
                             </c:forEach>
                         </div>
-                        <div id="${listValue.carouselName}" class="carousel slide">
+                        <div id="${contentValue.carouselName}" class="carousel slide">
                             <div class="carousel-inner">
-                                <c:forEach items="${listValue.photosLastPost}" var="Photo">
+                                <c:forEach items="${contentValue.photosLastPost}" var="Photo">
                                     <div class="carousel-item active">
                                         <img width="320px" height="320px" src="data:image/jpeg;base64,${Photo}" class="d-block w-100" alt="Photo">
                                     </div>
                             </c:forEach>
                             </div>
                             <button class="carousel-control-prev" type="button"
-                                    data-bs-target="#${listValue.carouselName}"
+                                    data-bs-target="#${contentValue.carouselName}"
                                     data-bs-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Previous</span>
                             </button>
                             <button class="carousel-control-next" type="button"
-                                    data-bs-target="#${listValue.carouselName}"
+                                    data-bs-target="#${contentValue.carouselName}"
                                     data-bs-slide="next">
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Next</span>
                             </button>
                         </div>
-                        <div class="btn-group btn-group-sm" role="group" aria-label="Small button group">
-                            <button type="button" class="btn btn-outline-primary">Like</button>
-                            <button type="button" class="btn btn-outline-primary">Dislike</button>
-                            <button type="button" class="btn btn-outline-primary">Comment</button>
-                        </div>
+
+                        <form action="/user/home/event" method="post">
+                            <button type="submit"
+                                    class="btn btn-outline-primary btn-xs"
+<%--                                    name="button" value="like">${contentValue.likeTitleButton}</button>--%>
+                                    name="button" value="${contentValue.likeValueButton}">${contentValue.likeTitleButton}</button>
+                            <button type="submit"
+                                    class="btn btn-outline-primary btn-xs"
+                                    name="button" value="${contentValue.dislikeValueButton}">${contentValue.dislikeTitleButton}</button>
+                            <button type="submit"
+                                    class="btn btn-outline-primary btn-xs"
+                                    name="button" value="${contentValue.commentValueButton}">${contentValue.commentTitleButton}</button>
+                        </form>
+
+<%--                        <ul class="pagination">--%>
+<%--                            <button type="button" class="btn btn-outline-primary btn-xs">${contentValue.likeBottom}</button>--%>
+<%--                            <button type="button" class="btn btn-outline-primary btn-xs">${contentValue.dislikeBottom}</button>--%>
+<%--                            <button type="button" class="btn btn-outline-primary btn-xs">${contentValue.commentBottom}</button>--%>
+<%--                        </ul>--%>
                     </div>
                 </c:forEach>
             </div>

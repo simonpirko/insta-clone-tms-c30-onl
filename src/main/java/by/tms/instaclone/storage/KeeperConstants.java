@@ -1,6 +1,5 @@
 package by.tms.instaclone.storage;
 
-import java.util.Objects;
 import java.util.regex.Pattern;
 
 public class KeeperConstants {
@@ -8,6 +7,7 @@ public class KeeperConstants {
 
     public static final String LF = "\n";
     public static final String SEPARATOR_CSV = ";";
+    public static final String ID_SEPARATOR = "^";
     public static final String SLAGE = "/";
     public static final String BEGINNING_WORK_MESSAGE_TEMPLATE = "'%s' has started working";
     public static final String ENDING_WORK_MESSAGE_TEMPLATE = "'%s' completed the operation";
@@ -41,12 +41,20 @@ public class KeeperConstants {
     public static final String ERROR_JSP = "/pages/error.jsp";
 
     public static final String REGISTRATION_PATH = "/reg";
-    public static final String LOGIN_PATH = "/login";
-    public static final String USER_HOME_PATH = "/user/home";
+    public static final String LOGIN_URL = "/login";
+    public static final String USER_HOME_URL = "/user/home";
+    public static final String USER_HOME_EVENT_URL = "/user/home/event";
     public static final String USER_NEW_POST_PATH = "/user/newPost";
     public static final String USER_LOGOUT_PATH = "/user/logout";
     public static final String USER_PROFILE_PATH = "/user/profile/*";
     public static final String USER_PROFILE_URL = "/user/profile";
+
+    public static final boolean LIKE = true;
+    public static final boolean DISLIKE = true;
+
+    public static final String LIKE_BUTTON = "Like";
+    public static final String DISLIKE_BUTTON = "Dislike";
+    public static final String COMMENT_BUTTON = "Comment";
 
 
     public static final Pattern NAME_REGEX = Pattern.compile("^[a-zA-Z]{2,15}$");

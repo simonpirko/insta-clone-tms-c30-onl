@@ -12,7 +12,15 @@ public class PublisherCardLastPostDto {
     private List<String> textLastPostPublisher;
     private List<String> createAtLastPost;
     private List<String> photosLastPost;
+    private long countLikeLastPost;
+    private long countDislikeLastPost;
     private String carouselName;
+    private String likeTitleButton;
+    private String likeValueButton;
+    private String dislikeTitleButton;
+    private String dislikeValueButton;
+    private String commentTitleButton;
+    private String commentValueButton;
 
     public void setNamePublisher(String namePublisher) {
         this.namePublisher = namePublisher;
@@ -42,6 +50,38 @@ public class PublisherCardLastPostDto {
         this.carouselName = carouselName;
     }
 
+    public void setCountLikeLastPost(long countLikeLastPost) {
+        this.countLikeLastPost = countLikeLastPost;
+    }
+
+    public void setCountDislikeLastPost(long countDislikeLastPost) {
+        this.countDislikeLastPost = countDislikeLastPost;
+    }
+
+    public void setLikeTitleButton(String likeTitleButton) {
+        this.likeTitleButton = likeTitleButton;
+    }
+
+    public void setLikeValueButton(String likeValueButton) {
+        this.likeValueButton = likeValueButton;
+    }
+
+    public void setDislikeTitleButton(String dislikeTitleButton) {
+        this.dislikeTitleButton = dislikeTitleButton;
+    }
+
+    public void setDislikeValueButton(String dislikeValueButton) {
+        this.dislikeValueButton = dislikeValueButton;
+    }
+
+    public void setCommentTitleButton(String commentTitleButton) {
+        this.commentTitleButton = commentTitleButton;
+    }
+
+    public void setCommentValueButton(String commentValueButton) {
+        this.commentValueButton = commentValueButton;
+    }
+
     public String getNamePublisher() {
         return namePublisher;
     }
@@ -68,5 +108,37 @@ public class PublisherCardLastPostDto {
 
     public String getCarouselName() {
         return carouselName;
+    }
+
+    public long getCountLikeLastPost() {
+        return countLikeLastPost;
+    }
+
+    public long getCountDislikeLastPost() {
+        return countDislikeLastPost;
+    }
+
+    public String getLikeTitleButton() {
+        return likeTitleButton;
+    }
+
+    public String getLikeValueButton() {
+        return likeValueButton;
+    }
+
+    public String getDislikeTitleButton() {
+        return dislikeTitleButton;
+    }
+
+    public String getDislikeValueButton() {
+        return dislikeValueButton;
+    }
+
+    public String getCommentTitleButton() {
+        return commentTitleButton;
+    }
+
+    public String getCommentValueButton() {
+        return commentValueButton;
     }
 }

@@ -2,10 +2,7 @@ package by.tms.instaclone.service;
 
 import by.tms.instaclone.dto.PublisherCardLastPostDto;
 import by.tms.instaclone.model.Post;
-import by.tms.instaclone.storage.PhotoStorage;
-import by.tms.instaclone.storage.PostsStorage;
-import by.tms.instaclone.storage.UsernamesStorage;
-import by.tms.instaclone.storage.UsersStorage;
+import by.tms.instaclone.storage.*;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -34,14 +31,35 @@ public class PublisherService {
         List<String> textLastPost = new ArrayList<>();
         List<String> createAtLastPost = new ArrayList<>();
         List<String> photosLastPost = new ArrayList<>();
+        long countLikeLastPost = 0;
+        long countDislikeLastPost = 0;
+        int count = 0;
         for (Post post : lastPostsPublisher) {
             textLastPost.add(post.getText());
             createAtLastPost.add(post.getCreateAt().format(dateTimeFormatter));
             photosLastPost = PhotoStorage.getInstance().getPhotosPost(post.getUuid());
+            countLikeLastPost = ReactionsStorage.getInstance().getCountLikePost(post.getUuid());
+            publisherCardLastPostDto.setLikeValueButton(LIKE_BUTTON + ID_SEPARATOR + post.getUuid());
+            countDislikeLastPost = ReactionsStorage.getInstance().getCountDislikePost(post.getUuid());
+            publisherCardLastPostDto.setDislikeValueButton(DISLIKE_BUTTON + ID_SEPARATOR + post.getUuid());
+            publisherCardLastPostDto.setCommentValueButton(COMMENT_BUTTON + ID_SEPARATOR + post.getUuid());
         }
         publisherCardLastPostDto.setTextLastPost(textLastPost);
         publisherCardLastPostDto.setCreateAtLastPost(createAtLastPost);
         publisherCardLastPostDto.setPhotosLastPost(photosLastPost);
+        publisherCardLastPostDto.setCountLikeLastPost(countLikeLastPost);
+        if (countLikeLastPost > 0) {
+            publisherCardLastPostDto.setLikeTitleButton(LIKE_BUTTON + " - " + countLikeLastPost);
+        } else {
+            publisherCardLastPostDto.setLikeTitleButton(LIKE_BUTTON);
+        }
+        if (countDislikeLastPost > 0) {
+            publisherCardLastPostDto.setDislikeTitleButton(DISLIKE_BUTTON + " - " + countDislikeLastPost);
+        } else {
+            publisherCardLastPostDto.setDislikeTitleButton(DISLIKE_BUTTON);
+        }
+        publisherCardLastPostDto.setCommentTitleButton(COMMENT_BUTTON);
+        publisherCardLastPostDto.setCountDislikeLastPost(countDislikeLastPost);
         publisherCardLastPostDto.setCarouselName("Carousel" + "-" + usernamePublisher);
         return Optional.of(publisherCardLastPostDto);
     }
