@@ -43,6 +43,8 @@ public class PublisherService {
             countDislikeLastPost = ReactionsStorage.getInstance().getCountDislikePost(post.getUuid());
             publisherCardLastPostDto.setDislikeValueButton(DISLIKE_BUTTON + ID_SEPARATOR + post.getUuid());
             publisherCardLastPostDto.setCommentValueButton(COMMENT_BUTTON + ID_SEPARATOR + post.getUuid());
+
+            publisherCardLastPostDto.setUuidPost(post.getUuid().toString());
         }
         publisherCardLastPostDto.setTextLastPost(textLastPost);
         publisherCardLastPostDto.setCreateAtLastPost(createAtLastPost);

@@ -16,7 +16,8 @@
                     <div class="card" style="width: 35rem;">
                         <div class="card-body">
                             <ul class="pagination">
-                                <a href="${contentValue.urlPublisher}" class="card-link">${contentValue.namePublisher}</a>
+                                <a href="${contentValue.urlPublisher}"
+                                   class="card-link">${contentValue.namePublisher}</a>
                                 <p class="card-text invisible">space</p>
                                 <c:forEach items="${contentValue.createAtLastPost}" var="text">
                                     <p class="card-text">Time create post:</p>
@@ -32,9 +33,10 @@
                             <div class="carousel-inner">
                                 <c:forEach items="${contentValue.photosLastPost}" var="Photo">
                                     <div class="carousel-item active">
-                                        <img width="320px" height="320px" src="data:image/jpeg;base64,${Photo}" class="d-block w-100" alt="Photo">
+                                        <img width="320px" height="320px" src="data:image/jpeg;base64,${Photo}"
+                                             class="d-block w-100" alt="Photo">
                                     </div>
-                            </c:forEach>
+                                </c:forEach>
                             </div>
                             <button class="carousel-control-prev" type="button"
                                     data-bs-target="#${contentValue.carouselName}"
@@ -49,25 +51,31 @@
                                 <span class="visually-hidden">Next</span>
                             </button>
                         </div>
-
-                        <form action="/user/home/event" method="post">
-                            <button type="submit"
-                                    class="btn btn-outline-primary btn-xs"
-<%--                                    name="button" value="like">${contentValue.likeTitleButton}</button>--%>
-                                    name="button" value="${contentValue.likeValueButton}">${contentValue.likeTitleButton}</button>
-                            <button type="submit"
-                                    class="btn btn-outline-primary btn-xs"
-                                    name="button" value="${contentValue.dislikeValueButton}">${contentValue.dislikeTitleButton}</button>
-                            <button type="submit"
-                                    class="btn btn-outline-primary btn-xs"
-                                    name="button" value="${contentValue.commentValueButton}">${contentValue.commentTitleButton}</button>
-                        </form>
-
-<%--                        <ul class="pagination">--%>
-<%--                            <button type="button" class="btn btn-outline-primary btn-xs">${contentValue.likeBottom}</button>--%>
-<%--                            <button type="button" class="btn btn-outline-primary btn-xs">${contentValue.dislikeBottom}</button>--%>
-<%--                            <button type="button" class="btn btn-outline-primary btn-xs">${contentValue.commentBottom}</button>--%>
-<%--                        </ul>--%>
+                        <ul class="pagination">
+                            <form action="/user/home/like" method="post">
+                                <input type="hidden" value="${contentValue.uuidPost}" name="uuidPost">
+                                <button type="submit"
+                                        class="btn btn-outline-primary btn-xs"
+                                        name="button" <%--value="${contentValue.likeValueButton}"--%>>${contentValue.likeTitleButton}</button>
+                            </form>
+                            <form action="/user/home/dislike" method="post">
+                                <input type="hidden" value="${contentValue.uuidPost}" name="uuidPost">
+                                <button type="submit"
+                                        class="btn btn-outline-primary btn-xs"
+                                        name="button" <%--value="${contentValue.dislikeValueButton}"--%>>${contentValue.dislikeTitleButton}</button>
+                            </form>
+                            <form action="/user/home/comment" method="post">
+                                <input type="hidden" value="${contentValue.uuidPost}" name="uuidPost">
+                                <button type="submit"
+                                        class="btn btn-outline-primary btn-xs"
+                                        name="button" <%--value="${contentValue.commentValueButton}"--%>>${contentValue.commentTitleButton}</button>
+                            </form>
+                        </ul>
+                            <%--                        <ul class="pagination">--%>
+                            <%--                            <button type="button" class="btn btn-outline-primary btn-xs">${contentValue.likeBottom}</button>--%>
+                            <%--                            <button type="button" class="btn btn-outline-primary btn-xs">${contentValue.dislikeBottom}</button>--%>
+                            <%--                            <button type="button" class="btn btn-outline-primary btn-xs">${contentValue.commentBottom}</button>--%>
+                            <%--                        </ul>--%>
                     </div>
                 </c:forEach>
             </div>

@@ -21,26 +21,15 @@ import java.util.UUID;
 
 import static by.tms.instaclone.storage.KeeperConstants.*;
 
-@WebServlet(name = "UserHomeEventServlet", value = USER_HOME_EVENT_URL)
-public class UserHomeEventServlet extends HttpServlet {
+@WebServlet(name = "UserHomeDislikeServlet", value = USER_HOME_DISLIKE_URL)
+public class UserHomeDislikeServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         User currentUser = (User) req.getSession().getAttribute(CURRENT_USER_ATTRIBUTE);
-        String integralParameter = req.getParameter("button");
-        int numberPositionSeparator = integralParameter.indexOf(ID_SEPARATOR);
-        String typeButton = integralParameter.substring(0, numberPositionSeparator);
-        Post post = PostsStorage.getInstance().getPost(UUID.fromString(integralParameter.substring(numberPositionSeparator + 1)));
-        switch (typeButton) {
-            case LIKE_BUTTON:
-                ReactionsStorage.getInstance().newReaction(post, currentUser, LIKE);
-                break;
-            case DISLIKE_BUTTON:
-                ReactionsStorage.getInstance().newReaction(post, currentUser, DISLIKE);
-                break;
-            case COMMENT_BUTTON:
-                System.out.println("UserHomeEventServlet this button is not processed");
-        }
+        String uuidPost = req.getParameter("uuidPost");
+        Post post = PostsStorage.getInstance().getPost(UUID.fromString(uuidPost));
+        ReactionsStorage.getInstance().newReaction(post, currentUser, DISLIKE);
         Optional<UserHomePageDto> userHomePageContent = new UserService().collectHomePageContent(currentUser.getUsername());
         if (userHomePageContent.isEmpty()) {
             req.setAttribute("message", "Error! Page not collector!");

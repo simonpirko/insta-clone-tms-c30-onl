@@ -7,10 +7,8 @@ public class KeeperConstants {
 
     public static final String LF = "\n";
     public static final String SEPARATOR_CSV = ";";
-    public static final String ID_SEPARATOR = "^";
+    public static final String ID_SEPARATOR = ";";
     public static final String SLAGE = "/";
-    public static final String BEGINNING_WORK_MESSAGE_TEMPLATE = "'%s' has started working";
-    public static final String ENDING_WORK_MESSAGE_TEMPLATE = "'%s' completed the operation";
     public static final String LOGGER_MESSAGE_TEMPLATE = "%s -- %s" + LF;
     public static final String ERROR_TEMPLATE = "ERROR: %s";
     public static final String ERROR_IO_FILE_TEMPLATE = "there was a problem when reading the '%s' file";
@@ -33,7 +31,7 @@ public class KeeperConstants {
     public static final String DATE_TIME_CREATE_POST_TEMPLATE = "dd/MM/yyyy, HH:mm:ss";
 
     public static final String HOME_JSP = "/pages/home.jsp";
-    public static final String HOME_USER_JSP = "/pages/home_page_user.jsp";
+    public static final String HOME_USER_JSP = "/pages/user_home.jsp";
     public static final String REGISTRATION_JSP = "/pages/registration.jsp";
     public static final String PROFILE_JSP = "/pages/profile.jsp";
     public static final String LOGIN_JSP = "/pages/login.jsp";
@@ -43,7 +41,9 @@ public class KeeperConstants {
     public static final String REGISTRATION_PATH = "/reg";
     public static final String LOGIN_URL = "/login";
     public static final String USER_HOME_URL = "/user/home";
-    public static final String USER_HOME_EVENT_URL = "/user/home/event";
+//    public static final String USER_HOME_EVENT_URL = "/user/home/event";
+    public static final String USER_HOME_LIKE_URL = "/user/home/like";
+    public static final String USER_HOME_DISLIKE_URL = "/user/home/dislike";
     public static final String USER_NEW_POST_PATH = "/user/newPost";
     public static final String USER_LOGOUT_PATH = "/user/logout";
     public static final String USER_PROFILE_PATH = "/user/profile/*";

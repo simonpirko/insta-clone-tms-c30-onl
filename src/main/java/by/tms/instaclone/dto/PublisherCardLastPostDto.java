@@ -12,6 +12,7 @@ public class PublisherCardLastPostDto {
     private List<String> textLastPostPublisher;
     private List<String> createAtLastPost;
     private List<String> photosLastPost;
+    private String uuidPost;
     private long countLikeLastPost;
     private long countDislikeLastPost;
     private String carouselName;
@@ -44,6 +45,10 @@ public class PublisherCardLastPostDto {
 
     public void setPhotosLastPost(List<String> photosLastPost) {
         this.photosLastPost = photosLastPost;
+    }
+
+    public void setUuidPost(String uuidPost) {
+        this.uuidPost = uuidPost;
     }
 
     public void setCarouselName(String carouselName) {
@@ -104,6 +109,10 @@ public class PublisherCardLastPostDto {
 
     public List<String> getPhotosLastPost() {
         return photosLastPost;
+    }
+
+    public String getUuidPost() {
+        return uuidPost;
     }
 
     public String getCarouselName() {
