@@ -153,6 +153,7 @@ public class SubscriptionsStorage {
                     && publisherSubscriptionUuid.equals(publisherUuid)) {
                 deleteSubscription((Subscription) entry.getValue());
             }
+            break;
         }
     }
 
