@@ -40,7 +40,6 @@ public class PublisherService {
             photosLastPost = PhotoStorage.getInstance().getPhotosPost(post.getUuid());
             countLikeLastPost = ReactionsStorage.getInstance().getCountLikePost(post.getUuid());
             countDislikeLastPost = ReactionsStorage.getInstance().getCountDislikePost(post.getUuid());
-
             publisherCardLastPostDto.setUuidPost(post.getUuid().toString());
         }
         publisherCardLastPostDto.setTextLastPost(textLastPost);
@@ -48,7 +47,6 @@ public class PublisherService {
         publisherCardLastPostDto.setPhotosLastPost(photosLastPost);
         publisherCardLastPostDto.setCountLikeLastPost(countLikeLastPost);
         publisherCardLastPostDto.setCountDislikeLastPost(countDislikeLastPost);
-        publisherCardLastPostDto.setCarouselName("Carousel" + "-" + usernamePublisher);
         return Optional.of(publisherCardLastPostDto);
     }
 }

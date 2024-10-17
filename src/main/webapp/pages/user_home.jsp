@@ -29,7 +29,7 @@
                                 <p class="card-text">${textPost}</p>
                             </c:forEach>
                         </div>
-                        <div id="${contentValue.carouselName}" class="carousel slide">
+                        <div id="${contentValue.namePublisher}" class="carousel slide">
                             <div class="carousel-inner">
                                 <c:forEach items="${contentValue.photosLastPost}" var="Photo">
                                     <div class="carousel-item active">
@@ -39,13 +39,13 @@
                                 </c:forEach>
                             </div>
                             <button class="carousel-control-prev" type="button"
-                                    data-bs-target="#${contentValue.carouselName}"
+                                    data-bs-target="#${contentValue.namePublisher}"
                                     data-bs-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Previous</span>
                             </button>
                             <button class="carousel-control-next" type="button"
-                                    data-bs-target="#${contentValue.carouselName}"
+                                    data-bs-target="#${contentValue.namePublisher}"
                                     data-bs-slide="next">
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Next</span>
