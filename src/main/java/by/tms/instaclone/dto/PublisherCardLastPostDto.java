@@ -12,7 +12,9 @@ public class PublisherCardLastPostDto {
     private List<String> textLastPostPublisher;
     private List<String> createAtLastPost;
     private List<String> photosLastPost;
-    private String carouselName;
+    private String uuidPost;
+    private long countLikeLastPost;
+    private long countDislikeLastPost;
 
     public void setNamePublisher(String namePublisher) {
         this.namePublisher = namePublisher;
@@ -38,8 +40,52 @@ public class PublisherCardLastPostDto {
         this.photosLastPost = photosLastPost;
     }
 
-    public void setCarouselName(String carouselName) {
-        this.carouselName = carouselName;
+    public void setUuidPost(String uuidPost) {
+        this.uuidPost = uuidPost;
+    }
+
+    public void setCountLikeLastPost(long countLikeLastPost) {
+        this.countLikeLastPost = countLikeLastPost;
+    }
+
+    public void setCountDislikeLastPost(long countDislikeLastPost) {
+        this.countDislikeLastPost = countDislikeLastPost;
+    }
+
+    public String getNamePublisher() {
+        return namePublisher;
+    }
+
+    public String getUsernamePublisher() {
+        return usernamePublisher;
+    }
+
+    public String getUrlPublisher() {
+        return urlPublisher;
+    }
+
+    public List<String> getTextLastPostPublisher() {
+        return textLastPostPublisher;
+    }
+
+    public List<String> getCreateAtLastPost() {
+        return createAtLastPost;
+    }
+
+    public List<String> getPhotosLastPost() {
+        return photosLastPost;
+    }
+
+    public String getUuidPost() {
+        return uuidPost;
+    }
+
+    public long getCountLikeLastPost() {
+        return countLikeLastPost;
+    }
+
+    public long getCountDislikeLastPost() {
+        return countDislikeLastPost;
     }
 
     public String getNamePublisher() {
