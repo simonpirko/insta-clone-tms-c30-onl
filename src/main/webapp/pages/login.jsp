@@ -29,27 +29,12 @@
                     <div class="mb-3">
                         <label for="InputLogin" class="form-label">Login</label>
                         <input type="text" name="username" class="form-control" id="InputLogin">
-                        <c:if test="${isUsernameProblem}">
-                            <div class="alert alert-warning alert-dismissible fade show" role="alert"> Wrong username!
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
-                        </c:if>
-                        <c:if test="${isUsernameMissing}">
-                            <div class="alert alert-warning alert-dismissible fade show" role="alert"> The username is missing!
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
-                        </c:if>
                     </div>
                     <div class="mb-3">
                         <label for="InputPassword" class="form-label">Password</label>
                         <input type="password" name="password" class="form-control" id="InputPassword">
-                        <c:if test="${isPasswordProblem}">
-                            <div class="alert alert-warning alert-dismissible fade show" role="alert"> Wrong password!
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
-                        </c:if>
-                        <c:if test="${isPasswordMissing}">
-                            <div class="alert alert-warning alert-dismissible fade show" role="alert"> The password is missing!
+                        <c:if test="${isLoggingProblem}">
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert"> Wrong username or password!
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         </c:if>
