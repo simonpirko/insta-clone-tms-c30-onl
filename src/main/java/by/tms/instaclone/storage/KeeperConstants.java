@@ -49,7 +49,7 @@ public class KeeperConstants {
     public static final String USER_PROFILE_URL = "/user/profile";
 
     public static final boolean LIKE = true;
-    public static final boolean DISLIKE = true;
+    public static final boolean DISLIKE = false;
 
     public static final String LIKE_BUTTON = "Like";
     public static final String DISLIKE_BUTTON = "Dislike";
