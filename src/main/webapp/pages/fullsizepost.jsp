@@ -2,90 +2,90 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Post</title>
 </head>
 <body>
 <jsp:include page="_bootstrap.jsp"/>
-<div class="container text-center">
-    <div class="row align-items-start">
+<div class="container">
+    <div class="row">
         <jsp:include page="_menubar.jsp"/>
         <div class="row col-9">
             <div class="container">
-                <div class="card mx-auto p-2 float-start" style="width: 30rem;">
-                    <a href="/user/profile/${postDto.username}" class="card">
-                        <button type="button" class="btn btn-outline-primary">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-left float-start" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
-                            </svg>
-                            Publications
-                        </button>
-                    </a>
-                    <div id="carouselExample" class="carousel slide">
-                        <div class="carousel-inner">
-                            <c:forEach items="${postDto.photos}" var="photo">
-                            <div class="carousel-item active">
-                                <img width="320px" height="320px" src="data:image/jpeg;base64,${photo}"
-                                     class="d-block w-100" alt="Photo">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="card mx-auto p-2 float-start text-center" style="width: 30rem;">
+                            <a href="/user/profile/${postDto.username}" class="card">
+                                <button type="button" class="btn btn-outline-primary">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-left float-start" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+                                    </svg>
+                                    Publications
+                                </button>
+                            </a>
+                            <div id="carouselExample" class="carousel slide">
+                                <div class="carousel-inner">
+                                    <c:forEach items="${postDto.photos}" var="photo">
+                                    <div class="carousel-item active">
+                                        <img width="320px" height="320px" src="data:image/jpeg;base64,${photo}"
+                                             class="d-block w-100" alt="Photo">
+                                    </div>
+                                    </c:forEach>
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
                             </div>
-                            </c:forEach>
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a href="/user/profile/${postDto.username}"
+                                       class="card-link">${postDto.username}
+                                    </a>
+                                </h5>
+                                <p class="card-text">${postDto.createdAt}</p>
+                                <p class="card-text">${postDto.textPost}</p>
+                                <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                    <button type="button" class="btn btn-outline-primary">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-up" viewBox="0 0 16 16">
+                                            <path d="M8.864.046C7.908-.193 7.02.53 6.956 1.466c-.072 1.051-.23 2.016-.428 2.59-.125.36-.479 1.013-1.04 1.639-.557.623-1.282 1.178-2.131 1.41C2.685 7.288 2 7.87 2 8.72v4.001c0 .845.682 1.464 1.448 1.545 1.07.114 1.564.415 2.068.723l.048.03c.272.165.578.348.97.484.397.136.861.217 1.466.217h3.5c.937 0 1.599-.477 1.934-1.064a1.86 1.86 0 0 0 .254-.912c0-.152-.023-.312-.077-.464.201-.263.38-.578.488-.901.11-.33.172-.762.004-1.149.069-.13.12-.269.159-.403.077-.27.113-.568.113-.857 0-.288-.036-.585-.113-.856a2 2 0 0 0-.138-.362 1.9 1.9 0 0 0 .234-1.734c-.206-.592-.682-1.1-1.2-1.272-.847-.282-1.803-.276-2.516-.211a10 10 0 0 0-.443.05 9.4 9.4 0 0 0-.062-4.509A1.38 1.38 0 0 0 9.125.111zM11.5 14.721H8c-.51 0-.863-.069-1.14-.164-.281-.097-.506-.228-.776-.393l-.04-.024c-.555-.339-1.198-.731-2.49-.868-.333-.036-.554-.29-.554-.55V8.72c0-.254.226-.543.62-.65 1.095-.3 1.977-.996 2.614-1.708.635-.71 1.064-1.475 1.238-1.978.243-.7.407-1.768.482-2.85.025-.362.36-.594.667-.518l.262.066c.16.04.258.143.288.255a8.34 8.34 0 0 1-.145 4.725.5.5 0 0 0 .595.644l.003-.001.014-.003.058-.014a9 9 0 0 1 1.036-.157c.663-.06 1.457-.054 2.11.164.175.058.45.3.57.65.107.308.087.67-.266 1.022l-.353.353.353.354c.043.043.105.141.154.315.048.167.075.37.075.581 0 .212-.027.414-.075.582-.05.174-.111.272-.154.315l-.353.353.353.354c.047.047.109.177.005.488a2.2 2.2 0 0 1-.505.805l-.353.353.353.354c.006.005.041.05.041.17a.9.9 0 0 1-.121.416c-.165.288-.503.56-1.066.56z"/>
+                                        </svg>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-primary">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-down" viewBox="0 0 16 16">
+                                            <path d="M8.864 15.674c-.956.24-1.843-.484-1.908-1.42-.072-1.05-.23-2.015-.428-2.59-.125-.36-.479-1.012-1.04-1.638-.557-.624-1.282-1.179-2.131-1.41C2.685 8.432 2 7.85 2 7V3c0-.845.682-1.464 1.448-1.546 1.07-.113 1.564-.415 2.068-.723l.048-.029c.272-.166.578-.349.97-.484C6.931.08 7.395 0 8 0h3.5c.937 0 1.599.478 1.934 1.064.164.287.254.607.254.913 0 .152-.023.312-.077.464.201.262.38.577.488.9.11.33.172.762.004 1.15.069.13.12.268.159.403.077.27.113.567.113.856s-.036.586-.113.856c-.035.12-.08.244-.138.363.394.571.418 1.2.234 1.733-.206.592-.682 1.1-1.2 1.272-.847.283-1.803.276-2.516.211a10 10 0 0 1-.443-.05 9.36 9.36 0 0 1-.062 4.51c-.138.508-.55.848-1.012.964zM11.5 1H8c-.51 0-.863.068-1.14.163-.281.097-.506.229-.776.393l-.04.025c-.555.338-1.198.73-2.49.868-.333.035-.554.29-.554.55V7c0 .255.226.543.62.65 1.095.3 1.977.997 2.614 1.709.635.71 1.064 1.475 1.238 1.977.243.7.407 1.768.482 2.85.025.362.36.595.667.518l.262-.065c.16-.04.258-.144.288-.255a8.34 8.34 0 0 0-.145-4.726.5.5 0 0 1 .595-.643h.003l.014.004.058.013a9 9 0 0 0 1.036.157c.663.06 1.457.054 2.11-.163.175-.059.45-.301.57-.651.107-.308.087-.67-.266-1.021L12.793 7l.353-.354c.043-.042.105-.14.154-.315.048-.167.075-.37.075-.581s-.027-.414-.075-.581c-.05-.174-.111-.273-.154-.315l-.353-.354.353-.354c.047-.047.109-.176.005-.488a2.2 2.2 0 0 0-.505-.804l-.353-.354.353-.354c.006-.005.041-.05.041-.17a.9.9 0 0 0-.121-.415C12.4 1.272 12.063 1 11.5 1"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
                     </div>
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            <a href="/user/profile/${postDto.username}"
-                               class="card-link">${postDto.username}
-                            </a>
-                        </h5>
-                        <p class="card-text">${postDto.createdAt}</p>
-                        <p class="card-text">${postDto.textPost}</p>
-                        <div class="btn-group" role="group" aria-label="Basic outlined example">
-                            <button type="button" class="btn btn-outline-primary">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
-                                </svg>
-                            </button>
-                            <button type="button" class="btn btn-outline-primary">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-chat" viewBox="0 0 16 16">
-                                    <path d="M2.678 11.894a1 1 0 0 1 .287.801 11 11 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8 8 0 0 0 8 14c3.996 0 7-2.807 7-6s-3.004-6-7-6-7 2.808-7 6c0 1.468.617 2.83 1.678 3.894m-.493 3.905a22 22 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a10 10 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9 9 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105"/>
-                                </svg>
-                            </button>
-                            <button type="button" class="btn btn-outline-primary">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
-                                    <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z"/>
-                                </svg>
-                            </button>
+                    <div class="col-lg-6 col-md-6">
+                        <div>
+                            <form action="/user/post" method="post">
+                                <input type="hidden" value="${postDto.postUUID}" name="postUUID">
+                                <div class="input-group-sm mb-3 body-tertiary">
+                                    <input type="text" class="form-control" name="commentText" placeholder="Write a comment..." aria-label="Write a comment..." aria-describedby="basic-addon1">
+                                    <button class="btn btn-outline-secondary" type="submit">send</button>
+                                </div>
+                            </form>
                         </div>
+                        <c:forEach items="${postDto.comments}" var="comment">
+                        <div class="card card-body">
+                            <p>
+                                <a href="/user/profile/${comment.username}"
+                                    class="card-link">${comment.username}
+                                </a>
+                                    ${comment.createdAt}
+                            </p>
+                            <p>${comment.textComment}</p>
+                        </div>
+                        </c:forEach>
                     </div>
                 </div>
-                <div>
-                    <form action="/user/post" method="post">
-                        <input type="hidden" value="${postDto.postUUID}" name="postUUID">
-                        <div class="input-group-sm mb-3 body-tertiary">
-                            <span class="input-group-text"</span>
-                            <input type="text" class="form-control" name="commentText" placeholder="Write a comment..." aria-label="Write a comment..." aria-describedby="basic-addon1">
-                            <button class="btn btn-outline-secondary" type="submit">send</button>
-                        </div>
-                    </form>
-                </div>
-                <c:forEach items="${postDto.comments}" var="comment">
-                    <div class="card card-body">
-                        <h3>
-                            <a href="/user/profile/${comment.username}"
-                                class="card-link">${comment.username}
-                            </a>
-                        </h3>
-                        <h5>${comment.createdAt}</h5>
-                        <h3>${comment.textComment}</h3>
-                    </div>
-                </c:forEach>
             </div>
         </div>
     </div>
