@@ -55,7 +55,7 @@
                             <form action="/user/home/like" method="post">
                                 <input type="hidden" value="${contentValue.uuidPost}" name="uuidPost">
                                 <c:if test="${contentValue.countLikeLastPost > 0}">
-                                    <button type="submit" class="btn btn-outline-primary btn-xs"
+                                    <button type="submit" class="btn btn-outline-primary btn-xs"<%--btn-outline-info--%>
                                             name="button">Like - ${contentValue.countLikeLastPost}</button>
                                 </c:if>
                                 <c:if test="${contentValue.countLikeLastPost <= 0}">
