@@ -1,21 +1,20 @@
 package by.tms.instaclone.dto;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class CommentsDto {
 
-    private UUID comentUUID;
+    private UUID commentUUID;
     private String username;
     private String textComment;
     private String createdAt;
 
-    public UUID getComentUUID() {
-        return comentUUID;
+    public UUID getCommentUUID() {
+        return commentUUID;
     }
 
-    public void setComentUUID(UUID comentUUID) {
-        this.comentUUID = comentUUID;
+    public void setCommentUUID(UUID commentUUID) {
+        this.commentUUID = commentUUID;
     }
 
     public String getUsername() {

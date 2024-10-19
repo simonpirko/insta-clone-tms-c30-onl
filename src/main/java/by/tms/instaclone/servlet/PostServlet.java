@@ -32,8 +32,12 @@ public class PostServlet extends HttpServlet {
         User curUser = (User) req.getSession().getAttribute(CURRENT_USER_ATTRIBUTE);
         String commentText = req.getParameter("commentText");
         UUID postUUID = UUID.fromString(req.getParameter("postUUID"));
-        PostService postService = new PostService();
-        Post post = postService.setComment(postUUID, commentText, curUser);
-        resp.sendRedirect(USER_POST_PATH + "?postUUID=" + post.getUuid());
+        if (commentText == null || commentText.isEmpty() || commentText.isBlank()) {
+            resp.sendRedirect(USER_POST_PATH + "?postUUID=" + String.valueOf(postUUID));
+        } else {
+            PostService postService = new PostService();
+            Post post = postService.setComment(postUUID, commentText, curUser);
+            resp.sendRedirect(USER_POST_PATH + "?postUUID=" + post.getUuid());
+        }
     }
 }

@@ -41,7 +41,7 @@ public class PostService {
                 .toList();
         for(Comment comment : comments) {
             CommentsDto commentsDto = new CommentsDto();
-            commentsDto.setComentUUID(comment.getUuid());
+            commentsDto.setCommentUUID(comment.getUuid());
             commentsDto.setUsername(comment.getOwner().getUsername());
             commentsDto.setTextComment(comment.getText());
             commentsDto.setCreatedAt(comment.getCreateAt().format(dateTimeFormatter));
