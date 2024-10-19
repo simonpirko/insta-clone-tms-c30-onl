@@ -2,6 +2,7 @@ package by.tms.instaclone.storage;
 
 import by.tms.instaclone.model.Photo;
 import by.tms.instaclone.model.Post;
+import by.tms.instaclone.model.User;
 import by.tms.instaclone.utilites.Adapter;
 
 import static by.tms.instaclone.storage.KeeperConstants.*;
@@ -67,6 +68,15 @@ public class PhotoStorage {
             //Здесь покажем пользователю что файл не валиден.
         }
     }
+    public void addAvatar(User user, Part image) throws IOException {
+        String[] format = image.getContentType().split("/");
+        if (format[0].equals("image")) {
+            byte[] ImageInByte = image.getInputStream().readAllBytes();
+            saveImage(user.getUuid(), ImageInByte, format[1]);
+        } else {
+            //Здесь покажем пользователю что файл не валиден.
+        }
+    }
 
     public Photo getPhoto(UUID uuid) {
         return photos.get(uuid);
@@ -100,7 +110,8 @@ public class PhotoStorage {
     }
 
     private void saveImage(UUID uuid, byte[] image, String format) {
-        File imageFile = new File(adapter.getPathToOs() + uuid + "." + format);
+        //File imageFile = new File(adapter.getPathToOs() + uuid + "." + format);
+        File imageFile = new File(adapter.getPathToOs() + uuid);
         try (FileOutputStream fos = new FileOutputStream(imageFile)) {
             fos.write(image);
         } catch (Exception e) {
@@ -121,6 +132,32 @@ public class PhotoStorage {
         if (Files.exists(pathToImage)) {
             try {
                 return Optional.ofNullable(Files.readAllBytes(pathToImage));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            return Optional.empty();
+        }
+    }
+    public Optional<byte[]> getByteAvatar(String userUUID) {  //Временное очень печальное решение
+String photoID = userUUID.toString();
+
+        if (Files.exists(Path.of(adapter.getPathToOs().concat(photoID /*+ "." + "jpg"*/)))) {
+
+            try {
+                return Optional.ofNullable(Files.readAllBytes(Path.of(adapter.getPathToOs().concat(photoID /*+ "." + "jpg"*/))));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } else if (Files.exists(Path.of(adapter.getPathToOs().concat(photoID /*+ "." + "jpeg"*/)))) {
+            try {
+                return Optional.ofNullable(Files.readAllBytes(Path.of(adapter.getPathToOs().concat(photoID /*+ "." + "jpeg"*/))));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } else if (Files.exists(Path.of(adapter.getPathToOs().concat(photoID /*+ "." + "png"*/)))) {
+            try {
+                return Optional.ofNullable(Files.readAllBytes(Path.of(adapter.getPathToOs().concat(photoID /*+ "." + "png"*/))));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
