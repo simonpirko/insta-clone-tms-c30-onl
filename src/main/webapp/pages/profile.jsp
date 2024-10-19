@@ -25,7 +25,7 @@
             <div class="row g-0">
                 <div class="col-md-4">
                     <img width="200px" height="200px"
-                         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUMUlHga7xgNxM2E8CxJIG8_VdJf_n5itqLk5Nv5uKKXpG-2znXgjOjrhrPIBOsYgySM0&usqp=CAU">
+                         src="data:image/jpeg;base64,${avatar}">
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
@@ -46,6 +46,15 @@
                             </li>
                         </ul>
                         </p>
+                        <div class="row col-9 bg-white">
+                            <form class="col-4"   action="/user/profile/nom1" method="post" enctype="multipart/form-data">
+                                <div class="mb-3">
+                                    <label for="formFile" class="form-label">SET AVATAR</label>
+                                    <input class="form-control" name="avatar" type="file" id="formFile">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
 
                         <c:if test="${statusSubscriptionProfile == 0}">
                         <form class="col-4" action="/user/profile/remake/${usernameProfile}" method="get"
@@ -70,6 +79,7 @@
                                     Unsubscribe
                                 </button>
                             </form>
+
                             </c:if>
 
                     </div>
