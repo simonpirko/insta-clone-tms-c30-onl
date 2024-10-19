@@ -1,6 +1,5 @@
 package by.tms.instaclone.storage;
 
-import by.tms.instaclone.model.Comment;
 import by.tms.instaclone.model.Post;
 import by.tms.instaclone.model.Reaction;
 import by.tms.instaclone.model.User;
@@ -52,7 +51,20 @@ public class ReactionsStorage {
         return reactions;
     }
 
+    /**
+     * Метод вводит в оборот новую Реакцию на Пост со стороны Пользователя. При этом, если раньше уже
+     * существовала Реакция данного Пользователя на данный Пост,
+     * то старая Реакция ЗАМЕЩАТСЯ новой - старается удаляется, а новая заводится в Систему
+     * @param post - объект Поста
+     * @param user - объект Пользователя
+     * @param newReaction - тип Реакции Пользователя на Пост
+     * @return - новая Реакция-объект
+     */
     public Reaction newReaction(Post post, User user, boolean newReaction) {
+        Optional<UUID> uuid = findUuidReaction(post.getUuid(),user.getUuid());    // найти юдь Реакции Пользователя на указанный Пост
+        if (uuid.isPresent()) { // если какая-то Реакия уже сущетсвует,
+            deleteReaction(getReaction(uuid.get()));    // то снести её!
+        }
         Reaction reaction = new Reaction(post, user, newReaction);
         reactions.put(reaction.getUuid(), reaction);
         String rowText = REACTIONS_CSV_FORMAT_TEMPLATE.formatted(reaction.getUuid().toString(),
@@ -104,7 +116,7 @@ public class ReactionsStorage {
     }
 
     /**
-     * Метод возвращает количество лайков у Поста, идентифируемого через его UUID
+     * Метод возвращает количество лайков у Поста, определямого через его UUID
      *
      * @param postUuid - UUID Поста
      * @return likeCount - количество лайков
@@ -121,7 +133,7 @@ public class ReactionsStorage {
     }
 
     /**
-     * Метод возвращает количество дизлайков у Поста, идентифируемого через его UUID
+     * Метод возвращает количество дизлайков у Поста, определямого через его UUID
      *
      * @param postUuid - UUID Поста
      * @return dislikeCount - количество лайков
@@ -135,6 +147,50 @@ public class ReactionsStorage {
             }
         }
         return dislikeCount;
+    }
+
+    /**
+     * Метод возвращает тип Реакции на Пост, определяемый через postUuid, со стороны
+     * Пользователя, определяемого через userUuid
+     *
+     * @param postUuid - UUID Поста
+     * @param userUuid - UUID Пользователя
+     * @return String - LIKE_REACTION - like, DISLIKE_REACTION - dislike, NONE_REACTION - нет реакции
+     */
+    public String seeReaction(UUID postUuid, UUID userUuid) {
+        for (Map.Entry entry : reactions.entrySet()) {
+            UUID postReactionUuid = ((Reaction) entry.getValue()).getAddressee().getUuid();
+            UUID userReactionUuid = ((Reaction) entry.getValue()).getOwner().getUuid();
+            if (postReactionUuid.equals(postUuid)
+                    && userReactionUuid.equals(userUuid)) {
+                if (((Reaction) entry.getValue()).isTypeReaction()) {
+                    return LIKE_REACTION;
+                } else {
+                    return DISLIKE_REACTION;
+                }
+            }
+        }
+        return NONE_REACTION;
+    }
+
+    /**
+     * Метод возвращает UUID Реакции, если уже существует Реакция на Пост, определённый через postUuid, со
+     * стороны Пользователя, определённого через userUuid
+     *
+     * @param postUuid - UUID Поста
+     * @param userUuid - UUID Пользователя
+     * @return Optional<UUID>
+     */
+    public Optional<UUID> findUuidReaction(UUID postUuid, UUID userUuid) {
+        for (Map.Entry entry : reactions.entrySet()) {
+            UUID postReactionUuid = ((Reaction) entry.getValue()).getAddressee().getUuid();
+            UUID userReactionUuid = ((Reaction) entry.getValue()).getOwner().getUuid();
+            if (postReactionUuid.equals(postUuid)
+                    && userReactionUuid.equals(userUuid)) {
+                return Optional.ofNullable((UUID) entry.getKey());
+            }
+        }
+        return Optional.empty();
     }
 
     public void changeReaction(Reaction reaction, boolean newTypeReaction) {

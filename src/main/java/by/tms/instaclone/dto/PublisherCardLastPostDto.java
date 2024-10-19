@@ -3,7 +3,7 @@ package by.tms.instaclone.dto;
 import java.util.List;
 
 /**
- * Класс описывает  контент для "Карточка Последнего поста Публикатора"
+ * Класс описывает контент для "Карточка Последнего поста Публикатора"
  */
 public class PublisherCardLastPostDto {
     private String namePublisher;
@@ -13,6 +13,7 @@ public class PublisherCardLastPostDto {
     private List<String> createAtLastPost;
     private List<String> photosLastPost;
     private String uuidPost;
+    private String valueReaction;
     private long countLikeLastPost;
     private long countDislikeLastPost;
 
@@ -42,6 +43,10 @@ public class PublisherCardLastPostDto {
 
     public void setUuidPost(String uuidPost) {
         this.uuidPost = uuidPost;
+    }
+
+    public void setValueReaction(String valueReaction) {
+        this.valueReaction = valueReaction;
     }
 
     public void setCountLikeLastPost(long countLikeLastPost) {
@@ -78,6 +83,10 @@ public class PublisherCardLastPostDto {
 
     public String getUuidPost() {
         return uuidPost;
+    }
+
+    public String getValueReaction() {
+        return valueReaction;
     }
 
     public long getCountLikeLastPost() {

@@ -13,20 +13,21 @@ import java.util.UUID;
 import static by.tms.instaclone.storage.KeeperConstants.*;
 
 /**
- * Класс описывает контент Публикатора
+ * Класс описывает формирование контента Публикатора
  */
 public class PublisherService {
 
     /**
-     * Класс формирует контент для "Карточка Последнего поста Публикатора"
+     * Метод формирует контент для "Карточка Последнего поста Публикатора"
      */
-    public Optional<PublisherCardLastPostDto> collectLastPost(String usernamePublisher) {
+    public Optional<PublisherCardLastPostDto> collectLastPost(UUID followerUuid, UUID publisherUuid) {
         PublisherCardLastPostDto publisherCardLastPostDto = new PublisherCardLastPostDto();
-        UUID uuidPublisher = UsernamesStorage.getInstance().getUUID(usernamePublisher);
-        publisherCardLastPostDto.setNamePublisher(UsersStorage.getInstance().getUser(uuidPublisher).getName());
+        String namePublisher = UsersStorage.getInstance().getUser(publisherUuid).getName();
+        publisherCardLastPostDto.setNamePublisher(namePublisher);
+        String usernamePublisher = UsersStorage.getInstance().getUser(publisherUuid).getUsername();
         publisherCardLastPostDto.setUsernamePublisher(usernamePublisher);
         publisherCardLastPostDto.setUrlPublisher(USER_PROFILE_URL + SLAGE + usernamePublisher);
-        List<Post> lastPostsPublisher = new ArrayList<>(PostsStorage.getInstance().getLastPostOwner(uuidPublisher));
+        List<Post> lastPostsPublisher = new ArrayList<>(PostsStorage.getInstance().getLastPostOwner(publisherUuid));
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(DATE_TIME_CREATE_POST_TEMPLATE);
         List<String> textLastPost = new ArrayList<>();
         List<String> createAtLastPost = new ArrayList<>();
@@ -41,6 +42,7 @@ public class PublisherService {
             countLikeLastPost = ReactionsStorage.getInstance().getCountLikePost(post.getUuid());
             countDislikeLastPost = ReactionsStorage.getInstance().getCountDislikePost(post.getUuid());
             publisherCardLastPostDto.setUuidPost(post.getUuid().toString());
+            publisherCardLastPostDto.setValueReaction(ReactionsStorage.getInstance().seeReaction(post.getUuid(), followerUuid));
         }
         publisherCardLastPostDto.setTextLastPost(textLastPost);
         publisherCardLastPostDto.setCreateAtLastPost(createAtLastPost);
