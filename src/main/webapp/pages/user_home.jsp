@@ -55,8 +55,21 @@
                             <form action="/user/home/like" method="post">
                                 <input type="hidden" value="${contentValue.uuidPost}" name="uuidPost">
                                 <c:if test="${contentValue.countLikeLastPost > 0}">
-                                    <button type="submit" class="btn btn-outline-primary btn-xs"<%--btn-outline-info--%>
-                                            name="button">Like - ${contentValue.countLikeLastPost}</button>
+                                    <c:if test="${contentValue.valueReaction == 'like'}">
+                                        <button type="submit"
+                                                class="btn btn-outline-info btn-xs disabled"
+                                                name="button">Like - ${contentValue.countLikeLastPost}</button>
+                                    </c:if>
+                                    <c:if test="${contentValue.valueReaction == 'dislike'}">
+                                        <button type="submit"
+                                                class="btn btn-outline-primary btn-xs"
+                                                name="button">Like - ${contentValue.countLikeLastPost}</button>
+                                    </c:if>
+                                    <c:if test="${contentValue.valueReaction == 'none'}">
+                                        <button type="submit"
+                                                class="btn btn-outline-primary btn-xs"
+                                                name="button">Like - ${contentValue.countLikeLastPost}</button>
+                                    </c:if>
                                 </c:if>
                                 <c:if test="${contentValue.countLikeLastPost <= 0}">
                                     <button type="submit" class="btn btn-outline-primary btn-xs"
@@ -67,12 +80,23 @@
                             <form action="/user/home/dislike" method="post">
                                 <input type="hidden" value="${contentValue.uuidPost}" name="uuidPost">
                                 <c:if test="${contentValue.countDislikeLastPost > 0}">
-                                    <button type="submit" class="btn btn-outline-primary btn-xs"
-                                            name="button">Dislike - ${contentValue.countDislikeLastPost}</button>
+                                    <c:if test="${contentValue.valueReaction == 'dislike'}">
+                                        <button type="submit" class="btn btn-outline-info btn-xs disabled"
+                                                name="button">Dislike - ${contentValue.countDislikeLastPost}</button>
+                                    </c:if>
+                                    <c:if test="${contentValue.valueReaction == 'like'}">
+                                        <button type="submit" class="btn btn-outline-primary btn-xs"
+                                                name="button">Dislike - ${contentValue.countDislikeLastPost}</button>
+                                    </c:if>
+                                    <c:if test="${contentValue.valueReaction == 'none'}">
+                                        <button type="submit" class="btn btn-outline-primary btn-xs"
+                                                name="button">Dislike - ${contentValue.countDislikeLastPost}</button>
+                                    </c:if>
                                 </c:if>
                                 <c:if test="${contentValue.countDislikeLastPost <= 0}">
                                     <button type="submit" class="btn btn-outline-primary btn-xs"
-                                            name="button">Dislike</button>
+                                            name="button">Dislike
+                                    </button>
                                 </c:if>
                             </form>
                             <form action="/user/home/comment" method="post">

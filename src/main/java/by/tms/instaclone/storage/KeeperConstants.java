@@ -7,7 +7,7 @@ public class KeeperConstants {
 
     public static final String LF = "\n";
     public static final String SEPARATOR_CSV = ";";
-    public static final String ID_SEPARATOR = ";";
+//    public static final String ID_SEPARATOR = ";";
     public static final String SLAGE = "/";
     public static final String LOGGER_MESSAGE_TEMPLATE = "%s -- %s" + LF;
     public static final String ERROR_TEMPLATE = "ERROR: %s";
@@ -51,10 +51,13 @@ public class KeeperConstants {
     public static final boolean LIKE = true;
     public static final boolean DISLIKE = false;
 
-    public static final String LIKE_BUTTON = "Like";
-    public static final String DISLIKE_BUTTON = "Dislike";
-    public static final String COMMENT_BUTTON = "Comment";
+//    public static final String LIKE_BUTTON = "Like";
+//    public static final String DISLIKE_BUTTON = "Dislike";
+//    public static final String COMMENT_BUTTON = "Comment";
 
+    public static final String LIKE_REACTION = "like";
+    public static final String DISLIKE_REACTION = "dislike";
+    public static final String NONE_REACTION = "none";
 
     public static final Pattern NAME_REGEX = Pattern.compile("^[a-zA-Z]{2,15}$");
     public static final Pattern USERNAME_REGEX = Pattern.compile("^[a-zA-Z0-9]{2,15}$");

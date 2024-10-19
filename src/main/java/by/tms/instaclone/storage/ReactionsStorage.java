@@ -138,23 +138,27 @@ public class ReactionsStorage {
     }
 
     /**
-     * Метод возвращает Реакцию (если найдена!) на Пост, определяемый через  postUuid, со стороны
+     * Метод возвращает тип Реакцию на Пост, определяемый через  postUuid, со стороны
      * Пользователя, определяемого через userUuid
+     *
      * @param postUuid - UUID Поста
      * @param userUuid - UUID Пользователя
-     * @return -
+     * @return String - LIKE_REACTION - like, DISLIKE_REACTION - dislike, NONE_REACTION - нет реакции
      */
-    public Optional<Reaction> isReaction(UUID postUuid, UUID userUuid) {
+    public String seeReaction(UUID postUuid, UUID userUuid) {
         for (Map.Entry entry : reactions.entrySet()) {
             UUID postReactionUuid = ((Reaction) entry.getValue()).getAddressee().getUuid();
             UUID userReactionUuid = ((Reaction) entry.getValue()).getOwner().getUuid();
             if (postReactionUuid.equals(postUuid)
-                    && userReactionUuid.equals(userUuid)
-                    && ((Reaction) entry.getValue()).isTypeReaction()) {
-                return Optional.ofNullable((Reaction) entry.getValue());
+                    && userReactionUuid.equals(userUuid)) {
+                if (((Reaction) entry.getValue()).isTypeReaction()) {
+                    return LIKE_REACTION;
+                } else {
+                    return DISLIKE_REACTION;
+                }
             }
         }
-        return Optional.empty();
+        return NONE_REACTION;
     }
 
     public void changeReaction(Reaction reaction, boolean newTypeReaction) {
