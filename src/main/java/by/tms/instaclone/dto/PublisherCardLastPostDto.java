@@ -3,7 +3,7 @@ package by.tms.instaclone.dto;
 import java.util.List;
 
 /**
- * Класс описывает  контент для "Карточка Последнего поста Публикатора"
+ * Класс описывает контент для "Карточка Последнего поста Публикатора"
  */
 public class PublisherCardLastPostDto {
     private String namePublisher;
