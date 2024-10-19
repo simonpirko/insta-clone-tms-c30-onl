@@ -43,13 +43,12 @@ public class PhotoStorage {
             for (String row : arrayRows) {
                 String[] arrayWords = row.split(SEPARATOR_CSV);
                 Optional<byte[]> image = null;
-                image = getBytePhoto(arrayWords[0], arrayWords[2]);
+                image = getBytePhoto(arrayWords[0]);
                 image.ifPresent(bytes -> photos.put(UUID.fromString(arrayWords[0]),
                         new Photo(UUID.fromString(arrayWords[0]),
                                 PostsStorage.getInstance().getPost(UUID.fromString(arrayWords[1])),
                                 bytes,
-                                arrayWords[2],
-                                LocalDateTime.ofInstant(Instant.ofEpochSecond(Long.valueOf(arrayWords[3])), ZoneId.systemDefault()))));
+                                LocalDateTime.ofInstant(Instant.ofEpochSecond(Long.valueOf(arrayWords[2])), ZoneId.systemDefault()))));
             }
         }
     }
@@ -58,10 +57,10 @@ public class PhotoStorage {
         String[] format = image.getContentType().split("/");
         if (format[0].equals("image")) {
             byte[] ImageInByte = image.getInputStream().readAllBytes();
-            Photo photo = new Photo(post, ImageInByte, format[1]);
+            Photo photo = new Photo(post, ImageInByte);
             photos.put(photo.getUuid(), photo);
-            saveImage(photo.getUuid(), ImageInByte, format[1]);
-            String rowText = PHOTO_CSV_FORMAT_TEMPLATE.formatted(photo.getUuid(), post.getUuid(), format[1], photo.getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli()/1000);
+            saveImage(photo.getUuid(), ImageInByte);
+            String rowText = PHOTO_CSV_FORMAT_TEMPLATE.formatted(photo.getUuid(), post.getUuid(), photo.getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli()/1000);
             writeCsvFile(PHOTOS_CSV_FILE, rowText);
 
         } else {
@@ -72,7 +71,7 @@ public class PhotoStorage {
         String[] format = image.getContentType().split("/");
         if (format[0].equals("image")) {
             byte[] ImageInByte = image.getInputStream().readAllBytes();
-            saveImage(user.getUuid(), ImageInByte, format[1]);
+            saveImage(user.getUuid(), ImageInByte);
         } else {
             //Здесь покажем пользователю что файл не валиден.
         }
@@ -101,15 +100,14 @@ public class PhotoStorage {
         for (Photo photo : photos.values()) {
             if (photo.getPost().getUuid().equals(postUUID)) {
                 String uuidPhoto = photo.getUuid().toString();
-                String formatPhoto = photo.getFormat();
-                Optional<byte[]> imageInByte = getBytePhoto(uuidPhoto, formatPhoto);
+                Optional<byte[]> imageInByte = getBytePhoto(uuidPhoto);
                 imageInByte.ifPresent(bytes -> photosPost.add(Base64.getEncoder().encodeToString(bytes)));
             }
         }
         return photosPost;
     }
 
-    private void saveImage(UUID uuid, byte[] image, String format) {
+    private void saveImage(UUID uuid, byte[] image) {
         //File imageFile = new File(adapter.getPathToOs() + uuid + "." + format);
         File imageFile = new File(adapter.getPathToOs() + uuid);
         try (FileOutputStream fos = new FileOutputStream(imageFile)) {
@@ -123,12 +121,11 @@ public class PhotoStorage {
      * Метод передаёт байтовый набор фотографии, указанной через её имя и расширение
      *
      * @param photoID - имя фотографии
-     * @param format - формат фотографии
      * @return - набор байтов фотографии
      */
-    public Optional<byte[]> getBytePhoto(String photoID, String format) {
+    public Optional<byte[]> getBytePhoto(String photoID) {
 
-        Path pathToImage = Path.of(adapter.getPathToOs().concat(photoID + "." + format));
+        Path pathToImage = Path.of(adapter.getPathToOs().concat(photoID));
         if (Files.exists(pathToImage)) {
             try {
                 return Optional.ofNullable(Files.readAllBytes(pathToImage));
@@ -142,22 +139,10 @@ public class PhotoStorage {
     public Optional<byte[]> getByteAvatar(String userUUID) {  //Временное очень печальное решение
 String photoID = userUUID.toString();
 
-        if (Files.exists(Path.of(adapter.getPathToOs().concat(photoID /*+ "." + "jpg"*/)))) {
+        if (Files.exists(Path.of(adapter.getPathToOs().concat(photoID)))) {
 
             try {
-                return Optional.ofNullable(Files.readAllBytes(Path.of(adapter.getPathToOs().concat(photoID /*+ "." + "jpg"*/))));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        } else if (Files.exists(Path.of(adapter.getPathToOs().concat(photoID /*+ "." + "jpeg"*/)))) {
-            try {
-                return Optional.ofNullable(Files.readAllBytes(Path.of(adapter.getPathToOs().concat(photoID /*+ "." + "jpeg"*/))));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        } else if (Files.exists(Path.of(adapter.getPathToOs().concat(photoID /*+ "." + "png"*/)))) {
-            try {
-                return Optional.ofNullable(Files.readAllBytes(Path.of(adapter.getPathToOs().concat(photoID /*+ "." + "png"*/))));
+                return Optional.ofNullable(Files.readAllBytes(Path.of(adapter.getPathToOs().concat(photoID))));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
