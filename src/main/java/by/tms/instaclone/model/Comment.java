@@ -2,6 +2,8 @@ package by.tms.instaclone.model;
 
 import by.tms.instaclone.settings.TimeZoneSettings;
 
+import java.time.Clock;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
@@ -54,7 +56,7 @@ public class Comment {
     }
 
     public void setCreateAt() {
-        this.createAt = LocalDateTime.now(TimeZoneSettings.getUtcClock());
+        this.createAt = LocalDateTime.now();
     }
 
     @Override

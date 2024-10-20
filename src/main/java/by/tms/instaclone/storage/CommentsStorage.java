@@ -51,13 +51,14 @@ public class CommentsStorage {
 
     public Comment newComment(Post post, User user, String textComment) {
         Comment comment = new Comment(post, user, textComment);
-        comments.put(comment.getUuid(), comment);
         String rowText = COMMENTS_CSV_FORMAT_TEMPLATE.formatted(comment.getUuid().toString(),
                 comment.getAddressee().getUuid().toString(),
                 comment.getOwner().getUuid().toString(),
                 comment.getText(),
                 comment.getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli()/1000);
         writeCsvFile(COMMENTS_CSV_FILE, rowText);
+        comment.setCreateAt();
+        comments.put(comment.getUuid(), comment);
         return comment;
     }
 
