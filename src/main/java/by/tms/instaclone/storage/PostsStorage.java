@@ -39,7 +39,7 @@ public class PostsStorage {
      * Метод создаёт новый Post от имени ownerUser с текстом textPost и сохраняет её в POSTS_CSV_FILE
      *
      * @param ownerUser - объект-владелец поста
-     * @param textPost - текст поста
+     * @param textPost  - текст поста
      * @return
      */
     public Post newPost(User ownerUser, String textPost) {
@@ -164,9 +164,25 @@ public class PostsStorage {
     }
 
     /**
+     * Метод возращает Posts Владельца по UUID Владельца
+     *
+     * @param ownerUuid - UUID Владельца
+     * @return - List<Post>, все посты User, если постов нет совсем вернёт пустой List
+     */
+    public List<Post> getListPostsOwner(UUID ownerUuid) {
+        HashMap<UUID, Post> postsOwner = getPostsOwner(UsersStorage.getInstance().getUser(ownerUuid));
+        List<Post> posts = new ArrayList<>();
+        for (Post post : postsOwner.values()) {
+            posts.add(post);
+        }
+        return posts;
+    }
+
+
+    /**
      * Метод меняет текст в переданном посте
      *
-     * @param post - объект-пост, в котором меняется текст
+     * @param post    - объект-пост, в котором меняется текст
      * @param newText - новый текст
      */
     public void changeText(Post post, String newText) {
