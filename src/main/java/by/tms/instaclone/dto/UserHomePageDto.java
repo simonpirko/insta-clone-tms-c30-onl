@@ -2,7 +2,7 @@ package by.tms.instaclone.dto;
 import java.util.List;
 
 /**
- * Класс описывает содерижимое для страницы ./user/home
+ * Класс описывает содерижимое контента для страницы HOME_PAGE
  */
 public class UserHomePageDto {
     private String name;

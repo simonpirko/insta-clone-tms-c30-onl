@@ -1,7 +1,10 @@
 package by.tms.instaclone.storage;
 
+import by.tms.instaclone.model.Comment;
 import by.tms.instaclone.model.Post;
+import by.tms.instaclone.model.Reaction;
 import by.tms.instaclone.model.User;
+import by.tms.instaclone.utilites.CommentsComparator;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -39,16 +42,17 @@ public class PostsStorage {
      * Метод создаёт новый Post от имени ownerUser с текстом textPost и сохраняет её в POSTS_CSV_FILE
      *
      * @param ownerUser - объект-владелец поста
-     * @param textPost - текст поста
+     * @param textPost  - текст поста
      * @return
      */
     public Post newPost(User ownerUser, String textPost) {
         Post post = new Post(ownerUser, textPost);
-        posts.put(post.getUuid(), post);
         // todo: с переходом к БД - сделать как с Объектом
         String rowText = POSTS_CSV_FORMAT_TEMPLATE.formatted(post.getUuid().toString(), post.getOwner().getUuid().toString(),
                 post.getText(), post.getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli() / 1000);
         writeCsvFile(POSTS_CSV_FILE, rowText);
+        post.setCreateAt();
+        posts.put(post.getUuid(), post);
         return post;
     }
 
@@ -164,9 +168,25 @@ public class PostsStorage {
     }
 
     /**
+     * Метод возращает Posts Владельца по UUID Владельца
+     *
+     * @param ownerUuid - UUID Владельца
+     * @return - List<Post>, все посты User, если постов нет совсем вернёт пустой List
+     */
+    public List<Post> getListPostsOwner(UUID ownerUuid) {
+        HashMap<UUID, Post> postsOwner = getPostsOwner(UsersStorage.getInstance().getUser(ownerUuid));
+        List<Post> posts = new ArrayList<>();
+        for (Post post : postsOwner.values()) {
+            posts.add(post);
+        }
+        return posts;
+    }
+
+
+    /**
      * Метод меняет текст в переданном посте
      *
-     * @param post - объект-пост, в котором меняется текст
+     * @param post    - объект-пост, в котором меняется текст
      * @param newText - новый текст
      */
     public void changeText(Post post, String newText) {
@@ -203,8 +223,16 @@ public class PostsStorage {
     }
 
     private void deleteHeirs(Post post) {
-        // todo удалить комментарии на Post
-        // todo удалить реакции на Post
+        CommentsStorage commentsStorage = CommentsStorage.getInstance();
+        List<Comment> comments = commentsStorage.getAllCommentsPost(post.getUuid());
+        for(Comment comment : comments) {
+            commentsStorage.deleteComment(comment);
+        }
+        ReactionsStorage reactionsStorage = ReactionsStorage.getInstance();
+        List<Reaction> reactions = reactionsStorage.getAllReactionPost(post.getUuid());
+        for(Reaction reaction : reactions) {
+            reactionsStorage.deleteReaction(reaction);
+        }
         // todo удалить фото Post'а
     }
 

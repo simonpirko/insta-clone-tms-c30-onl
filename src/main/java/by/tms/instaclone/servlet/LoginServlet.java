@@ -15,16 +15,12 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import static by.tms.instaclone.storage.KeeperConstants.*;
 
-@WebServlet(name = "LoginServlet", value = LOGIN_PATH)
+@WebServlet(name = "LoginServlet", value = LOGIN_URL)
 public class LoginServlet extends HttpServlet {
     private static final String LOGIN_USER = "username";
     private static final String PASSWORD_USER = "password";
-//    private static final String CURRENT_USER_ATTRIBUTE = "currentUser";
     private static final String MESSAGE_TRUE = "true";
-    private static final String USERNAME_MISSING = "isUsernameMissing";
-    private static final String USERNAME_PROBLEM = "isUsernameProblem";
-    private static final String PASSWORD_MISSING = "isPasswordMissing";
-    private static final String PASSWORD_PROBLEM = "isPasswordProblem";
+    private static final String LOGGING_PROBLEM = "isLoggingProblem";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -37,23 +33,11 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter(PASSWORD_USER);
         ConcurrentHashMap<UUID, User> users = UsersStorage.getInstance().getUsers();
         ConcurrentHashMap<String, UUID> usernames = UsernamesStorage.getInstance().getUsernames();
-        if (username.isEmpty()) {   // todo верификацию логина/пароля произвести в отдельном методе
-            request.setAttribute(USERNAME_MISSING, MESSAGE_TRUE);
-            request.getRequestDispatcher(LOGIN_JSP).forward(request, response);
-        }
-        if (password.isEmpty()) {
-            request.setAttribute(PASSWORD_MISSING, MESSAGE_TRUE);
-            request.getRequestDispatcher(LOGIN_JSP).forward(request, response);
-        }
-        if (username.length() > 0 && usernames.get(username) == null) {
-            request.setAttribute(USERNAME_PROBLEM, MESSAGE_TRUE);
-            request.getRequestDispatcher(LOGIN_JSP).forward(request, response);
-        }
         if (usernames.get(username) != null && users.get(usernames.get(username)).getPassword().equals(password)) {
             request.getSession().setAttribute(CURRENT_USER_ATTRIBUTE, users.get(usernames.get(username)));
-           response.sendRedirect(USER_HOME_PATH);
+            response.sendRedirect(USER_HOME_URL);
         } else {
-            request.setAttribute(PASSWORD_PROBLEM, MESSAGE_TRUE);
+            request.setAttribute(LOGGING_PROBLEM, MESSAGE_TRUE);
             request.getRequestDispatcher(LOGIN_JSP).forward(request, response);
         }
     }

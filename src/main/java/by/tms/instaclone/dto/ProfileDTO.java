@@ -1,4 +1,6 @@
-package by.tms.instaclone.DTOs;
+package by.tms.instaclone.dto;
+
+import java.util.*;
 
 public class ProfileDTO {
     private String username;
@@ -6,8 +8,29 @@ public class ProfileDTO {
     private int countSubscriber;
     private int countSubscription;
     private int countPost;
-    //private Post[] postsProfile;
-    //private byte[] avatar;
+    private String avatar;
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    private List<CardProfileDTO> cardProfileDTOS;
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public List<CardProfileDTO> getCardProfileDTOS() {
+        return cardProfileDTOS;
+    }
+
+    public void setCardProfileDTOS(List<CardProfileDTO> cardProfileDTOS) {
+        this.cardProfileDTOS = cardProfileDTOS;
+    }
 
     public String getUsername() {
         return username;
@@ -49,26 +72,16 @@ public class ProfileDTO {
         return Integer.toString(countPost);
     }
 
-    /* public void setPostsProfile(Post[] postsProfile) {
-        this.postsProfile = postsProfile;
-    }*/
 
-    /*public byte[] getAvatar() {
-        return avatar;
-    }*/
-    /*public Post[] getPostsProfile() {
-        return postsProfile;
-    }*/
-    /*public void setAvatar(byte[] avatar) {
-        this.avatar = avatar;
-    }*/
     @Override
     public String toString() {
         return "ProfileDTO{" +
                 "username='" + username + '\'' +
+                ", statusSubscription=" + statusSubscription +
                 ", countSubscriber=" + countSubscriber +
                 ", countSubscription=" + countSubscription +
                 ", countPost=" + countPost +
+
                 '}';
     }
 }

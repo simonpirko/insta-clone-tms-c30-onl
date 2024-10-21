@@ -140,6 +140,24 @@ public class SubscriptionsStorage {
     }
 
     /**
+     * Метод удалаляет подписку Подписчика на Автора
+     * Подписка удаляется из Storage и SUBSCRIPTIONS_CSV_FILE (см. deleteContentCsvFile())
+     * followerUuid - UUID Подписчика
+     * publisherUuid - UUID Автора
+     */
+    public void unsubscribe(UUID followerUuid, UUID publisherUuid) {
+        for (Map.Entry entry: subscriptions.entrySet()) {
+            UUID followerSubscriptionUuid = ((Subscription) entry.getValue()).getFollower().getUuid();
+            UUID publisherSubscriptionUuid = ((Subscription) entry.getValue()).getPublisher().getUuid();
+            if (followerSubscriptionUuid.equals(followerUuid)
+                    && publisherSubscriptionUuid.equals(publisherUuid)) {
+                deleteSubscription((Subscription) entry.getValue());
+                break;
+            }
+        }
+    }
+
+    /**
      * Метод удалаляет переданную Подписку
      * Подписка удаляется из Storage и SUBSCRIPTIONS_CSV_FILE (см. deleteContentCsvFile())
      * @param subscription - удаляемая Подписка
@@ -147,6 +165,25 @@ public class SubscriptionsStorage {
     public void deleteSubscription(Subscription subscription) {
         subscriptions.remove(subscription.getUuid());
         rewrite();
+    }
+
+
+    /**
+     * Метод удалаляет подписку Подписчика на Автора
+     * Подписка удаляется из Storage и SUBSCRIPTIONS_CSV_FILE (см. deleteContentCsvFile())
+     * followerUuid - UUID Подписчика
+     * publisherUuid - UUID Автора
+     */
+    public void unsubscribe(UUID followerUuid, UUID publisherUuid) {
+        for (Map.Entry entry: subscriptions.entrySet()) {
+            UUID followerSubscriptionUuid = ((Subscription) entry.getValue()).getFollower().getUuid();
+            UUID publisherSubscriptionUuid = ((Subscription) entry.getValue()).getPublisher().getUuid();
+            if (followerSubscriptionUuid.equals(followerUuid)
+                    && publisherSubscriptionUuid.equals(publisherUuid)) {
+                deleteSubscription((Subscription) entry.getValue());
+                break;
+            }
+        }
     }
 
     /**
