@@ -8,10 +8,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static by.tms.instaclone.storage.Deleter.deleteContentCsvFile;
@@ -105,11 +102,11 @@ public class ReactionsStorage {
         return reactionOwner;
     }
 
-    public Map<UUID, Reaction> getReactionPost(UUID postUuid) {
-        Map<UUID, Reaction> reactionPost = new HashMap<>();
+    public List<Reaction> getAllReactionPost(UUID postUuid) {
+        List<Reaction> reactionPost = new ArrayList<>();
         for (Map.Entry entry : reactions.entrySet()) {
             if (((Reaction) entry.getValue()).getAddressee().getUuid().equals(postUuid)) {
-                reactionPost.put(((Reaction) entry.getValue()).getUuid(), (Reaction) entry.getValue());
+                reactionPost.add((Reaction) entry.getValue());
             }
         }
         return reactionPost;
