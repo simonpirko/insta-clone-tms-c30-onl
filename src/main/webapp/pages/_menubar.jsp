@@ -21,6 +21,10 @@
                                     <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Search</span>
                                 </a>
                             </li>
+                            <form class="d-flex" action="/user/search" method="Post">
+                                <input class="form-control me-2" type="search" name="request" placeholder="Search" aria-label="Search">
+                                <button class="btn btn-outline-success" type="submit">Search</button>
+                            </form>
                             <li>
                                 <a href="/user/newPost" class="nav-link px-0 align-middle">
                                     <img width="32px" height="32px" src="https://us.123rf.com/450wm/piren/piren1703/piren170301332/74444943-%D0%B7%D0%BD%D0%B0%D1%87%D0%BE%D0%BA-%C2%AB%D0%BF%D0%BB%D1%8E%D1%81%C2%BB-%D0%BD%D0%B0-%D1%87%D0%B5%D1%80%D0%BD%D0%BE%D0%BC-%D1%84%D0%BE%D0%BD%D0%B5.jpg">
@@ -37,7 +41,7 @@
                         <hr>
                         <div class="dropdown pb-4">
                             <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
+                                <img src="data:image/jpeg;base64,${currentUserAvatar}" alt="hugenerd" width="30" height="30" class="rounded-circle">
                                 <span class="d-none d-sm-inline mx-1">${currentUser.name}</span> <!-- вставить логин -->
                             </a>
                             <ul class="dropdown-menu dropdown-menu-dark text-small shadow">

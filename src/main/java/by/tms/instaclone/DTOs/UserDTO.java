@@ -1,15 +1,26 @@
 package by.tms.instaclone.DTOs;
 
-public class UsersSearchDTO {
+public class UserDTO {
     private String username;
     private String name;
-    private byte[] avatar;
+    private String urlUser;
+    private String avatar;
 
-    public byte[] getAvatar() {
+
+
+    public String getUrlUser() {
+        return urlUser;
+    }
+
+    public void setUrlUser(String urlUser) {
+        this.urlUser = urlUser;
+    }
+
+    public String getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(byte[] avatar) {
+    public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
 
@@ -24,6 +35,7 @@ public class UsersSearchDTO {
     public String getUsername() {
         return username;
     }
+
     public void setUsername(String username) {
         this.username = username;
     }
