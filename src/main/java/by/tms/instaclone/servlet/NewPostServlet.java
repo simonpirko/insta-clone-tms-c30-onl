@@ -36,6 +36,7 @@ public class NewPostServlet extends HttpServlet {
         User curUser = (User) req.getSession().getAttribute(CURRENT_USER_ATTRIBUTE);
         Collection<Part> parts = req.getParts();
         String textPost = req.getParameter("textPost");
+        System.out.println(textPost);
         int count = 0;
         for (Part part : parts) {
             count++;
@@ -50,6 +51,6 @@ public class NewPostServlet extends HttpServlet {
                 photoStorage.addPhoto(post, part);
             }
         }
-        resp.sendRedirect(USER_HOME_URL);
+        resp.sendRedirect(USER_POST_PATH + "?postUUID=" + post.getUuid());
     }
 }

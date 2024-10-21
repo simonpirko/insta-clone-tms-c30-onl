@@ -1,7 +1,10 @@
 package by.tms.instaclone.storage;
 
+import by.tms.instaclone.model.Comment;
 import by.tms.instaclone.model.Post;
+import by.tms.instaclone.model.Reaction;
 import by.tms.instaclone.model.User;
+import by.tms.instaclone.utilites.CommentsComparator;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -44,11 +47,12 @@ public class PostsStorage {
      */
     public Post newPost(User ownerUser, String textPost) {
         Post post = new Post(ownerUser, textPost);
-        posts.put(post.getUuid(), post);
         // todo: с переходом к БД - сделать как с Объектом
         String rowText = POSTS_CSV_FORMAT_TEMPLATE.formatted(post.getUuid().toString(), post.getOwner().getUuid().toString(),
                 post.getText(), post.getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli() / 1000);
         writeCsvFile(POSTS_CSV_FILE, rowText);
+        post.setCreateAt();
+        posts.put(post.getUuid(), post);
         return post;
     }
 
@@ -219,8 +223,16 @@ public class PostsStorage {
     }
 
     private void deleteHeirs(Post post) {
-        // todo удалить комментарии на Post
-        // todo удалить реакции на Post
+        CommentsStorage commentsStorage = CommentsStorage.getInstance();
+        List<Comment> comments = commentsStorage.getAllCommentsPost(post.getUuid());
+        for(Comment comment : comments) {
+            commentsStorage.deleteComment(comment);
+        }
+        ReactionsStorage reactionsStorage = ReactionsStorage.getInstance();
+        List<Reaction> reactions = reactionsStorage.getAllReactionPost(post.getUuid());
+        for(Reaction reaction : reactions) {
+            reactionsStorage.deleteReaction(reaction);
+        }
         // todo удалить фото Post'а
     }
 

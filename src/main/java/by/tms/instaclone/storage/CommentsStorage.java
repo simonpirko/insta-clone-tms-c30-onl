@@ -8,10 +8,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 
@@ -54,13 +51,14 @@ public class CommentsStorage {
 
     public Comment newComment(Post post, User user, String textComment) {
         Comment comment = new Comment(post, user, textComment);
-        comments.put(comment.getUuid(), comment);
         String rowText = COMMENTS_CSV_FORMAT_TEMPLATE.formatted(comment.getUuid().toString(),
                 comment.getAddressee().getUuid().toString(),
                 comment.getOwner().getUuid().toString(),
                 comment.getText(),
                 comment.getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli()/1000);
         writeCsvFile(COMMENTS_CSV_FILE, rowText);
+        comment.setCreateAt();
+        comments.put(comment.getUuid(), comment);
         return comment;
     }
 
@@ -93,14 +91,14 @@ public class CommentsStorage {
         return commentOwner;
     }
 
-    public Map<UUID, Comment> getCommentPost(UUID postUuid) {
-        Map<UUID, Comment> commentPost = new HashMap<>();
+    public List<Comment> getAllCommentsPost(UUID postUuid) {
+        List<Comment> commentsPost = new ArrayList<>();
         for (Map.Entry entry: comments.entrySet()) {
             if (((Comment) entry.getValue()).getAddressee().getUuid().equals(postUuid)) {
-                commentPost.put(((Comment) entry.getValue()).getUuid(), (Comment) entry.getValue());
+                commentsPost.add((Comment) entry.getValue());
             }
         }
-        return commentPost;
+        return commentsPost;
     }
 
     public void changeText(Comment comment, String newText) {

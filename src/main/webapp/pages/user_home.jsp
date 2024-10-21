@@ -99,13 +99,12 @@
                                     </button>
                                 </c:if>
                             </form>
-                            <form action="/user/home/comment" method="post">
-                                <input type="hidden" value="${contentValue.uuidPost}" name="uuidPost">
-                                <button type="submit"
-                                        class="btn btn-outline-primary btn-xs"
-                                        name="button">Comment
-                                </button>
-                            </form>
+                            <a href="/user/post?postUUID=${contentValue.uuidPost}">
+                                    <button type="submit"
+                                            class="btn btn-outline-primary btn-xs"
+                                            name="button">Comment
+                                    </button>
+                            </a>
                         </ul>
                     </div>
                 </c:forEach>
