@@ -30,7 +30,7 @@ public class UserService {
         List<PublisherCardLastPostDto> publishersCards = new ArrayList<>();
         for (User publisher : publishers) {
             PublisherService content = new PublisherService();
-            Optional<PublisherCardLastPostDto> publisherCard = content.collectLastPost(publisher.getUsername());
+            Optional<PublisherCardLastPostDto> publisherCard = content.collectLastPost(owner.getUuid(), publisher.getUuid());
             if (!publisherCard.isEmpty()) {
                 publishersCards.add(publisherCard.get());
             }

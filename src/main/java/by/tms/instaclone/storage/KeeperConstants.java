@@ -1,6 +1,5 @@
 package by.tms.instaclone.storage;
 
-import java.util.Objects;
 import java.util.regex.Pattern;
 
 public class KeeperConstants {
@@ -8,9 +7,8 @@ public class KeeperConstants {
 
     public static final String LF = "\n";
     public static final String SEPARATOR_CSV = ";";
+//    public static final String ID_SEPARATOR = ";";
     public static final String SLAGE = "/";
-    public static final String BEGINNING_WORK_MESSAGE_TEMPLATE = "'%s' has started working";
-    public static final String ENDING_WORK_MESSAGE_TEMPLATE = "'%s' completed the operation";
     public static final String LOGGER_MESSAGE_TEMPLATE = "%s -- %s" + LF;
     public static final String ERROR_TEMPLATE = "ERROR: %s";
     public static final String ERROR_IO_FILE_TEMPLATE = "there was a problem when reading the '%s' file";
@@ -33,7 +31,7 @@ public class KeeperConstants {
     public static final String DATE_TIME_CREATE_POST_TEMPLATE = "dd/MM/yyyy, HH:mm:ss";
 
     public static final String HOME_JSP = "/pages/home.jsp";
-    public static final String HOME_USER_JSP = "/pages/home_page_user.jsp";
+    public static final String HOME_USER_JSP = "/pages/user_home.jsp";
     public static final String REGISTRATION_JSP = "/pages/registration.jsp";
     public static final String PROFILE_JSP = "/pages/profile.jsp";
     public static final String LOGIN_JSP = "/pages/login.jsp";
@@ -41,13 +39,25 @@ public class KeeperConstants {
     public static final String ERROR_JSP = "/pages/error.jsp";
 
     public static final String REGISTRATION_PATH = "/reg";
-    public static final String LOGIN_PATH = "/login";
-    public static final String USER_HOME_PATH = "/user/home";
+    public static final String LOGIN_URL = "/login";
+    public static final String USER_HOME_URL = "/user/home";
+    public static final String USER_HOME_LIKE_URL = "/user/home/like";
+    public static final String USER_HOME_DISLIKE_URL = "/user/home/dislike";
     public static final String USER_NEW_POST_PATH = "/user/newPost";
     public static final String USER_LOGOUT_PATH = "/user/logout";
     public static final String USER_PROFILE_PATH = "/user/profile/*";
     public static final String USER_PROFILE_URL = "/user/profile";
 
+    public static final boolean LIKE = true;
+    public static final boolean DISLIKE = false;
+
+//    public static final String LIKE_BUTTON = "Like";
+//    public static final String DISLIKE_BUTTON = "Dislike";
+//    public static final String COMMENT_BUTTON = "Comment";
+
+    public static final String LIKE_REACTION = "like";
+    public static final String DISLIKE_REACTION = "dislike";
+    public static final String NONE_REACTION = "none";
 
     public static final Pattern NAME_REGEX = Pattern.compile("^[a-zA-Z]{2,15}$");
     public static final Pattern USERNAME_REGEX = Pattern.compile("^[a-zA-Z0-9]{2,15}$");
