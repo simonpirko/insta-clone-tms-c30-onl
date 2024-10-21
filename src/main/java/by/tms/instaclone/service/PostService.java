@@ -58,4 +58,14 @@ public class PostService {
         commentsStorage.newComment(post,user,comment);
         return post;
     }
+
+    public void deleteComment(String commentUUID) {
+        Comment comment = commentsStorage.getComment(UUID.fromString(commentUUID));
+        commentsStorage.deleteComment(comment);
+    }
+
+    public void deletePost(UUID postUUID) {
+        Post post = postsStorage.getPost(postUUID);
+        postsStorage.deletePost(post);
+    }
 }
