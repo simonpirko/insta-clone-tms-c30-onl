@@ -40,7 +40,7 @@ public class NewPostServlet extends HttpServlet {
         int count = 0;
         for (Part part : parts) {
             count++;
-            if (count >= 6) {
+            if (count >= 7) {
                 req.setAttribute("errorMax", "Maximum 5 photos per post");
                 req.getRequestDispatcher(NEW_POST_JSP).forward(req, resp);
             }

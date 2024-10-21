@@ -10,21 +10,18 @@ public class Photo {
     private final UUID uuid;
     private final Post post;
     private final byte[] image;
-    private final String format;
     private final LocalDateTime createAt;
 
-    public Photo(Post post,byte[] image,String format) {
+    public Photo(Post post,byte[] image) {
         this.uuid = UUID.randomUUID();
         this.post = post;
         this.image = image;
-        this.format = format;
         this.createAt = LocalDateTime.now(TimeZoneSettings.getUtcClock());
     }
-    public Photo(UUID uuid,Post post,byte[] image,String format,LocalDateTime createAt) {
+    public Photo(UUID uuid,Post post,byte[] image,LocalDateTime createAt) {
         this.uuid = uuid;
         this.post = post;
         this.image = image;
-        this.format = format;
         this.createAt = createAt;
     }
 
@@ -42,9 +39,6 @@ public class Photo {
 
     public byte[] getImage() {
         return image;
-    }
-    public String getFormat() {
-        return format;
     }
 
     @Override
