@@ -81,14 +81,6 @@ public class PhotoStorage {
         return photos.get(uuid);
     }
 
-    public Map<UUID, Photo> getPhotoOfPost(UUID postUUID) {
-        Map<UUID, Photo> photoOfPost = new HashMap<>();
-        Stream<Photo> photoStream = photos.values().stream();
-        photoStream.filter(photo -> photo.getPost().getUuid().equals(postUUID)).
-                forEach(photo -> photoOfPost.put(photo.getUuid(), photo));
-        return photoOfPost;
-    }
-
     /**
      * Метод создаёт набор тех фотографий, которые включены в Post с UUID равным postUUID
      *

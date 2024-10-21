@@ -4,6 +4,7 @@ import java.util.regex.Pattern;
 
 public class KeeperConstants {
     public static final String CURRENT_USER_ATTRIBUTE = "currentUser";
+    public static final String CURRENT_USER_AVATAR_ATTRIBUTE = "currentUserAvatar";
 
     public static final String LF = "\n";
     public static final String SEPARATOR_CSV = ";";
@@ -51,6 +52,7 @@ public class KeeperConstants {
     public static final String USER_LOGOUT_PATH = "/user/logout";
     public static final String USER_PROFILE_PATH = "/user/profile/*";
     public static final String USER_PROFILE_URL = "/user/profile";
+    public static final String USER_SEARCH_URL = "/user/search";
 
     public static final boolean LIKE = true;
     public static final boolean DISLIKE = false;
