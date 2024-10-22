@@ -24,12 +24,13 @@ public class PostService {
     CommentsStorage commentsStorage = CommentsStorage.getInstance();
     ReactionsStorage reactionsStorage = ReactionsStorage.getInstance();
     PhotoStorage photoStorage = PhotoStorage.getInstance();
-    PostDto postDto = new PostDto();
-    List<CommentsDto> commentsDtoList = new ArrayList<>();
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(DATE_TIME_CREATE_POST_TEMPLATE);
 
     public PostDto getContent(UUID postUUID) {
+        PostDto postDto = new PostDto();
+        List<CommentsDto> commentsDtoList = new ArrayList<>();
         Post post = postsStorage.getPost(postUUID);
+
         postDto.setPostUUID(post.getUuid());
         postDto.setUsername(post.getOwner().getUsername());
         postDto.setTextPost(post.getText());

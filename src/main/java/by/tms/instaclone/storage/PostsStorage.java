@@ -1,9 +1,6 @@
 package by.tms.instaclone.storage;
 
-import by.tms.instaclone.model.Comment;
-import by.tms.instaclone.model.Post;
-import by.tms.instaclone.model.Reaction;
-import by.tms.instaclone.model.User;
+import by.tms.instaclone.model.*;
 import by.tms.instaclone.utilites.CommentsComparator;
 
 import java.time.Instant;
@@ -233,7 +230,12 @@ public class PostsStorage {
         for(Reaction reaction : reactions) {
             reactionsStorage.deleteReaction(reaction);
         }
-        // todo удалить фото Post'а
+        PhotoStorage photoStorage = PhotoStorage.getInstance();
+        List<Photo> photoList = photoStorage.getAllPhotosPost(post.getUuid());
+        System.out.println(photoList);
+        for(Photo photo : photoList) {
+            photoStorage.deletePhoto(photo);
+        }
     }
 
     private void substitute(Post oldPost, Post newPost) {

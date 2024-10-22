@@ -36,7 +36,6 @@ public class NewPostServlet extends HttpServlet {
         User curUser = (User) req.getSession().getAttribute(CURRENT_USER_ATTRIBUTE);
         Collection<Part> parts = req.getParts();
         String textPost = req.getParameter("textPost");
-        System.out.println(textPost);
         int count = 0;
         for (Part part : parts) {
             count++;
