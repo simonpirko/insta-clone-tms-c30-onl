@@ -103,7 +103,6 @@ public class PhotoStorage {
                 photosPost.add((Photo) entry.getValue());
             }
         }
-        System.out.println(photosPost);
         return photosPost;
     }
 
@@ -153,8 +152,9 @@ public class PhotoStorage {
     }
 
     public void deletePhoto(Photo photo) {
-        System.out.println(photo);
         photos.remove(photo.getUuid());
+        File imageFile = new File(adapter.getPathToOs() + photo.getUuid());
+        imageFile.delete();
         rewrite();
     }
 
