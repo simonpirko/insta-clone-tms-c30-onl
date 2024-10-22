@@ -16,9 +16,9 @@ import java.util.UUID;
  * Класс описывает формирование контента для Пользователя
  */
 public class UserService {
-    final UsersStorage usersStorage = UsersStorage.getInstance();
-    final SubscriptionsStorage subscriptionsStorage = SubscriptionsStorage.getInstance();
-    final UsernamesStorage usernamesStorage = UsernamesStorage.getInstance();
+    private final UsersStorage usersStorage = UsersStorage.getInstance();
+    private final SubscriptionsStorage subscriptionsStorage = SubscriptionsStorage.getInstance();
+    private final UsernamesStorage usernamesStorage = UsernamesStorage.getInstance();
 
     /**
      * Метод формирует контент для HOME_USER_JSP

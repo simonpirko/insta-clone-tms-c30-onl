@@ -16,10 +16,10 @@ import static by.tms.instaclone.storage.KeeperConstants.*;
  * Класс описывает формирование контента Публикатора
  */
 public class PublisherService {
-    final UsersStorage usersStorage = UsersStorage.getInstance();
-    final ReactionsStorage reactionsStorage = ReactionsStorage.getInstance();
-    final PhotoStorage photoStorage = PhotoStorage.getInstance();
-    final PostsStorage postsStorage = PostsStorage.getInstance();
+    private final UsersStorage usersStorage = UsersStorage.getInstance();
+    private final ReactionsStorage reactionsStorage = ReactionsStorage.getInstance();
+    private final PhotoStorage photoStorage = PhotoStorage.getInstance();
+    private final PostsStorage postsStorage = PostsStorage.getInstance();
 
     /**
      * Метод формирует контент для "Карточка Последнего поста Публикатора"
