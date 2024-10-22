@@ -21,8 +21,8 @@ import java.util.UUID;
 
 import static by.tms.instaclone.storage.KeeperConstants.*;
 
-@WebServlet(name = "UserHomeDislikeServlet", value = USER_HOME_DISLIKE_URL)
-public class UserHomeDislikeServlet extends HttpServlet {
+@WebServlet(name = "UserDislikeServlet", value = USER_DISLIKE_URL)
+public class UserDislikeServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -35,8 +35,6 @@ public class UserHomeDislikeServlet extends HttpServlet {
             req.setAttribute("message", "Error! Page not collector!");
             getServletContext().getRequestDispatcher(ERROR_JSP).forward(req, res);
         } else {
-            String nameCurrentUser = userHomePageContent.get().getName();
-            String usernameCurrentUser = userHomePageContent.get().getUsername();
             List<PublisherCardLastPostDto> publishersCards = userHomePageContent.get().getPublishersCards();
             req.setAttribute("content", publishersCards);
             res.sendRedirect(USER_HOME_URL);

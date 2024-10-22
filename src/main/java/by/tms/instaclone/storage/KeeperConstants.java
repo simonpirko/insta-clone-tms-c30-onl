@@ -43,8 +43,8 @@ public class KeeperConstants {
     public static final String REGISTRATION_PATH = "/reg";
     public static final String LOGIN_URL = "/login";
     public static final String USER_HOME_URL = "/user/home";
-    public static final String USER_HOME_LIKE_URL = "/user/home/like";
-    public static final String USER_HOME_DISLIKE_URL = "/user/home/dislike";
+    public static final String USER_LIKE_URL = "/user/like";
+    public static final String USER_DISLIKE_URL = "/user/dislike";
     public static final String USER_NEW_POST_PATH = "/user/newPost";
     public static final String USER_POST_PATH = "/user/post";
     public static final String USER_COMMENT_DELETE_PATH = "/user/comment/delete";
