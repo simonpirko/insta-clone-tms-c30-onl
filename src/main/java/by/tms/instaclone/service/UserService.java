@@ -16,17 +16,20 @@ import java.util.UUID;
  * Класс описывает формирование контента для Пользователя
  */
 public class UserService {
+    final UsersStorage usersStorage = UsersStorage.getInstance();
+    final SubscriptionsStorage subscriptionsStorage = SubscriptionsStorage.getInstance();
+    final UsernamesStorage usernamesStorage = UsernamesStorage.getInstance();
 
     /**
      * Метод формирует контент для HOME_USER_JSP
      */
     public Optional<UserHomePageDto> collectHomePageContent(String usernameOwner) {
         UserHomePageDto userHomePageDto = new UserHomePageDto();
-        UUID uuidOwner = UsernamesStorage.getInstance().getUUID(usernameOwner);
-        User owner = UsersStorage.getInstance().getUser(uuidOwner);
+        UUID uuidOwner = usernamesStorage.getUUID(usernameOwner);
+        User owner = usersStorage.getUser(uuidOwner);
         userHomePageDto.setName(owner.getName());
         userHomePageDto.setUsername(owner.getUsername());
-        List<User> publishers = SubscriptionsStorage.getInstance().getPublishersFollower(owner.getUuid());
+        List<User> publishers = subscriptionsStorage.getPublishersFollower(owner.getUuid());
         List<PublisherCardLastPostDto> publishersCards = new ArrayList<>();
         for (User publisher : publishers) {
             PublisherService content = new PublisherService();
@@ -38,5 +41,4 @@ public class UserService {
         userHomePageDto.setPublishersCards(publishersCards);
         return Optional.of(userHomePageDto);
     }
-
 }
