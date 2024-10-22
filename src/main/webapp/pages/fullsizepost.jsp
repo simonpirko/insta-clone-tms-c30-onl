@@ -76,7 +76,7 @@
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <div>
-                            <form action="/user/post" method="post">
+                            <form action="/user/newComment" method="post">
                                 <input type="hidden" value="${postDto.postUUID}" name="postUUID">
                                 <div class="input-group-sm mb-3 body-tertiary">
                                     <input type="text" class="form-control" name="commentText" placeholder="Write a comment..." aria-label="Write a comment..." aria-describedby="basic-addon1">

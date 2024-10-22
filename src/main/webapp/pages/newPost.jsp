@@ -14,7 +14,7 @@
                     <div class="mb-3">
                         <label for="photosMultiple" class="form-label">Load photos (Maximum 5 photos per post)</label>
                         <input class="form-control" name="photosMultiple" type="file" id="photosMultiple" multiple>
-                        <div style="color: red">${errorMax}</div>
+                        <div style="color: red">${errorMessage}</div>
                         <div id="gallery"></div>
                     </div>
                     <div class="mb-3">
@@ -31,15 +31,15 @@
     function updateImageDisplay() {
         const curFiles = document.getElementById('photosMultiple').files;
         const gallery = document.getElementById('gallery');
-        gallery.innerHTML = ''; // очищаем галерею от прежних миниатюр
+        gallery.innerHTML = '';
 
         for(const file of curFiles) {
             const imageObjectUrl = URL.createObjectURL(file);
             const imgElement = document.createElement('img');
             imgElement.style.maxWidth = '150px';
-            imgElement.src = imageObjectUrl; // каждому изображению свойственно иметь свой URL
+            imgElement.src = imageObjectUrl;
 
-            gallery.appendChild(imgElement); // галерея пополняется с каждой новой загрузкой 🖼️
+            gallery.appendChild(imgElement);
         }
     }
 

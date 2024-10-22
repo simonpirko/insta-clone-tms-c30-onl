@@ -38,18 +38,21 @@ public class NewPostServlet extends HttpServlet {
         String textPost = req.getParameter("textPost");
         int count = 0;
         for (Part part : parts) {
-            count++;
-            if (count >= 7) {
-                req.setAttribute("errorMax", "Maximum 5 photos per post");
-                req.getRequestDispatcher(NEW_POST_JSP).forward(req, resp);
+            if ((part.getName().equals("photosMultiple")) && (part.getSize() > 0) && (part.getContentType().contains("image"))) {
+                count++;
             }
         }
-        Post post = postsStorage.newPost(curUser, textPost);
-        for (Part part : parts) {
-            if (part.getName().equals("photosMultiple")) {
-                photoStorage.addPhoto(post, part);
+        if (count > 5 || count < 1) {
+            req.setAttribute("errorMessage", "Min 1, Max 5 photos per post");
+            req.getRequestDispatcher(NEW_POST_JSP).forward(req, resp);
+        } else {
+            Post post = postsStorage.newPost(curUser, textPost);
+            for (Part part : parts) {
+                if ((part.getName().equals("photosMultiple")) && (part.getSize() > 0) && (part.getContentType().contains("image"))) {
+                    photoStorage.addPhoto(post, part);
+                }
             }
+            resp.sendRedirect(USER_POST_PATH + "?postUUID=" + post.getUuid());
         }
-        resp.sendRedirect(USER_POST_PATH + "?postUUID=" + post.getUuid());
     }
 }

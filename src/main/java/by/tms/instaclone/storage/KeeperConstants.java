@@ -46,6 +46,7 @@ public class KeeperConstants {
     public static final String USER_LIKE_URL = "/user/like";
     public static final String USER_DISLIKE_URL = "/user/dislike";
     public static final String USER_NEW_POST_PATH = "/user/newPost";
+    public static final String USER_NEW_COMMENT_PATH = "/user/newComment";
     public static final String USER_POST_PATH = "/user/post";
     public static final String USER_COMMENT_DELETE_PATH = "/user/comment/delete";
     public static final String USER_POST_DELETE_PATH = "/user/post/delete";
