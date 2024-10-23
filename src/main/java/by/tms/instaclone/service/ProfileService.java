@@ -36,6 +36,7 @@ public class ProfileService {
         for (int i = 0; i < postList.size(); i++) {
             CardProfileDTO cardProfileDTO = new CardProfileDTO();
             Post post = postList.get(i);
+            cardProfileDTO.setPostUUID(String.valueOf(post.getUuid()));
             cardProfileDTO.setTextPostProfile(post.getText());
             cardProfileDTO.setPhotosPost(PhotoStorage.getInstance().getPhotosPost(post.getUuid()));
             cardProfileDTO.setCreateAtPost(post.getCreateAt().format(dateTimeFormatter));

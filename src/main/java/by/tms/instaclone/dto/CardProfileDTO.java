@@ -1,12 +1,22 @@
 package by.tms.instaclone.dto;
 
 import java.util.List;
+import java.util.UUID;
 
 public class CardProfileDTO {
+    private String postUUID;
     private String textPostProfile;
     private String createAtPost;
     private List<String> photosPost;
     private String carouselName;
+
+    public String getPostUUID() {
+        return postUUID;
+    }
+
+    public void setPostUUID(String postUUID) {
+        this.postUUID = postUUID;
+    }
 
     public String getTextPostProfile() {
         return textPostProfile;
