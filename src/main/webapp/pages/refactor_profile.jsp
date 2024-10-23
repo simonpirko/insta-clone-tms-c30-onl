@@ -27,7 +27,7 @@
                 </div>
                 <div class="row g-0">
 
-                    <form class="col-4" action="/user/refactorProfile/setName/${DataProfile.getUsername()}"
+                   <%-- <form class="col-4" action="/user/refactorProfile/setName/${DataProfile.getUsername()}"
                           method="post" enctype="multipart/form-data">
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" placeholder="new Name"
@@ -46,7 +46,7 @@
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2">Sumbit</button>
                         </div>
                     </form>
-                </div>
+                </div>--%>
                 <!-- вставить контент -->
             </div>
         </div>
