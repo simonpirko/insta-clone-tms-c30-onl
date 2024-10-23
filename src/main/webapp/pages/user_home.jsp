@@ -52,7 +52,7 @@
                             </button>
                         </div>
                         <ul class="pagination">
-                            <form action="/user/home/like" method="post">
+                            <form action="/user/like" method="post">
                                 <input type="hidden" value="${contentValue.uuidPost}" name="uuidPost">
                                 <c:if test="${contentValue.countLikeLastPost > 0}">
                                     <c:if test="${contentValue.valueReaction == 'like'}">
@@ -77,7 +77,7 @@
                                     </button>
                                 </c:if>
                             </form>
-                            <form action="/user/home/dislike" method="post">
+                            <form action="/user/dislike" method="post">
                                 <input type="hidden" value="${contentValue.uuidPost}" name="uuidPost">
                                 <c:if test="${contentValue.countDislikeLastPost > 0}">
                                     <c:if test="${contentValue.valueReaction == 'dislike'}">

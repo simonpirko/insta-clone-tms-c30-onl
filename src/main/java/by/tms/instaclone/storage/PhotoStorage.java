@@ -1,10 +1,12 @@
 package by.tms.instaclone.storage;
 
+import by.tms.instaclone.model.Comment;
 import by.tms.instaclone.model.Photo;
 import by.tms.instaclone.model.Post;
 import by.tms.instaclone.model.User;
 import by.tms.instaclone.utilites.Adapter;
 
+import static by.tms.instaclone.storage.Deleter.deleteContentCsvFile;
 import static by.tms.instaclone.storage.KeeperConstants.*;
 import static by.tms.instaclone.storage.Reader.readCsvFile;
 import static by.tms.instaclone.storage.Writer.writeCsvFile;
@@ -54,19 +56,14 @@ public class PhotoStorage {
     }
 
     public void addPhoto(Post post, Part image) throws IOException {
-        String[] format = image.getContentType().split("/");
-        if (format[0].equals("image")) {
-            byte[] ImageInByte = image.getInputStream().readAllBytes();
-            Photo photo = new Photo(post, ImageInByte);
-            photos.put(photo.getUuid(), photo);
-            saveImage(photo.getUuid(), ImageInByte);
-            String rowText = PHOTO_CSV_FORMAT_TEMPLATE.formatted(photo.getUuid(), post.getUuid(), photo.getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli()/1000);
-            writeCsvFile(PHOTOS_CSV_FILE, rowText);
-
-        } else {
-            //Здесь покажем пользователю что файл не валиден.
-        }
+        byte[] ImageInByte = image.getInputStream().readAllBytes();
+        Photo photo = new Photo(post, ImageInByte);
+        photos.put(photo.getUuid(), photo);
+        saveImage(photo.getUuid(), ImageInByte);
+        String rowText = PHOTO_CSV_FORMAT_TEMPLATE.formatted(photo.getUuid(), post.getUuid(), photo.getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli()/1000);
+        writeCsvFile(PHOTOS_CSV_FILE, rowText);
     }
+
     public void addAvatar(User user, Part image) throws IOException {
         String[] format = image.getContentType().split("/");
         if (format[0].equals("image")) {
@@ -94,6 +91,16 @@ public class PhotoStorage {
                 String uuidPhoto = photo.getUuid().toString();
                 Optional<byte[]> imageInByte = getBytePhoto(uuidPhoto);
                 imageInByte.ifPresent(bytes -> photosPost.add(Base64.getEncoder().encodeToString(bytes)));
+            }
+        }
+        return photosPost;
+    }
+
+    public List<Photo> getAllPhotosPost(UUID postUUID) {
+        List<Photo> photosPost = new ArrayList<>();
+        for (Map.Entry entry: photos.entrySet()) {
+            if (((Photo) entry.getValue()).getPost().getUuid().equals(postUUID)) {
+                photosPost.add((Photo) entry.getValue());
             }
         }
         return photosPost;
@@ -128,8 +135,9 @@ public class PhotoStorage {
             return Optional.empty();
         }
     }
+
     public Optional<byte[]> getByteAvatar(String userUUID) {  //Временное очень печальное решение
-String photoID = userUUID.toString();
+    String photoID = userUUID.toString();
 
         if (Files.exists(Path.of(adapter.getPathToOs().concat(photoID)))) {
 
@@ -141,5 +149,24 @@ String photoID = userUUID.toString();
         } else {
             return Optional.empty();
         }
+    }
+
+    public void deletePhoto(Photo photo) {
+        photos.remove(photo.getUuid());
+        File imageFile = new File(adapter.getPathToOs() + photo.getUuid());
+        imageFile.delete();
+        rewrite();
+    }
+
+    private void rewrite() {
+        StringBuilder contentPhotosStorage = new StringBuilder();
+        for (Map.Entry entry: photos.entrySet()) {
+            contentPhotosStorage.append(((Photo) entry.getValue()).getUuid().toString()).append(SEPARATOR_CSV)
+                    .append(((Photo) entry.getValue()).getPost().getUuid().toString()).append(SEPARATOR_CSV)
+                    .append(((Photo) entry.getValue()).getCreateAt().toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli()/1000).append(SEPARATOR_CSV)
+                    .append(LF);
+        }
+        deleteContentCsvFile(PHOTOS_CSV_FILE);
+        writeCsvFile(PHOTOS_CSV_FILE, contentPhotosStorage.toString());
     }
 }

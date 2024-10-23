@@ -27,17 +27,4 @@ public class PostServlet extends HttpServlet {
         getServletContext().getRequestDispatcher(POST_JSP).forward(req, resp);
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        User curUser = (User) req.getSession().getAttribute(CURRENT_USER_ATTRIBUTE);
-        String commentText = req.getParameter("commentText");
-        UUID postUUID = UUID.fromString(req.getParameter("postUUID"));
-        if (commentText == null || commentText.isEmpty() || commentText.isBlank()) {
-            resp.sendRedirect(USER_POST_PATH + "?postUUID=" + String.valueOf(postUUID));
-        } else {
-            PostService postService = new PostService();
-            Post post = postService.setComment(postUUID, commentText, curUser);
-            resp.sendRedirect(USER_POST_PATH + "?postUUID=" + post.getUuid());
-        }
-    }
 }

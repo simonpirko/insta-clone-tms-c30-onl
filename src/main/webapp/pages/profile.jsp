@@ -81,10 +81,7 @@
                 <c:forEach items="${profileDTO.getCardProfileDTOS()}" var="post">
                     <div class="card" style="width: 22rem;">
                         <div class="card-body">
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">${post.getCreateAtPost()}</li>
-                                <li class="list-group-item">${post.getTextPostProfile()}</li>
-                            </ul>
+                            <a href="/user/post?postUUID=${post.postUUID}">${post.getCreateAtPost()}</a>
                         </div>
                         <div id="${post.getCarouselName()}" class="carousel slide">
                             <div class="carousel-inner">
