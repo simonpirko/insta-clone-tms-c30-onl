@@ -4,6 +4,7 @@ import by.tms.instaclone.dto.CommentsDto;
 import by.tms.instaclone.dto.PostDto;
 import by.tms.instaclone.model.Comment;
 import by.tms.instaclone.model.Post;
+import by.tms.instaclone.model.Reaction;
 import by.tms.instaclone.model.User;
 import by.tms.instaclone.storage.CommentsStorage;
 import by.tms.instaclone.storage.PhotoStorage;
@@ -14,6 +15,7 @@ import by.tms.instaclone.utilites.CommentsComparator;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static by.tms.instaclone.storage.KeeperConstants.DATE_TIME_CREATE_POST_TEMPLATE;
@@ -29,8 +31,20 @@ public class PostService {
     public PostDto getContent(UUID postUUID) {
         PostDto postDto = new PostDto();
         List<CommentsDto> commentsDtoList = new ArrayList<>();
+        List<Reaction> reactionList = reactionsStorage.getAllReactionPost(postUUID);
         Post post = postsStorage.getPost(postUUID);
 
+        int countLikes = 0;
+        int countDislikes = 0;
+        for (Reaction reaction : reactionList) {
+            if (reaction.isTypeReaction()) {
+                countLikes++;
+            } else {
+                countDislikes++;
+            }
+        }
+        postDto.setLikes(countLikes);
+        postDto.setDislikes(countDislikes);
         postDto.setPostUUID(post.getUuid());
         postDto.setUsername(post.getOwner().getUsername());
         postDto.setTextPost(post.getText());
@@ -68,5 +82,25 @@ public class PostService {
     public void deletePost(UUID postUUID) {
         Post post = postsStorage.getPost(postUUID);
         postsStorage.deletePost(post);
+    }
+
+    public void reactionPost(UUID postUUID, User user, Boolean typeReaction) {
+        Post post = postsStorage.getPost(postUUID);
+        Optional<UUID> uuidReaction = reactionsStorage.findUuidReaction(postUUID, user.getUuid());
+        String reaction = reactionsStorage.seeReaction(postUUID, user.getUuid());
+        String  temp;
+        if (typeReaction) {
+            temp = "like";
+        } else {
+            temp = "dislike";
+        }
+        if (reaction.equals("none")) {
+            reactionsStorage.newReaction(post,user,typeReaction);
+        } else if (uuidReaction.isPresent()) {
+            if (reaction.equals(temp)) {
+                reactionsStorage.deleteReaction(reactionsStorage.getReaction(uuidReaction.get()));
+            } else {
+                reactionsStorage.changeReaction(reactionsStorage.getReaction(uuidReaction.get()), typeReaction);            }
+        }
     }
 }

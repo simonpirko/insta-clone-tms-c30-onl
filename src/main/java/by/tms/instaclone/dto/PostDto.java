@@ -16,6 +16,24 @@ public class PostDto {
    private List<Reaction> reactions;
    private List<CommentsDto> comments;
    private List<String> photos;
+   private int likes;
+   private int dislikes;
+
+   public int getLikes() {
+      return likes;
+   }
+
+   public void setLikes(int likes) {
+      this.likes = likes;
+   }
+
+   public int getDislikes() {
+      return dislikes;
+   }
+
+   public void setDislikes(int dislikes) {
+      this.dislikes = dislikes;
+   }
 
    public UUID getPostUUID() {
       return postUUID;
