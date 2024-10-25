@@ -25,7 +25,7 @@
             </div>
             <div class="row justify-content-center">
                 <p class="fs-5">Enter your name, login and password</p>
-                <form class="col-4" action="/reg" method="post">
+                <form class="col-4" action="/reg" method="post" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Name</label>
                         <input type="text" name="name" class="form-control" id="exampleInputEmail1" value="${name}">
@@ -41,7 +41,13 @@
                         <input type="password" name="password" class="form-control" id="exampleInputPassword1" value="${password}">
                         <div style="color: red">${errorPassword}</div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Registration</button>
+                    <div class="mb-3">
+                        <label for="formFile" class="form-label">Add your avatar</label>
+                        <input class="form-control" name="avatar" type="file" id="formFile">
+                    </div>
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-primary">Registration</button>
+                    </div>
                 </form>
                 <p class="fs-5">Already have an account?</p>
                 <a href="/login">login</a>
