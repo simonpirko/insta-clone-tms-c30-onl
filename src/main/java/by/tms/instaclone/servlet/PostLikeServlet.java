@@ -23,6 +23,7 @@ public class PostLikeServlet extends HttpServlet {
         PostService postService = new PostService();
         String postUUID = req.getParameter("postUUID");
         postService.reactionPost(UUID.fromString(postUUID), curUser, true);
+        System.out.println("UserLikeServlet: " +req.getRequestURI());
         resp.sendRedirect(USER_POST_PATH + "?postUUID=" + String.valueOf(postUUID));
     }
 }

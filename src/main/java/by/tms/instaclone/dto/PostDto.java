@@ -13,11 +13,20 @@ public class PostDto {
    private String username;
    private String textPost;
    private String createdAt;
+   private String urlPublisher;
    private List<Reaction> reactions;
    private List<CommentsDto> comments;
    private List<String> photos;
    private int likes;
    private int dislikes;
+
+   public String getUrlPublisher() {
+      return urlPublisher;
+   }
+
+   public void setUrlPublisher(String urlPublisher) {
+      this.urlPublisher = urlPublisher;
+   }
 
    public int getLikes() {
       return likes;

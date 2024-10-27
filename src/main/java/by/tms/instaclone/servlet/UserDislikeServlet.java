@@ -4,7 +4,7 @@ import by.tms.instaclone.dto.PublisherCardLastPostDto;
 import by.tms.instaclone.dto.UserHomePageDto;
 import by.tms.instaclone.model.Post;
 import by.tms.instaclone.model.User;
-import by.tms.instaclone.service.UserService;
+import by.tms.instaclone.service.UserHomeService;
 import by.tms.instaclone.storage.PostsStorage;
 import by.tms.instaclone.storage.ReactionsStorage;
 
@@ -30,7 +30,8 @@ public class UserDislikeServlet extends HttpServlet {
         String uuidPost = req.getParameter("uuidPost");
         Post post = PostsStorage.getInstance().getPost(UUID.fromString(uuidPost));
         ReactionsStorage.getInstance().newReaction(post, currentUser, DISLIKE);
-        Optional<UserHomePageDto> userHomePageContent = new UserService().collectHomePageContent(currentUser.getUsername());
+        if (req.getSession().getAttribute(CURRENT_PAGE) == USER_HOME_URL){
+        Optional<UserHomePageDto> userHomePageContent = new UserHomeService().collectHomePageContent(currentUser.getUsername());
         if (userHomePageContent.isEmpty()) {
             req.setAttribute("message", "Error! Page not collector!");
             getServletContext().getRequestDispatcher(ERROR_JSP).forward(req, res);
@@ -39,5 +40,9 @@ public class UserDislikeServlet extends HttpServlet {
             req.setAttribute("content", publishersCards);
             res.sendRedirect(USER_HOME_URL);
         }
+    } else if(req.getSession().getAttribute(CURRENT_PAGE) == USER_SEARCH_URL) {
+            req.getSession().setAttribute(CURRENT_PAGE,USER_DISLIKE_URL);
+        res.sendRedirect(USER_SEARCH_URL);
+    }
     }
 }

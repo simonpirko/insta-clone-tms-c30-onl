@@ -1,4 +1,4 @@
-package by.tms.instaclone.DTOs;
+package by.tms.instaclone.dto;
 
 public class UserDTO {
     private String username;

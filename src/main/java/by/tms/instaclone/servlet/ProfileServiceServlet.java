@@ -15,7 +15,6 @@ import javax.servlet.http.Part;
 import java.io.IOException;
 
 import static by.tms.instaclone.storage.KeeperConstants.CURRENT_USER_ATTRIBUTE;
-@MultipartConfig
 @WebServlet("/user/profileService/*")
 public class ProfileServiceServlet extends HttpServlet {
     @Override
