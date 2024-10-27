@@ -42,6 +42,9 @@
                         <div style="color: red">${errorPassword}</div>
                     </div>
                     <div class="mb-3">
+                        <div style="color: red">${message}</div>
+                    </div>
+                    <div class="mb-3">
                         <label for="formFile" class="form-label">Add your avatar</label>
                         <input class="form-control" name="avatar" type="file" id="formFile">
                     </div>
