@@ -50,4 +50,12 @@ public class SearchService {
         }
         return posts;
     }
+    public List<PostDto> updateDTO(List<PostDto> posts) {
+        List<PostDto> updatedPosts = new ArrayList<>();
+        PostService postService = new PostService();
+        for (PostDto postDto : posts) {
+           updatedPosts.add(postService.getContent(postDto.getPostUUID()));
+        }
+       return updatedPosts;
+    }
 }

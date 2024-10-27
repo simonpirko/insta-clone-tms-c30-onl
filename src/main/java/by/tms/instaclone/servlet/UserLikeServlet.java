@@ -1,9 +1,12 @@
 package by.tms.instaclone.servlet;
 
+import by.tms.instaclone.dto.PostDto;
 import by.tms.instaclone.dto.PublisherCardLastPostDto;
 import by.tms.instaclone.dto.UserHomePageDto;
 import by.tms.instaclone.model.Post;
 import by.tms.instaclone.model.User;
+import by.tms.instaclone.service.PostService;
+import by.tms.instaclone.service.SearchService;
 import by.tms.instaclone.service.UserHomeService;
 import by.tms.instaclone.storage.PostsStorage;
 import by.tms.instaclone.storage.ReactionsStorage;
@@ -42,6 +45,9 @@ public class UserLikeServlet extends HttpServlet {
             }
         } else if(req.getSession().getAttribute(CURRENT_PAGE) == USER_SEARCH_URL) {
             req.getSession().setAttribute(CURRENT_PAGE,USER_LIKE_URL);
+            List<PostDto> result = (List<PostDto>) req.getSession().getAttribute("result");
+            List<PostDto> updateResult = SearchService.getInstance().updateDTO(result);
+            req.getSession().setAttribute("result",updateResult);
             res.sendRedirect(USER_SEARCH_URL);
         }
     }
