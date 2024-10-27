@@ -3,6 +3,7 @@ package by.tms.instaclone.servlet;
 import by.tms.instaclone.dto.UserDTO;
 import by.tms.instaclone.model.User;
 import by.tms.instaclone.service.ListPeoplesService;
+import by.tms.instaclone.storage.UsersStorage;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,14 +16,15 @@ import java.util.List;
 
 import static by.tms.instaclone.storage.KeeperConstants.*;
 
-@WebServlet(USER_RECOMMENDATIONS_PATH)
-public class RecommendationsServlet extends HttpServlet {
+@WebServlet(USER_SUBSCRIBER_PATH)
+public class SubscriberServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        User curUser = (User) req.getSession().getAttribute(CURRENT_USER_ATTRIBUTE);
+        UsersStorage usersStorage = UsersStorage.getInstance();
+        User curUser = usersStorage.getUser(req.getParameter("curUser"));
         ListPeoplesService listPeoplesService = new ListPeoplesService();
-        List<UserDTO> userDTOS = listPeoplesService.searchRecommendations(curUser);
+        List<UserDTO> userDTOS = listPeoplesService.searchSubscriber(curUser);
         req.setAttribute("userDTOS", userDTOS);
         getServletContext().getRequestDispatcher(LIST_PEOPLES_JSP).forward(req, resp);
     }

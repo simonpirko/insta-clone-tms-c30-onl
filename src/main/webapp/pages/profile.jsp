@@ -33,11 +33,11 @@
                                 <a class="nav-link disabled" aria-disabled="true">${countPostProfile} posts</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">${countSubscriberProfile} Subscription </a>
+                                <a class="nav-link" href="/user/subscriber?curUser=${usernameProfile}">${countSubscriberProfile} Subscription </a>
                                 <!--вставить ссылку на лист пользователей на которых подписан профиль(пользователь)-->
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">${countSubscriptionProfile} Subscriber</a>
+                                <a class="nav-link" href="/user/subscription?curUser=${usernameProfile}">${countSubscriptionProfile} Subscriber</a>
                                 <!--вставить ссылку на лист пользователей которые подписаны на профиль(пользователя)-->
                             </li>
                         </ul>

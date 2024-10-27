@@ -11,11 +11,11 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class RecommendationsService {
+public class ListPeoplesService {
 
     SubscriptionsStorage subscriptionsStorage = SubscriptionsStorage.getInstance();
 
-    public List<UserDTO> searchUsers(User currentUser) {
+    public List<UserDTO> searchRecommendations(User currentUser) {
         List<UserDTO> users = new ArrayList<>();
         UserService userService = new UserService();
         ConcurrentHashMap<UUID, User> userMap = UsersStorage.getInstance().getUsers();
@@ -28,14 +28,35 @@ public class RecommendationsService {
         Collections.shuffle(users);
         List<UserDTO> result = new ArrayList<>();
         int count = 0;
-        for (int i = 0; i < users.size(); i++) {
+        for (UserDTO user : users) {
             count++;
-            result.add(users.get(i));
+            result.add(user);
             if (count == 10) {
                 break;
             }
         }
         return result;
     }
+
+    public List<UserDTO> searchSubscription(User currentUser) {
+        List<UserDTO> users = new ArrayList<>();
+        UserService userService = new UserService();
+        List<User> subscriptions = subscriptionsStorage.getFollowersPublisher(currentUser.getUuid());
+        for (User user : subscriptions) {
+            users.add(userService.getUserByUsername(user.getUsername()).get());
+        }
+        return users;
+    }
+
+    public List<UserDTO> searchSubscriber(User currentUser) {
+        List<UserDTO> users = new ArrayList<>();
+        UserService userService = new UserService();
+        List<User> subscriptions = subscriptionsStorage.getPublishersFollower(currentUser.getUuid());
+        for (User user : subscriptions) {
+            users.add(userService.getUserByUsername(user.getUsername()).get());
+        }
+        return users;
+    }
+
 
 }

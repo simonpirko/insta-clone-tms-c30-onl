@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title page</title> <!-- вставить название страницы -->
+    <title>Recommendations page</title> <!-- вставить название страницы -->
 </head>
 <body>
 <jsp:include page="_bootstrap.jsp"/>
