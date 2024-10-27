@@ -45,11 +45,9 @@
                                         <a href="${resultValue.urlPublisher}"
                                            class="card-link">${resultValue.username}</a>
                                         <p class="card-text invisible">space</p>
-                                        <c:forEach items="${resultValue.createdAt}" var="text">
                                             <p class="card-text">Time create post:</p>
                                             <p class="card-text invisible">_</p>
-                                            <p class="card-text">${resultValue.textPost}</p>
-                                        </c:forEach>
+                                            <p class="card-text">${resultValue.createdAt}</p>
                                     </ul>
                                     <c:forEach items="${resultValue.textPost}" var="textPost">
                                         <p class="card-text">${resultValue.textPost}</p>
@@ -81,21 +79,9 @@
                                     <form action="/user/like" name="SearchPostForm" method="post">
                                         <input type="hidden" value="${resultValue.postUUID}" name="uuidPost">
                                         <c:if test="${resultValue.likes > 0}">
-                                            <c:if test="${resultValue.reactions == 'like'}">
                                                 <button type="submit"
                                                         class="btn btn-outline-info btn-xs disabled"
                                                         name="button">Like - ${resultValue.likes}</button>
-                                            </c:if>
-                                            <c:if test="${resultValue.reactions == 'dislike'}">
-                                                <button type="submit"
-                                                        class="btn btn-outline-primary btn-xs"
-                                                        name="button">Like - ${resultValue.dislikes}</button>
-                                            </c:if>
-                                            <c:if test="${resultValue.reactions == 'none'}">
-                                                <button type="submit"
-                                                        class="btn btn-outline-primary btn-xs"
-                                                        name="button">Like - ${resultValue.likes}</button>
-                                            </c:if>
                                         </c:if>
                                         <c:if test="${resultValue.likes <= 0}">
                                             <button type="submit" class="btn btn-outline-primary btn-xs"
@@ -106,18 +92,8 @@
                                     <form action="/user/dislike" name="SearchPostForm" method="post">
                                         <input type="hidden" value="${resultValue.postUUID}" name="uuidPost">
                                         <c:if test="${resultValue.dislikes > 0}">
-                                            <c:if test="${resultValue.reactions == 'dislike'}">
                                                 <button type="submit" class="btn btn-outline-info btn-xs disabled"
                                                         name="button">Dislike - ${resultValue.dislikes}</button>
-                                            </c:if>
-                                            <c:if test="${resultValue.reactions == 'like'}">
-                                                <button type="submit" class="btn btn-outline-primary btn-xs"
-                                                        name="button">Dislike - ${resultValue.dislikes}</button>
-                                            </c:if>
-                                            <c:if test="${resultValue.reactions == 'none'}">
-                                                <button type="submit" class="btn btn-outline-primary btn-xs"
-                                                        name="button">Dislike - ${resultValue.likes}</button>
-                                            </c:if>
                                         </c:if>
                                         <c:if test="${resultValue.dislikes <= 0}">
                                             <button type="submit" class="btn btn-outline-primary btn-xs"

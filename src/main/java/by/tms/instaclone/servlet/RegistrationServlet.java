@@ -20,7 +20,6 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static by.tms.instaclone.storage.KeeperConstants.*;
-
 @MultipartConfig
 @WebServlet(name = "RegistrationServlet", value = REGISTRATION_PATH)
 public class RegistrationServlet extends HttpServlet {
@@ -38,15 +37,13 @@ public class RegistrationServlet extends HttpServlet {
         String name = req.getParameter("name");
         String username = req.getParameter("username");
         String password = req.getParameter("password");
-        Part avatar = req.getPart("avatar");
+
         if (ValidateData.validateName(name) && ValidateData.validateUsername(username) && ValidateData.validatePassword(password)) {
             ConcurrentHashMap<String, UUID> usernames = UsernamesStorage.getInstance().getUsernames();
             if(usernames.get(username)==null){
-                usersStorage.newUser(name,username,password);
-                if(avatar!=null){
-                    User user=usersStorage.getUser(username);
-                    PhotoStorage.getInstance().addAvatar(user, avatar);
-                }
+                User user = usersStorage.newUser(name,username,password);
+                Part avatar = req.getPart("avatar");
+                PhotoStorage.getInstance().addAvatar(user, avatar);
                 resp.sendRedirect(LOGIN_URL);
             } else {
                 req.setAttribute("message","Username already exists");

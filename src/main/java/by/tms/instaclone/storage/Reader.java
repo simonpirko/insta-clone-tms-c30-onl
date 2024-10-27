@@ -21,7 +21,7 @@ public class Reader {
      */
     public static Optional<String> readCsvFile(String nameFile) {
         // todo пробую решить проблему с путями файла
-        ClassLoader classLoader = Reader.class.getClassLoader();
+          ClassLoader classLoader = Reader.class.getClassLoader();
 //        String fileName = "db/user.csv";
         File csvFile = new File(Objects.requireNonNull(classLoader.getResource(nameFile)).getFile());
         //File csvFile = new File(Reader.class.getProtectionDomain().getCodeSource().getLocation().getPath().concat(nameFile));

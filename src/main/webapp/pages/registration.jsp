@@ -45,7 +45,7 @@
                         <div style="color: red">${message}</div>
                     </div>
                     <div class="mb-3">
-                        <label for="formFile" class="form-label">Add your avatar</label>
+                        <label for="formFile" class="form-label">SET AVATAR</label>
                         <input class="form-control" name="avatar" type="file" id="formFile">
                     </div>
                     <div class="mb-3">

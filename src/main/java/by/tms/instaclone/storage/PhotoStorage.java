@@ -124,8 +124,8 @@ public class PhotoStorage {
      */
     public Optional<byte[]> getBytePhoto(String photoID) {
 
-        Path pathToImage = Path.of(adapter.getPathToOs().concat(photoID));
-        if (Files.exists(pathToImage)) {
+         Path pathToImage = Path.of(adapter.getPathToOs().concat(photoID));
+         if (Files.exists(pathToImage)) {
             try {
                 return Optional.ofNullable(Files.readAllBytes(pathToImage));
             } catch (IOException e) {
