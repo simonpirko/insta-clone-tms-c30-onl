@@ -1,6 +1,8 @@
 
 package by.tms.instaclone.servlet;
 
+import by.tms.instaclone.model.User;
+import by.tms.instaclone.storage.PhotoStorage;
 import by.tms.instaclone.storage.UsernamesStorage;
 import by.tms.instaclone.storage.UsersStorage;
 
@@ -11,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import java.io.IOException;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -33,10 +36,15 @@ public class RegistrationServlet extends HttpServlet {
         String name = req.getParameter("name");
         String username = req.getParameter("username");
         String password = req.getParameter("password");
+        Part avatar = req.getPart("avatar");
         if (ValidateData.validateName(name) && ValidateData.validateUsername(username) && ValidateData.validatePassword(password)) {
             ConcurrentHashMap<String, UUID> usernames = UsernamesStorage.getInstance().getUsernames();
             if(usernames.get(username)==null){
                 usersStorage.newUser(name,username,password);
+                if(avatar!=null){
+                    User user=usersStorage.getUser(username);
+                    PhotoStorage.getInstance().addAvatar(user, avatar);
+                }
                 resp.sendRedirect(LOGIN_URL);
             } else {
                 req.setAttribute("message","Username already exists");
