@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static by.tms.instaclone.storage.KeeperConstants.DATE_TIME_CREATE_POST_TEMPLATE;
+import static by.tms.instaclone.storage.KeeperConstants.*;
 
 public class PostService {
 
@@ -43,10 +43,12 @@ public class PostService {
                 countDislikes++;
             }
         }
+        String username = post.getOwner().getUsername();
         postDto.setLikes(countLikes);
         postDto.setDislikes(countDislikes);
         postDto.setPostUUID(post.getUuid());
-        postDto.setUsername(post.getOwner().getUsername());
+        postDto.setUsername(username);
+        postDto.setUrlPublisher(USER_PROFILE_URL + SLAGE + username);
         postDto.setTextPost(post.getText());
         postDto.setCreatedAt(post.getCreateAt().format(dateTimeFormatter));
 

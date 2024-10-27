@@ -4,6 +4,8 @@ import java.util.regex.Pattern;
 
 public class KeeperConstants {
     public static final String CURRENT_USER_ATTRIBUTE = "currentUser";
+    public static final String CURRENT_PAGE = "lastPage";
+    public static final String CURRENT_SEARCH = "lastSearch";
     public static final String CURRENT_USER_AVATAR_ATTRIBUTE = "currentUserAvatar";
 
     public static final String LF = "\n";
@@ -68,7 +70,7 @@ public class KeeperConstants {
     public static final String DISLIKE_REACTION = "dislike";
     public static final String NONE_REACTION = "none";
 
-    public static final Pattern NAME_REGEX = Pattern.compile("^[a-zA-Z]{2,15}$");
+    public static final Pattern NAME_REGEX = Pattern.compile("^[a-zA-Z_]{2,30}$");
     public static final Pattern USERNAME_REGEX = Pattern.compile("^[a-zA-Z0-9]{2,15}$");
     public static final Pattern PASSWORD_REGEX = Pattern.compile("([a-zA-Z0-9!@$%^&*()_\\-+]){8,}");
 
