@@ -39,7 +39,6 @@ public class PhotoStorage {
 
     private PhotoStorage() {
         photos = new ConcurrentHashMap<>();
-        System.out.println(PHOTOS_CSV_FILE);
         Optional<String> fileString = readCsvFile(PHOTOS_CSV_FILE);
         if (fileString.get().length() > 0) {
             String[] arrayRows = fileString.get().split(LF);

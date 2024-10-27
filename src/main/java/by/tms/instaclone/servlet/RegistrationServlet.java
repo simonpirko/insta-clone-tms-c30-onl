@@ -9,6 +9,7 @@ import by.tms.instaclone.storage.UsersStorage;
 import by.tms.instaclone.utilites.ValidateData;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import static by.tms.instaclone.storage.KeeperConstants.*;
 
+@MultipartConfig
 @WebServlet(name = "RegistrationServlet", value = REGISTRATION_PATH)
 public class RegistrationServlet extends HttpServlet {
 
