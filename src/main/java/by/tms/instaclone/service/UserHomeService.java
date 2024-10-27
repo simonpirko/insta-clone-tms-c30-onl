@@ -34,7 +34,7 @@ public class UserHomeService {
         for (User publisher : publishers) {
             PublisherService content = new PublisherService();
             Optional<PublisherCardLastPostDto> publisherCard = content.collectLastPost(owner.getUuid(), publisher.getUuid());
-            if (!publisherCard.isEmpty()) {
+            if ((!publisherCard.isEmpty()) && (!publisherCard.get().getPhotosLastPost().isEmpty())) {
                 publishersCards.add(publisherCard.get());
             }
         }
