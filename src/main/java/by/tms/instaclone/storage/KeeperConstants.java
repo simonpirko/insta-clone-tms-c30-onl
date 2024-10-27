@@ -39,6 +39,7 @@ public class KeeperConstants {
     public static final String PROFILE_JSP = "/pages/profile.jsp";
     public static final String LOGIN_JSP = "/pages/login.jsp";
     public static final String NEW_POST_JSP = "/pages/newPost.jsp";
+    public static final String RECOMMENDATIONS_JSP = "/pages/recommendations.jsp";
     public static final String POST_JSP = "/pages/fullsizepost.jsp";
     public static final String ERROR_JSP = "/pages/error.jsp";
 
@@ -49,6 +50,7 @@ public class KeeperConstants {
     public static final String USER_DISLIKE_URL = "/user/dislike";
     public static final String USER_NEW_POST_PATH = "/user/newPost";
     public static final String USER_NEW_COMMENT_PATH = "/user/newComment";
+    public static final String USER_RECOMMENDATIONS_PATH = "/user/recommendations";
     public static final String USER_POST_PATH = "/user/post";
     public static final String USER_POST_LIKE_PATH = "/user/post/like";
     public static final String USER_POST_DISLIKE_PATH = "/user/post/dislike";
