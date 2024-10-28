@@ -16,16 +16,6 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="/user/search" class="nav-link px-0 align-middle">
-                                    <img width="32px" height="32px" src="https://st3.depositphotos.com/1507819/32085/v/450/depositphotos_320853210-stock-illustration-magnifier-vector-icon-on-black.jpg">
-                                    <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Search</span>
-                                </a>
-                            </li>
-                            <form class="d-flex" action="/user/search" method="Post">
-                                <input class="form-control me-2" type="search" name="request" placeholder="Search" aria-label="Search">
-                                <button class="btn btn-outline-success" type="submit">Search</button>
-                            </form>
-                            <li>
                                 <a href="/user/newPost" class="nav-link px-0 align-middle">
                                     <img width="32px" height="32px" src="https://us.123rf.com/450wm/piren/piren1703/piren170301332/74444943-%D0%B7%D0%BD%D0%B0%D1%87%D0%BE%D0%BA-%C2%AB%D0%BF%D0%BB%D1%8E%D1%81%C2%BB-%D0%BD%D0%B0-%D1%87%D0%B5%D1%80%D0%BD%D0%BE%D0%BC-%D1%84%D0%BE%D0%BD%D0%B5.jpg">
                                     <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">New post</span>
@@ -37,8 +27,41 @@
                                     <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Profile</span>
                                 </a>
                             </li>
+                            <li>
+                                <a href="/user/recommendations?currentUser=${currentUser.username}" class="nav-link px-0 align-middle">
+                                    <img width="32px" height="32px" src="https://media.istockphoto.com/id/656121894/ru/%D0%B2%D0%B5%D0%BA%D1%82%D0%BE%D1%80%D0%BD%D0%B0%D1%8F/%D0%B3%D1%80%D1%83%D0%BF%D0%BF%D0%B0-%D0%BB%D1%8E%D0%B4%D0%B5%D0%B9-%D0%B7%D0%BD%D0%B0%D1%87%D0%BE%D0%BA-%D1%87%D0%B5%D1%80%D0%BD%D1%8B%D0%B9-%D1%84%D0%BE%D0%BD.jpg?s=170667a&w=0&k=20&c=FH9rH9jRAOQgJyY3mf4Al3DQ-zopg702aU70LDN9Dxw=">
+                                    <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Recommendations</span>
+                                </a>
+                            </li>
+                            <li>
+                                <form class="d-flex" action="/user/search" method="Post">
+                                    <div class="container">
+                                        <input class="form-control me-2" type="search" name="keyword" placeholder="Search"
+                                               aria-label="Search">
+                                        <div class="row">
+                                            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                                <input type="radio" class="btn-check" name="btnradio" value="users" id="btnradio1"
+                                                       autocomplete="off" checked>
+                                                <label class="btn btn-outline-primary" for="btnradio1">
+                                                    <img src="https://www.citypng.com/public/uploads/preview/white-user-member-guest-icon-png-image-701751695037005zdurfaim0y.png"
+                                                         alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+                                                    Users
+                                                </label>
+
+                                                <input type="radio" class="btn-check" name="btnradio" value="posts" id="btnradio2"
+                                                       autocomplete="off">
+                                                <label class="btn btn-outline-primary" for="btnradio2">
+                                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUMUlHga7xgNxM2E8CxJIG8_VdJf_n5itqLk5Nv5uKKXpG-2znXgjOjrhrPIBOsYgySM0&usqp=CAU"
+                                                         alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+                                                    Posts
+                                                </label>
+                                                <button class="btn btn-outline-success" type="submit">Search</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </li>
                         </ul>
-                        <hr>
                         <div class="dropdown pb-4">
                             <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                                 <img src="data:image/jpeg;base64,${currentUserAvatar}" alt="hugenerd" width="30" height="30" class="rounded-circle">

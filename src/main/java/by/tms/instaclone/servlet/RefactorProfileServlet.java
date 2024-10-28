@@ -16,9 +16,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.IOException;
+import java.util.Base64;
 import java.util.Optional;
 
 import static by.tms.instaclone.storage.KeeperConstants.CURRENT_USER_ATTRIBUTE;
+import static by.tms.instaclone.storage.KeeperConstants.CURRENT_USER_AVATAR_ATTRIBUTE;
 
 @MultipartConfig
 @WebServlet("/user/refactorProfile/*")
@@ -48,6 +50,9 @@ public class RefactorProfileServlet extends HttpServlet {
             case "setAvatar":
                 Part avatar = req.getPart("avatar");
                 PhotoStorage.getInstance().addAvatar(user, avatar);
+                Optional<byte []> image = PhotoStorage.getInstance().getByteAvatar(user.getUuid().toString());
+                String newAvatar = Base64.getEncoder().encodeToString(image.get());
+                req.getSession().setAttribute(CURRENT_USER_AVATAR_ATTRIBUTE, newAvatar);
                 resp.sendRedirect("/user/refactorProfile/" + user.getUsername());
                 break;
             case "setName":

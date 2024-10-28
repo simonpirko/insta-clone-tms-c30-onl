@@ -15,14 +15,12 @@ import javax.servlet.http.Part;
 import java.io.IOException;
 
 import static by.tms.instaclone.storage.KeeperConstants.CURRENT_USER_ATTRIBUTE;
-@MultipartConfig
 @WebServlet("/user/profileService/*")
 public class ProfileServiceServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String URL = req.getRequestURI().substring(21);
         String[] paramsUrl = URL.split("/");
-        System.out.println(paramsUrl[0]);
         switch (paramsUrl[0]) {
             case "subscribe":
                 SubscriptionsStorage.getInstance().newSubscription(UsersStorage.getInstance().getUser(paramsUrl[1]), UsersStorage.getInstance().getUser(paramsUrl[2]));

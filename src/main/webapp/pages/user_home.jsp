@@ -77,7 +77,7 @@
                                     </button>
                                 </c:if>
                             </form>
-                            <form action="/user/dislike" method="post">
+                            <form action="/user/dislike" name= "HomePostForm" method="post">
                                 <input type="hidden" value="${contentValue.uuidPost}" name="uuidPost">
                                 <c:if test="${contentValue.countDislikeLastPost > 0}">
                                     <c:if test="${contentValue.valueReaction == 'dislike'}">

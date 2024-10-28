@@ -4,6 +4,8 @@ import java.util.regex.Pattern;
 
 public class KeeperConstants {
     public static final String CURRENT_USER_ATTRIBUTE = "currentUser";
+    public static final String CURRENT_PAGE = "lastPage";
+    public static final String CURRENT_SEARCH = "lastSearch";
     public static final String CURRENT_USER_AVATAR_ATTRIBUTE = "currentUserAvatar";
 
     public static final String LF = "\n";
@@ -37,6 +39,7 @@ public class KeeperConstants {
     public static final String PROFILE_JSP = "/pages/profile.jsp";
     public static final String LOGIN_JSP = "/pages/login.jsp";
     public static final String NEW_POST_JSP = "/pages/newPost.jsp";
+    public static final String LIST_PEOPLES_JSP = "/pages/list_people.jsp";
     public static final String POST_JSP = "/pages/fullsizepost.jsp";
     public static final String ERROR_JSP = "/pages/error.jsp";
 
@@ -47,6 +50,9 @@ public class KeeperConstants {
     public static final String USER_DISLIKE_URL = "/user/dislike";
     public static final String USER_NEW_POST_PATH = "/user/newPost";
     public static final String USER_NEW_COMMENT_PATH = "/user/newComment";
+    public static final String USER_RECOMMENDATIONS_PATH = "/user/recommendations";
+    public static final String USER_SUBSCRIPTION_PATH = "/user/subscription";
+    public static final String USER_SUBSCRIBER_PATH = "/user/subscriber";
     public static final String USER_POST_PATH = "/user/post";
     public static final String USER_POST_LIKE_PATH = "/user/post/like";
     public static final String USER_POST_DISLIKE_PATH = "/user/post/dislike";
@@ -68,7 +74,7 @@ public class KeeperConstants {
     public static final String DISLIKE_REACTION = "dislike";
     public static final String NONE_REACTION = "none";
 
-    public static final Pattern NAME_REGEX = Pattern.compile("^[a-zA-Z]{2,15}$");
+    public static final Pattern NAME_REGEX = Pattern.compile("^[a-zA-Z_]{2,30}$");
     public static final Pattern USERNAME_REGEX = Pattern.compile("^[a-zA-Z0-9]{2,15}$");
     public static final Pattern PASSWORD_REGEX = Pattern.compile("([a-zA-Z0-9!@$%^&*()_\\-+]){8,}");
 

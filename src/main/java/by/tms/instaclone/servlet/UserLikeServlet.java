@@ -1,10 +1,13 @@
 package by.tms.instaclone.servlet;
 
+import by.tms.instaclone.dto.PostDto;
 import by.tms.instaclone.dto.PublisherCardLastPostDto;
 import by.tms.instaclone.dto.UserHomePageDto;
 import by.tms.instaclone.model.Post;
 import by.tms.instaclone.model.User;
-import by.tms.instaclone.service.UserService;
+import by.tms.instaclone.service.PostService;
+import by.tms.instaclone.service.SearchService;
+import by.tms.instaclone.service.UserHomeService;
 import by.tms.instaclone.storage.PostsStorage;
 import by.tms.instaclone.storage.ReactionsStorage;
 
@@ -30,14 +33,22 @@ public class UserLikeServlet extends HttpServlet {
         String uuidPost = req.getParameter("uuidPost");
         Post post = PostsStorage.getInstance().getPost(UUID.fromString(uuidPost));
         ReactionsStorage.getInstance().newReaction(post, currentUser, LIKE);
-        Optional<UserHomePageDto> userHomePageContent = new UserService().collectHomePageContent(currentUser.getUsername());
-        if (userHomePageContent.isEmpty()) {
-            req.setAttribute("message", "Error! Page not collector!");
-            getServletContext().getRequestDispatcher(ERROR_JSP).forward(req, res);
-        } else {
-            List<PublisherCardLastPostDto> publishersCards = userHomePageContent.get().getPublishersCards();
-            req.setAttribute("content", publishersCards);
-            res.sendRedirect(USER_HOME_URL);
+        if (req.getSession().getAttribute(CURRENT_PAGE) == USER_HOME_URL) {
+            Optional<UserHomePageDto> userHomePageContent = new UserHomeService().collectHomePageContent(currentUser.getUsername());
+            if (userHomePageContent.isEmpty()) {
+                req.setAttribute("message", "Error! Page not collector!");
+                getServletContext().getRequestDispatcher(ERROR_JSP).forward(req, res);
+            } else {
+                List<PublisherCardLastPostDto> publishersCards = userHomePageContent.get().getPublishersCards();
+                req.setAttribute("content", publishersCards);
+                res.sendRedirect(USER_HOME_URL);
+            }
+        } else if(req.getSession().getAttribute(CURRENT_PAGE) == USER_SEARCH_URL) {
+            req.getSession().setAttribute(CURRENT_PAGE,USER_LIKE_URL);
+            List<PostDto> result = (List<PostDto>) req.getSession().getAttribute("result");
+            List<PostDto> updateResult = SearchService.getInstance().updateDTO(result);
+            req.getSession().setAttribute("result",updateResult);
+            res.sendRedirect(USER_SEARCH_URL);
         }
     }
 }
