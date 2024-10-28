@@ -25,6 +25,14 @@ public class SearchServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String request;
+        if (req.getSession().getAttribute(CURRENT_PAGE) == "RELOAD_LAST_SEARCH") {
+            request = req.getSession().getAttribute(CURRENT_SEARCH).toString();
+        }
+        else {
+            request = req.getParameter("keyword");
+            req.getSession().setAttribute(CURRENT_SEARCH, request);
+
+        }
         List<?> result;
         request = req.getParameter("keyword");
         req.getSession().setAttribute("type", req.getParameter("btnradio"));
@@ -38,6 +46,7 @@ public class SearchServlet extends HttpServlet {
                 req.getSession().setAttribute("result", result);
                 break;
         }
+
         resp.sendRedirect(USER_SEARCH_URL);
     }
 }

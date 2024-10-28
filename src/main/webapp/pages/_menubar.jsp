@@ -28,6 +28,12 @@
                                 </a>
                             </li>
                             <li>
+                                <a href="/user/recommendations?currentUser=${currentUser.username}" class="nav-link px-0 align-middle">
+                                    <img width="32px" height="32px" src="https://media.istockphoto.com/id/656121894/ru/%D0%B2%D0%B5%D0%BA%D1%82%D0%BE%D1%80%D0%BD%D0%B0%D1%8F/%D0%B3%D1%80%D1%83%D0%BF%D0%BF%D0%B0-%D0%BB%D1%8E%D0%B4%D0%B5%D0%B9-%D0%B7%D0%BD%D0%B0%D1%87%D0%BE%D0%BA-%D1%87%D0%B5%D1%80%D0%BD%D1%8B%D0%B9-%D1%84%D0%BE%D0%BD.jpg?s=170667a&w=0&k=20&c=FH9rH9jRAOQgJyY3mf4Al3DQ-zopg702aU70LDN9Dxw=">
+                                    <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Recommendations</span>
+                                </a>
+                            </li>
+                            <li>
                                 <form class="d-flex" action="/user/search" method="Post">
                                     <div class="container">
                                         <input class="form-control me-2" type="search" name="keyword" placeholder="Search"
