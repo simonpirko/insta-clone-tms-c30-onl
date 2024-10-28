@@ -2,7 +2,7 @@ package by.tms.instaclone;
 
 import by.tms.instaclone.dto.PublisherCardLastPostDto;
 import by.tms.instaclone.dto.UserHomePageDto;
-import by.tms.instaclone.service.UserHomeService;
+import by.tms.instaclone.service.UserService;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,8 +11,9 @@ public class UserHomePageDtoProbe {
 
     public static void main(String[] args) {
         String username = "nom1";
+        UserService userService= UserService.getInstance();
 
-        Optional<UserHomePageDto> userHomePageContent = new UserHomeService().collectHomePageContent(username);
+        Optional<UserHomePageDto> userHomePageContent = userService.collectHomePageContent(username);
         if (userHomePageContent.isEmpty()) {
 //            req.setAttribute("message", "Error! Page not collector!");
 //            getServletContext().getRequestDispatcher(ERROR_JSP).forward(req, res);
