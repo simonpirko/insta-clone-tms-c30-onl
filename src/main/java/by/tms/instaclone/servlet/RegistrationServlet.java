@@ -41,7 +41,7 @@ public class RegistrationServlet extends HttpServlet {
         if (ValidateData.validateName(name) && ValidateData.validateUsername(username) && ValidateData.validatePassword(password)) {
             ConcurrentHashMap<String, UUID> usernames = UsernamesStorage.getInstance().getUsernames();
             if(usernames.get(username)==null){
-                User user = usersStorage.newUser(name,username,password);
+               User user = usersStorage.newUser(name,username,password);
                 Part avatar = req.getPart("avatar");
                 PhotoStorage.getInstance().addAvatar(user, avatar);
                 resp.sendRedirect(LOGIN_URL);

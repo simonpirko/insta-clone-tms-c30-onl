@@ -41,16 +41,11 @@
                         <input type="password" name="password" class="form-control" id="exampleInputPassword1" value="${password}">
                         <div style="color: red">${errorPassword}</div>
                     </div>
-                    <div class="mb-3">
-                        <div style="color: red">${message}</div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="formFile" class="form-label">SET AVATAR</label>
-                        <input class="form-control" name="avatar" type="file" id="formFile">
-                    </div>
-                    <div class="mb-3">
-                        <button type="submit" class="btn btn-primary">Registration</button>
-                    </div>
+                        <div class="mb-3">
+                            <label for="formFile" class="form-label">SET AVATAR</label>
+                            <input class="form-control" name="avatar" type="file" id="formFile">
+                        </div>
+                    <button type="submit" class="btn btn-primary">Registration</button>
                 </form>
                 <p class="fs-5">Already have an account?</p>
                 <a href="/login">login</a>
